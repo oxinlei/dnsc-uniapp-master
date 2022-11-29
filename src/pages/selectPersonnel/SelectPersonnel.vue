@@ -1,0 +1,122 @@
+<template>
+  <view class="container pb-50">
+    <view class="wrap-box">
+      <SelectBar :data="state.data" @change="search" field="realName" />
+    </view>
+    <view class="wrap-box">
+      <uni-section
+        type="line"
+        title="显示不全请左右滑动！！！"
+        titleColor="red"
+      ></uni-section>
+      <uni-table ref="tableRef" border stripe>
+        <uni-tr>
+          <uni-th width="30" align="center"></uni-th>
+          <uni-th width="100" align="center">名称</uni-th>
+          <uni-th align="center">部门</uni-th>
+          <uni-th width="100" align="center">职位</uni-th>
+        </uni-tr>
+        <uni-tr v-for="(item, index) in state.data" :key="index">
+          <uni-td>
+            <checkbox-group @change="changeCheckbox($event, item)">
+              <checkbox
+                :value="item.userId.toString()"
+                :checked="isChecked(item)"
+              />
+            </checkbox-group>
+          </uni-td>
+          <uni-td>{{ item.realName }}</uni-td>
+          <uni-td>
+            <view class="name">{{ item.departmentName }}</view>
+          </uni-td>
+          <uni-td align="center">{{ item.positionName }}</uni-td>
+        </uni-tr>
+      </uni-table>
+    </view>
+    <view class="flex-footer">
+      <uni-row class="demo-uni-row">
+        <uni-col :span="24">
+          <view class="demo-uni-col dark">
+            <button type="primary" @click="save">保存</button>
+          </view>
+        </uni-col>
+      </uni-row>
+    </view>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { onLoad, onShow } from '@dcloudio/uni-app';
+import { onMounted, provide, reactive, ref } from 'vue';
+import SelectBar from '@/component/SelectBar.vue';
+import { IPersonnelRes } from '@/hooks/usePersonnel';
+
+const tableRef = ref<InstanceType<any>>();
+const state = reactive({
+  data: [] as IPersonnelRes[],
+  checkboxData: [] as IPersonnelRes[],
+});
+let paramsData = [] as IPersonnelRes[];
+let title = '';
+let isSingle = false;
+let type = ''; // 完成提交 ｜ 未完成提交
+onLoad((opts) => {
+  state.data = JSON.parse(opts.data!);
+  paramsData = JSON.parse(opts.data!);
+  isSingle = opts.single ? true : false;
+  title = opts.title!;
+  type = opts.type ? opts.type : '';
+  uni.setNavigationBarTitle({
+    title: opts.title || '选择人员',
+  });
+});
+const filterCheckboxData = (item: IPersonnelRes) => {
+  const idx = state.checkboxData.findIndex((o) => o.userId === item.userId);
+  if (idx === -1) {
+    // 不存在
+    if (isSingle) {
+      // 单选
+      state.checkboxData = [item];
+    } else {
+      state.checkboxData.push(item);
+    }
+  } else {
+    state.checkboxData.splice(idx, 1);
+  }
+};
+// 是否选中checkbox
+const isChecked = (item: IPersonnelRes) => {
+  const idx = state.checkboxData.findIndex((o) => o.userId === item.userId);
+  return idx !== -1;
+};
+const changeCheckbox = ({ detail }: any, item: any) => {
+  filterCheckboxData(item);
+  // console.log("checkboxData==>", state.checkboxData);
+};
+const search = (val: undefined | IPersonnelRes[]) => {
+  if (val === undefined) {
+    state.data = paramsData;
+  } else {
+    state.data = val;
+  }
+  // console.log(val);
+};
+const save = () => {
+  const d = {
+    data: state.checkboxData,
+    title,
+    type,
+  };
+  uni.$emit('selectPersonnel', d);
+  // 同班人员而外处理
+  uni.$emit('selectPersonnelTBRY', d);
+  uni.navigateBack({
+    delta: 1,
+  });
+};
+</script>
+<style scoped lang="scss">
+::v-deep * .uni-table-tr:nth-child(1) .checkbox__inner {
+  display: none;
+}
+</style>

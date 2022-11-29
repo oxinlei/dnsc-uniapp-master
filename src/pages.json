@@ -1,0 +1,250 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      // uni-ui 规则如下配置
+      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+    }
+  },
+  "pages": [
+    // pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+
+    {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": "首页",
+        "enablePullDownRefresh": false
+      }
+    },
+
+    {
+      "path": "pages/examine/examine",
+      "style": {
+        "navigationBarTitleText": "审核",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/dispatch/dispatch",
+      "style": {
+        "navigationBarTitleText": "维修派单",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/warn/warn",
+      "style": {
+        "navigationBarTitleText": "报警",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/mine/mine",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "enablePullDownRefresh": false,
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/Inspection/Inspection",
+      "style": {
+        "navigationBarTitleText": "巡检列表",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/Inspection/InspectionDetail",
+      "style": {
+        "navigationBarTitleText": "巡检详情 ",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/Inspection/InspectionDevice",
+      "style": {
+        "navigationBarTitleText": "选择巡检设备 ",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/Inspection/InspectionDeviceInfo",
+      "style": {
+        "navigationBarTitleText": "巡检条目 ",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/Inspection/InspectionEdit",
+      "style": {
+        "navigationBarTitleText": "巡检编辑",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/selectPersonnel/SelectPersonnel",
+      "style": {
+        "navigationBarTitleText": "人员选择",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/dispatch/dispatchAdd",
+      "style": {
+        "navigationBarTitleText": "维修派单",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/dispatch/scanList",
+      "style": {
+        "navigationBarTitleText": "设备列表",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/dispatch/ScanCode",
+      "style": {
+        "navigationBarTitleText": "维修派单",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/repair/Repair",
+      "style": {
+        "navigationBarTitleText": "维修列表",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/repair/RepairDetail",
+      "style": {
+        "navigationBarTitleText": "维修详情",
+        "enablePullDownRefresh": false,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/repair/RepairHandle",
+      "style": {
+        "navigationBarTitleText": "维修执行",
+        "enablePullDownRefresh": false,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/maintain/maintain",
+      "style": {
+        "navigationBarTitleText": "保养列表",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/devHistory/devHistory",
+      "style": {
+        "navigationBarTitleText": "历史记录",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/mine/password",
+      "style": {
+        "navigationBarTitleText": "修改密码",
+        "enablePullDownRefresh": false
+      }
+    }
+  ],
+  "tabBar": {
+    "iconfontSrc": "./static/font/iconfont.ttf",
+    "color": "#909399",
+    "selectedColor": "#000000",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "midButton": {
+      "iconPath": "static/imgs/A/add-fill.png",
+      "height": "70px",
+      "iconWidth": "55px",
+      "text": "维修派单"
+    },
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        // "iconPath": "static/imgs/Z/add-btn.png",
+        // "selectedIconPath": "static/imgs/Z/back.png",
+        "text": "首页",
+        "iconfont": {
+          "text": "\ue7c6",
+          "selectedText": "\ue7c6",
+          "fontSize": "22px",
+          "color": "#e6e6e6",
+          "selectedColor": "#0093E3"
+        }
+      },
+      {
+        "pagePath": "pages/examine/examine",
+        "text": "审核",
+        "iconfont": {
+          "text": "\ue645",
+          "selectedText": "\ue645",
+          "fontSize": "22px",
+          "color": "#e6e6e6",
+          "selectedColor": "#0093E3"
+        }
+      },
+      // {
+      //   "pagePath": "pages/dispatch/dispatch",
+      //   "text": "维修派单",
+      //   "iconfont": {
+      //     "text": "\ue617",
+      //     "selectedText": "\ue617",
+      //     "fontSize": "40px",
+      //     "color": "#0093E3",
+      //     "selectedColor": "#0093E3"
+      //   }
+      // },
+      {
+        "pagePath": "pages/warn/warn",
+        "text": "报警",
+        "iconfont": {
+          "text": "\ue643",
+          "selectedText": "\ue643",
+          "fontSize": "22px",
+          "color": "#e6e6e6",
+          "selectedColor": "#0093E3"
+        }
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconfont": {
+          "text": "\ue70b",
+          "selectedText": "\ue70b",
+          "fontSize": "24px",
+          "color": "#e6e6e6",
+          "selectedColor": "#0093E3"
+        }
+      }
+    ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#2196f3",
+    "backgroundColor": "#2196f3"
+  }
+}

@@ -1,0 +1,75 @@
+/* uni-app, uni-page, uni-page-wrapper, uni-page-body{ */
+/* uni-page-body {
+	background-color: #E1E7EE;
+	height: 100%;
+	padding-top: 15px;
+} */
+
+.container {
+  flex: 1;
+  height: 100%;
+}
+
+.wrap-box {
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.radius10 {
+  border-radius: 10px;
+}
+.p-5 {
+  padding: 5px;
+}
+.p-10 {
+  padding: 10px;
+}
+.pb-50 {
+  padding-bottom: 50px;
+}
+.mt-15 {
+  margin-top: 15px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mb-15 {
+  margin-bottom: 15px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.no-bg {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.bb-1 {
+  border-bottom: 1px solid #f2f2f2;
+}
+.bt-1 {
+  border-top: 1px solid #f2f2f2;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.flex-footer {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  right: 0;
+  /* #ifdef H5 */
+  left: var(--window-left);
+  right: var(--window-right);
+  /* #endif */
+  bottom: 0;
+  z-index: 99;
+}

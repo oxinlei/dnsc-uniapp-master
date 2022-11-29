@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3683879 */
+  src: url("~@/static/font/iconfont.ttf");
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tianjia:before {
+  content: "\e617";
+}
+
+.icon-cengji:before {
+  content: "\e616";
+}
+
+.icon-weizhi:before {
+  content: "\e8ff";
+}
+
+.icon-baojing:before {
+  content: "\e643";
+}
+
+.icon-SQLshenhe:before {
+  content: "\e645";
+}
+
+.icon-wode:before {
+  content: "\e70b";
+}
+
+.icon-home:before {
+  content: "\e7c6";
+}
