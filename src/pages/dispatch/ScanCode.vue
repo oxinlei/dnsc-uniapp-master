@@ -4,8 +4,6 @@
 import { onLoad } from "@dcloudio/uni-app";
 import { reactive } from "vue";
 const state = reactive({});
-onLoad(() => {
-  console.log(plus);
-});
+onLoad(() => {});
 </script>
 <style scoped lang="scss"></style>

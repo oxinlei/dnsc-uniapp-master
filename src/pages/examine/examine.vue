@@ -37,6 +37,7 @@ const pageIndex = ref(1) as Ref<number>;
 const state = reactive({
   data: [] as IRepairRes[],
   searchData: [] as IRepairRes[],
+  isLoading: true as boolean
 });
 const _uh = useHome();
 const _uhs = useHomeStore();
@@ -57,13 +58,17 @@ onPullDownRefresh(async () => {
   uni.stopPullDownRefresh();
 });
 onReachBottom(async () => {
-  pageIndex.value++;
-  const params = returnParams(pageIndex.value);
-  const res = (await _ur.getOrderPageListExamine(params)) as IRepairRes[];
-  state.data = [...state.data, ...res];
-  state.searchData = state.data;
+  if (state.isLoading) {
+    pageIndex.value++;
+    const params = returnParams(pageIndex.value);
+    const res = (await _ur.getOrderPageListExamine(params)) as IRepairRes[];
+    state.isLoading = res.length > 0 ? true : false
+    state.data = [...state.data, ...res];
+    state.searchData = state.data;
+  }
 });
 const changeTab = (index: number) => {
+  state.data = [] as IRepairRes[];
   tabIndex.value = index;
   const params = returnParams();
   _ur.getOrderPageListExamine(params).then((res) => {
@@ -72,14 +77,14 @@ const changeTab = (index: number) => {
   });
 };
 function returnParams(index = 1) {
-  const idx = tabIndex.value === 0 ? 0 : 200;
+  const idx = tabIndex.value === 0 ? 140 : 150;
   let params = {
     index,
     orderStatus: idx,
   } as any;
-  if (tabIndex.value === 0) {
-    params.planType = 2;
-  }
+  // if (tabIndex.value === 0) {
+    params.planType = 100;
+  // }
   return params as any;
 }
 function search(data) {

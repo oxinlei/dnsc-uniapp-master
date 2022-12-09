@@ -124,7 +124,6 @@ const changeType = (r: number) => {
 };
 const changeDate = (r: string) => {
   state.date = r;
-  //   console.log(r);
   getOrder();
 };
 </script>

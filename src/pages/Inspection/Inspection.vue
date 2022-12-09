@@ -28,6 +28,7 @@ const { getOrderInspectionList, tabTitleData } = useInspection();
 const state = reactive({
   data: [] as IInspectionRes[],
   tabTitleData: tabTitleData(),
+  isLoading: true as boolean
 });
 const tabIndex = ref(_uhs.tabListIndex);
 const pageIndex = ref(1);
@@ -47,12 +48,15 @@ onPullDownRefresh(async () => {
   uni.stopPullDownRefresh();
 });
 onReachBottom(async () => {
-  pageIndex.value++;
-  const res = (await getOrderInspectionList(
-    tabIndex.value,
-    pageIndex.value
-  )) as IInspectionRes[];
-  state.data = [...state.data, ...res];
+  if (state.isLoading) {
+    pageIndex.value++;
+    const res = (await getOrderInspectionList(
+      tabIndex.value,
+      pageIndex.value
+    )) as IInspectionRes[];
+    state.isLoading = res.length > 0 ? true : false
+    state.data = [...state.data, ...res];
+  }
 });
 
 const changeTab = (index: number) => {

@@ -29,8 +29,6 @@ import { reactive, ref } from "vue";
 import { useUpload } from "@/hooks/useUpload";
 const _uu = useUpload();
 
-// console.log(_uu.state);
-
 const props = defineProps({
   title: {
     type: String,
@@ -49,7 +47,6 @@ const emit = defineEmits(["change"]);
 const delImg = (index: number) => {
   _uu.delteImg(index);
   emit("change", _uu.state.imgs);
-  // console.log("del");
 };
 const selectImg = () => {
   uni.chooseImage({
@@ -58,7 +55,6 @@ const selectImg = () => {
     sizeType: ["original"],
     // sourceType: ["album"], //从相册选择
     success: function (res: any) {
-      console.log("tempFiles==>", res);
       _uu.addImg(res.tempFiles);
       emit("change", _uu.state.imgs);
       // _uu.upload();
@@ -70,7 +66,6 @@ const clickEnlargeImg = (src: string) => {
     current: 0,
     urls: [src],
   });
-  // console.log(viewImg.value.open());
 };
 </script>
 <style scoped lang="scss">

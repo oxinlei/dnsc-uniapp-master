@@ -253,7 +253,7 @@ const { selectDeviceData } = storeToRefs(_uis);
 const state = reactive({
   formData0: {
     orderId: props.data.id,
-    chargeUserId: undefined as undefined | number,
+    chargeUserIds: undefined as undefined | number,
   },
   formData10: {
     orderId: props.data.id,
@@ -278,7 +278,7 @@ const state = reactive({
     lastRejectionInfo: '',
   },
   rules0: {
-    chargeUserId: {
+    chargeUserIds: {
       rules: [
         {
           required: true,
@@ -328,7 +328,7 @@ onLoad((opts) => {
     switch (data.title) {
       case '选择班长':
         state.chargeUserIds = data.data;
-        state.formData0.chargeUserId = data.data[0]?.userId;
+        state.formData0.chargeUserIds = data.data[0]?.userId;
         break;
       case '水厂意见审核人':
         state.lastAcceptUserIds = data.data;
@@ -419,7 +419,6 @@ const changeUpload = (imgs: any) => {
 const formRef30: Ref = ref();
 const clickSubmit30 = () => {
   _ur.validate(formRef30).then(() => {
-    console.log(uploadImgs);
     _uu.upload(uploadImgs).then((imgs: any) => {
       state.formData30.acceptImg = imgs.url.toString();
       _ur.acceptanceOrder(state.formData30).then((res) => {

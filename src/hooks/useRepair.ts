@@ -27,7 +27,6 @@ export function useRepair() {
           resolve(true);
         })
         .catch((err) => {
-          console.log("err===>", err);
           reject(false);
         });
     });
@@ -189,7 +188,7 @@ export interface IRepairRes {
   reviewerUser: string; //审核人员（维修）多人
   noticeUser: string; //通知人员（维修）多人
   chargeUser: string; //班长（维修）单人
-  planUser: string; //维修/巡检/保养人员（通用）多人
+  planUser: Array<any>; //维修/巡检/保养人员（通用）多人
   acceptUser: string; //验收人员（通用）多人
   financeUser: string; //财务人员（维修）单人
   lastAcceptUser: any; //水厂意见审核人员（维修）多人

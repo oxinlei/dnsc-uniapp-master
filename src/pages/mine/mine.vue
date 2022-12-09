@@ -59,7 +59,6 @@ const outLogin = () => {
 };
 
 const clickGoPassword = () => {
-  console.log(123);
   uni.navigateTo({
     url: '/pages/mine/password',
   });

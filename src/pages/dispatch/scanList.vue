@@ -24,7 +24,6 @@ const _uis = useInspectionStore();
 
 const { data } = _uss as any;
 
-console.log(data);
 const clickItem = (item: any) => {
   _uis.setData({ key: 'selectDeviceData', value: item });
   uni.navigateTo({

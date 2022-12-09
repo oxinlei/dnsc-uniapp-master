@@ -43,6 +43,23 @@ export function useInspection() {
       });
     });
   }
+
+  // 验证巡检单内项目是否完成
+  function isMaintenanceItemEnd(id: Ref<string> | string) {
+    const p = {
+      id,
+    };
+    return new Promise((resolve, reject) => {
+      useGetRequest(
+        "order_inspection/isMaintenanceItemEnd",
+        p
+      ).then((res) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+
   // 查看巡检派单状态
   function getMaintenanceLogList(id: Ref<string> | string) {
     const p = {
@@ -148,6 +165,7 @@ export function useInspection() {
     notCompletedSave,
     tabTitleData,
     getColleagueList,
+    isMaintenanceItemEnd,
     state,
   };
 }
@@ -223,6 +241,6 @@ export interface IColleagueListRes {
   departmentName: string; //部门名称
   levelName: string; //上级部门名称
   positionName: string; //职位
-  colleague: any[]; //同班人员列表
-  deviceList: any[]; //运维设备
+  colleagueUser: any[]; //同班人员列表
+  maintenDevice: any[]; //运维设备
 }

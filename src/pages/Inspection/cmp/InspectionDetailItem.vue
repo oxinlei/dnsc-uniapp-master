@@ -27,14 +27,14 @@
       >
         <ListRow isBorder title="抢单人员" :content="item.realName" />
         <ListRow
-          v-for="(col, cIndex) in item.colleague"
+          v-for="(col, cIndex) in item.colleagueUser"
           isBorder
           :key="cIndex"
           title="同班人员"
-          :content="col.realName"
+          :content="col.colleagueName"
         />
         <ListRow
-          v-for="(dev, dIndex) in item.deviceList"
+          v-for="(dev, dIndex) in item.maintenDevice"
           :key="dIndex"
           isBorder
           title="巡检设备"
@@ -88,14 +88,14 @@
     v-if="data.orderStatus === 20 && data.isOption === 1"
   >
     <uni-row class="demo-uni-row">
-      <uni-col :span="11">
-        <view class="demo-uni-col dark">
+      <uni-col :span="24">
+        <view v-if="state.isEnd === true" class="demo-uni-col dark">
           <button type="primary" @click="clickToPers('完成提交')">
             完成提交
           </button>
         </view>
       </uni-col>
-      <uni-col :span="11" :offset="2">
+      <uni-col v-if="state.isEnd === false" :span="24">
         <view class="demo-uni-col dark">
           <button type="primary" @click="clickToPers('未完成提交')">
             未完成提交
@@ -138,6 +138,7 @@ const _ui = useInspection();
 const _up = usePersonnel();
 const state = reactive({
   colleagueIds: '',
+  isEnd: false as boolean,
   colleagueIdsData: [] as IPersonnelRes[],
   // 同班人员日志
   data: [] as IColleagueListRes[],
@@ -147,6 +148,7 @@ const props = defineProps<{
 }>();
 const orderId = ref('');
 onLoad((opts) => {
+  console.log(props.data)
   orderId.value = opts.id!;
   _up.getUserMaintenanceList({ maintenanceType: 0 }).then((res) => {
     state.colleagueIdsData = res as IPersonnelRes[];
@@ -166,9 +168,12 @@ onLoad((opts) => {
     clickSubmit20(data.type);
   });
 });
-onShow(() => {});
+onShow(() => {
+  _ui.isMaintenanceItemEnd(orderId.value!).then((res) => {
+    state.isEnd = res as boolean;
+  });
+});
 onUnload(() => {
-  console.log('selectPersonnelTBRY');
   uni.$off('selectPersonnelTBRY');
 });
 const assignType = computed(() => {
@@ -191,7 +196,6 @@ const onClickToScanningCode = () => {
   useScanCode({
     onlyFromCamera: true,
     success: async (res) => {
-      console.log('扫码成功--', res);
       _ui
         .scanInspectionQrcode({ erData: res, orderId: orderId.value })
         .then((r) => {

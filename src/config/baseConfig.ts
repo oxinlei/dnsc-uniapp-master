@@ -3,7 +3,7 @@ export const APP_CONFIG = {
 	secretKey: '7807ea6d77c16b4b40f041b5db41a748ea6ace74',
 	format: 'json',
 	signMethod: 'md5',
-	version: '1.0',
+	version: '2.0.0.1',
 };
 // 公司
 // export const BASE_API = "http://192.168.8.6:8060";
@@ -11,8 +11,8 @@ export const APP_CONFIG = {
 // export const BASE_API = 'http://168.1.7.63:8060';
 // export const BASE_API = "https://168.1.7.63:443";
 // 远程
-// export const BASE_API = 'http://124.221.219.97:8060';
-export const BASE_API = 'http://42.192.142.240:8060';
+export const BASE_API = 'http://192.168.8.110:8060';
+// export const BASE_API = 'http://42.192.142.240:8060';
 
 // localstorage 别名
 export const LOCALSTORAGE_CONFIG = {

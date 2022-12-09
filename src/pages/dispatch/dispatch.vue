@@ -60,7 +60,6 @@ const clickScanCode = () => {
   useScanCode({
     onlyFromCamera: true,
     success: async (res) => {
-      console.log('扫码成功--', res);
       _ur.scanRepairQrcode({ erData: res }).then((r: any) => {
         if (r.length === 1) {
           _uis.setData({ key: 'selectDeviceData', value: r[0] });

@@ -91,7 +91,6 @@ const isChecked = (item: IPersonnelRes) => {
 };
 const changeCheckbox = ({ detail }: any, item: any) => {
   filterCheckboxData(item);
-  // console.log("checkboxData==>", state.checkboxData);
 };
 const search = (val: undefined | IPersonnelRes[]) => {
   if (val === undefined) {
@@ -99,7 +98,6 @@ const search = (val: undefined | IPersonnelRes[]) => {
   } else {
     state.data = val;
   }
-  // console.log(val);
 };
 const save = () => {
   const d = {

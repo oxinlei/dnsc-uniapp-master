@@ -43,7 +43,6 @@ export function useUpload() {
             format: APP_CONFIG.format,
           },
           success: (res) => {
-            console.log("success", res);
             resolve(JSON.parse(res.data));
           },
 

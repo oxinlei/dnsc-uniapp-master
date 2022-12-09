@@ -190,7 +190,6 @@ const onClickToScanningCode = () => {
   useScanCode({
     onlyFromCamera: true,
     success: async (res) => {
-      console.log("扫码成功--", res);
       _um
         .scanMaintainQrcode({ erData: res, orderId: orderId.value })
         .then((r) => {

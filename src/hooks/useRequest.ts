@@ -28,7 +28,6 @@ export function getToken() {
         resolve(JSON.parse(data));
       },
       fail: function (res) {
-        console.log('fail===>', res);
         reject(res);
       },
     });
@@ -63,15 +62,11 @@ export function sign(header: object, body?: any): string {
     ...b,
   };
   let obj: any = {};
-  // console.log("header", header);
-  // console.log("body", body);
   Object.keys(concat)
     .sort()
     .forEach(function (key) {
       obj[key] = concat[key];
     });
-  // console.log("obj===>", obj);
-  // let str = Object.entries(obj).toString().replace(/,/g, "");
 
   let str = '';
 
@@ -80,10 +75,6 @@ export function sign(header: object, body?: any): string {
   }
 
   let sign = APP_CONFIG.secretKey + str + APP_CONFIG.secretKey;
-
-  // console.log("sign", sign);
-
-  // console.log("sign", sign);
   return MD5(sign).toString();
 }
 
@@ -113,9 +104,7 @@ export class RequestHttp {
     uni.setStorage({
       key: LOCALSTORAGE_CONFIG.tokenObj,
       data: JSON.stringify(tokenObj),
-      success: function () {
-        console.log('settoken ====  success');
-      },
+      success: function () {},
     });
   };
   // 签名算法
@@ -168,7 +157,6 @@ export class RequestHttp {
           if (head.timestamp >= tokenObj.timeout) {
             // 立即刷新token
             if (!this.isRefreshing) {
-              console.log('刷新token ing');
               this.isRefreshing = true;
               const p = {
                 accessToken: tokenObj.token,
@@ -183,7 +171,6 @@ export class RequestHttp {
                   return accessToken;
                 })
                 .then((accessToken: any) => {
-                  console.log('刷新token成功，执行队列');
                   this.requests.forEach((cb: any) => cb(accessToken));
                   // 执行完成后，清空队列
                   this.requests = [];
@@ -238,33 +225,13 @@ export class RequestHttp {
   resultUse() {
     this.service.interceptors.response.use(
       (response: AxiosResponse) => {
-        console.log(response);
         const { code, message } = response.data;
-        console.log(
-          ' url==>' + response.config.url,
-          '\n params==>',
-          response.config.params,
-          '\n data==>',
-          qs.parse(response.config.data),
-          '\n res ==> ',
-          response.data.data
-        );
         uni.hideLoading();
-        // if (response.config.method === "post") {
-        //   uni.showToast({
-        //     title: "操作成功",
-        //     icon: "none",
-        //   });
-        // }
         if (code === 0) {
-          // console.log("res===>", response);
-          // Message.success(message)
         } else if (code === 112) {
-          // token过期了，直接跳转到登录页
           this.jumpLogin(message);
           return Promise.reject(message);
         } else {
-          // this.jumpLogin(message);
           uni.showToast({
             title: message,
             icon: 'none',
@@ -276,7 +243,6 @@ export class RequestHttp {
       (error: AxiosError) => {
         uni.hideLoading();
         this.jumpLogin('网络异常！');
-        console.log('catch', error);
         return Promise.reject(error);
       }
     );

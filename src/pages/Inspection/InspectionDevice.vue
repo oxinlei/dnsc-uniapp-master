@@ -48,12 +48,9 @@ const state = reactive({
   searchValue: "",
   searchData: selectPositionData as any[],
 });
-onMounted(() => {
-  console.log(selectPositionData);
-});
+onMounted(() => {});
 
 const search = (val: undefined | any[]) => {
-  console.log(val);
   if (val === undefined) {
     state.searchData = selectPositionData;
   } else {

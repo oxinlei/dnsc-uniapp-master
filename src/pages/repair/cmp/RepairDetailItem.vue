@@ -1,32 +1,16 @@
 <template>
   <view class="wrap-box">
-    <ListRow
-      isBorder
-      title="派单类型"
-      :content="data.repairType === 0 ? '正常维修' : '简单维修'"
-    />
+    <ListRow isBorder title="派单类型" :content="data.repairType === 0 ? '正常维修' : '简单维修'" />
     <ListRow isBorder title="派单名称" :content="data.orderName" />
     <ListRow isBorder title="派单编号" :content="data.id" />
-    <ListRow
-      isBorder
-      title="设备名称"
-      :content="data.orderItem[0].deviceName"
-    />
+    <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备名称" :content="data.orderItem[0].positionList[0].deviceList[0].deviceName" />
     <ListRow isBorder title="提交部门" content="设备部" />
-    <ListRow
-      isBorder
-      title="设备id"
-      :content="
-        data.orderItem[0].deviceList
-          ? data.orderItem[0].deviceList[0].deviceNo
-          : data.orderItem[0].deviceNo
-      "
-    />
-    <ListRow isBorder title="设备型号" :content="data.orderItem[0].models" />
+    <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备id" :content="data.orderItem[0].positionList[0].deviceList[0].deviceNo" />
+    <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备型号" :content="data.orderItem[0].positionList[0].deviceList[0].models" />
     <ListRow
       isBorder
       title="所在位置"
-      :content="`${data.orderItem[0].areaName} - ${data.orderItem[0].positionName}`"
+      :content="`${data.orderItem[0].areaName} - ${data.orderItem[0].positionList[0].positionName}`"
     />
     <uni-list>
       <uni-list-item
@@ -42,12 +26,12 @@
         <view style="flex-wrap: wrap; display: flex">
           <view
             class="tag"
-            v-for="(item, index) in data.reviewerUser"
+            v-for="(item, index) in data.planUser"
             :key="index"
           >
             <uni-tag
               :inverted="true"
-              :text="item.realName"
+              :text="item.userType === 2 ? item.realName : ''"
               type="primary"
               class="tag"
             />
@@ -62,7 +46,7 @@
           <view class="tag" v-for="(item, index) in data.planUser" :key="index">
             <uni-tag
               :inverted="true"
-              :text="item.realName"
+              :text="item.userType === 5 ? item.realName : ''"
               type="primary"
               class="tag"
             />
@@ -75,12 +59,12 @@
         <view style="flex-wrap: wrap; display: flex">
           <view
             class="tag"
-            v-for="(item, index) in data.noticeUser"
+            v-for="(item, index) in data.planUser"
             :key="index"
           >
             <uni-tag
               :inverted="true"
-              :text="item.realName"
+              :text="item.userType === 3 ? item.realName : ''"
               type="primary"
               class="tag"
             />
@@ -103,10 +87,14 @@
       <ListRow isBorder title="审核班长" content="右侧文字">
         <template #content>
           <view style="flex-wrap: wrap; display: flex">
-            <view class="tag">
+            <view
+              class="tag"
+              v-for="(item, index) in data.planUser"
+              :key="index"
+            >
               <uni-tag
                 :inverted="true"
-                :text="data.chargeUser.realName"
+                :text="item.userType === 4 ? item.realName : ''"
                 type="primary"
                 class="tag"
               />
@@ -131,7 +119,7 @@
             >
               <uni-tag
                 :inverted="true"
-                :text="item.realName"
+                :text="item.userType === 5 ? item.realName : ''"
                 type="primary"
                 class="tag"
               />
@@ -144,12 +132,12 @@
           <view style="flex-wrap: wrap; display: flex">
             <view
               class="tag"
-              v-for="(item, index) in data.lastAcceptUser"
+              v-for="(item, index) in data.planUser"
               :key="index"
             >
               <uni-tag
                 :inverted="true"
-                :text="item.realName"
+                :text="item.userType === 8 ? item.realName : ''"
                 type="primary"
                 class="tag"
               />
@@ -164,12 +152,12 @@
           <view style="flex-wrap: wrap; display: flex">
             <view
               class="tag"
-              v-for="(item, index) in data.acceptUser"
+              v-for="(item, index) in data.planUser"
               :key="index"
             >
               <uni-tag
                 :inverted="true"
-                :text="item.realName"
+                :text="item.userType === 6 ? item.realName : ''"
                 type="primary"
                 class="tag"
               />
@@ -231,9 +219,7 @@ const state = reactive({
   rules: {},
 });
 
-onLoad((opts) => {
-  console.log(props.data);
-});
+onLoad((opts) => {});
 onShow(() => {});
 
 const returnImgs = (str: string) => {

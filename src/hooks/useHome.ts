@@ -126,7 +126,7 @@ export function useHome() {
 
   // 当前运维汇总
   function getOrderSummary() {
-    useGetRequest<IOrderRes>('order/getOrderSummary', {}).then((res) => {
+    useGetRequest<IOrderRes>('/order/getOrderSummary', {}).then((res) => {
       filterInspectOrderValue(res.data);
       filterMaintainOrderValue(res.data);
       filterRepairOrderValue(res.data);
@@ -135,7 +135,7 @@ export function useHome() {
   // 当前运维汇总 红点
   function getOrderSummaryDot() {
     const _uhs = useHomeStore();
-    useGetRequest<IOrderRes>('order/getOrderUserSummary', {}).then((res) => {
+    useGetRequest<IOrderRes>('order/getOrderSummary', {}).then((res) => {
       const {
         inspectNoReceived,
         inspectNoExecute,

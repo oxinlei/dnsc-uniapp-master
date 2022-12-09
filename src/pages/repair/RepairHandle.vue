@@ -24,12 +24,12 @@
       <ListRow
         isBorder
         title="派单人员"
-        :content="state.data.createUser.realName"
+        :content="state.data.planUser[0].realName"
       />
       <ListRow
         isBorder
         title="所在位置"
-        :content="`${state.data.orderItem[0].areaName} - ${state.data.orderItem[0].positionName}`"
+        :content="`${state.data.orderItem[0].areaName} - ${state.data.orderItem[0].positionList[0].positionName}`"
       />
 
       <uni-forms
@@ -293,7 +293,6 @@ const clickToPers = (type: string) => {
 let uploadImgs = [] as IImgs[];
 const changeUpload = (imgs: any) => {
   uploadImgs = imgs;
-  console.log(imgs);
 };
 const formRef: Ref = ref();
 const clickSubmit = () => {
@@ -318,9 +317,7 @@ const clickSubmit = () => {
         });
       }
     })
-    .catch((err) => {
-      console.log('err===>', err);
-    });
+    .catch((err) => {});
 };
 </script>
 <style scoped lang="scss">

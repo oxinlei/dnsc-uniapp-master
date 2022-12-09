@@ -16,7 +16,7 @@
         >
           <view class="flex-center">
             <uni-easyinput
-              v-if="dev.itemType !== 'bool'"
+              v-if="dev.itemType !== 'bool' && dev.itemType !== 'dict'"
               v-model="dev.itemValue"
               placeholder="请填写相关参数..."
             />
@@ -24,6 +24,11 @@
               v-if="dev.itemType === 'bool'"
               v-model="dev.itemValue"
               :localdata="checkBoxOpts"
+            />
+            <uni-data-checkbox
+              v-if="dev.itemType === 'dict'"
+              v-model="dev.itemValue"
+              :localdata="[{ text: dev.selectData[0], value: dev.selectData[0] }, { text: dev.selectData[1], value: dev.selectData[1] }]"
             />
           </view>
         </uni-forms-item>
@@ -37,12 +42,12 @@
         </uni-forms-item>
       </uni-forms>
     </view>
+    <!--v-if="
+      selectData.orderStatus === 20 && selectData.isOption === 1 && isQrcode"-->
     <view
-      v-if="
-        selectData.orderStatus === 20 && selectData.isOption === 1 && isQrcode
-      "
+    
       class="flex-footer"
-    >
+    > 
       <uni-row class="demo-uni-row">
         <uni-col :span="11">
           <view class="demo-uni-col dark">
@@ -75,7 +80,7 @@ const deviceData = _uis.selectDeviceData;
 const isDevFault = ref(
   deviceData.completeStatus === 0 ? 1 : deviceData.completeStatus
 );
-const checkBoxOpts = [
+const checkBoxOpts =  [
   {
     text: '是',
     value: '是',
@@ -135,7 +140,7 @@ const save = () => {
     deviceId: deviceData.deviceId,
     completeStatus: isDevFault.value,
   };
-
+ console.log(d)
   _ui.optionItem(d).then(() => {
     selectPositionData.value.forEach((pos: any) => {
       if (pos.deviceId === deviceData.deviceId) {

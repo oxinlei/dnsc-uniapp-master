@@ -79,6 +79,12 @@ export interface ILayeredListRes {
   positionList: any;
 }
 
+export interface ILayeredListResData {
+  text: number; //厂区ID;
+  value: string; //厂区名称;
+  children: any;
+}
+
 export interface IRepairPrams {
   orderName: string; //派单名称
   isSmsRemind: number; //是否开启短信提醒 0：否 1：是

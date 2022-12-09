@@ -98,14 +98,7 @@ const clickSubmit = () => {
         }
       }
     })
-    .catch(() => {
-      // const { state } = addItemRef.value;
-      // console.log(addItemRef.value.uploadImgs);
-      // _uu.upload(addItemRef.value.uploadImgs).then((imgs: any) => {
-      //   console.log(imgs);
-      // });
-      console.log('校验失败');
-    });
+    .catch(() => {});
 };
 </script>
 

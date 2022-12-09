@@ -41,20 +41,20 @@
         />
       </uni-forms-item>
 
-      <uni-forms-item v-if="isExistDev" label="设备id" name="deviceNo">
-        <uni-easyinput
-          type="text"
-          v-model="state.formData.deviceNo"
-          :disabled="true"
-          placeholder="请输入设备id"
-        />
-      </uni-forms-item>
       <uni-forms-item v-if="isExistDev" label="设备名称" name="deviceNo">
         <uni-easyinput
           type="text"
           v-model="state.formData.deviceName"
           :disabled="true"
           placeholder="请输入设备名称"
+        />
+      </uni-forms-item>
+      <uni-forms-item v-if="isExistDev" label="设备id" name="deviceNo">
+        <uni-easyinput
+          type="text"
+          v-model="state.formData.deviceNo"
+          :disabled="true"
+          placeholder="请输入设备id"
         />
       </uni-forms-item>
       <uni-forms-item v-if="isExistDev" label="设备型号" name="models">
@@ -74,7 +74,7 @@
         <uni-data-picker
           placeholder="请选择位置"
           popup-title="请选择位置"
-          :localdata="positionOptsComputed"
+          :localdata="state.positionOptsComputed"
           v-model="state.formData.positionId"
           :readonly="!isEdit"
         >
@@ -191,7 +191,7 @@ import useInspectionStore from '@/store/useInspectionStore';
 import { onLoad, onShow, onUnload } from '@dcloudio/uni-app';
 import { computed, onBeforeUnmount, reactive, Ref, ref } from 'vue';
 import { IPersonnelRes, usePersonnel } from '@/hooks/usePersonnel';
-import { ILayeredListRes, useDispatch } from '@/hooks/useDispatch';
+import { ILayeredListRes, useDispatch, ILayeredListResData } from '@/hooks/useDispatch';
 import UploadPicker from '@/component/UploadPicker.vue';
 import ViewImage from '@/component/ViewImage.vue';
 import { storeToRefs } from 'pinia';
@@ -232,6 +232,7 @@ const state = reactive({
   // 维修人员
   planUids: [] as IPersonnelRes[],
   planUidsData: [] as IPersonnelRes[],
+  positionOptsComputed: [] as ILayeredListResData[],
   formData: {
     repairType: 0,
     ...selectDeviceData.value,
@@ -316,6 +317,7 @@ const initData = () => {
   // 设备所在位置
   _ud.getLayeredList().then((res) => {
     state.positionOpts = res as ILayeredListRes[];
+    positionOptsComputedData()
   });
 };
 onLoad((opts) => {
@@ -327,7 +329,6 @@ onLoad((opts) => {
   state.existDev = !existDev.value;
   initData();
   uni.$on('selectPersonnel', (data) => {
-    console.log(123123);
     selectPersonnelType(data);
   });
 });
@@ -337,7 +338,6 @@ onUnload(() => {
 });
 
 onBeforeUnmount(() => {
-  // console.log("isScan===>", isScan);
   if (isScan.value) {
     _uis.setData({
       key: 'selectDeviceData',
@@ -345,7 +345,7 @@ onBeforeUnmount(() => {
     });
   }
 });
-const positionOptsComputed = computed(() => {
+const positionOptsComputedData = () => {
   const tmp = [] as any;
   state.positionOpts.forEach((item) => {
     let obj = {
@@ -353,7 +353,7 @@ const positionOptsComputed = computed(() => {
       value: item.areaId,
       children: [] as any,
     };
-    item.positionList.forEach((o, i) => {
+    item.positionList.forEach((o: any, i: number) => {
       obj.children[i] = {
         text: o.positionName,
         value: o.positionId,
@@ -361,8 +361,10 @@ const positionOptsComputed = computed(() => {
     });
     tmp.push(obj);
   });
-  return tmp;
-});
+  state.positionOptsComputed = tmp
+  state.formData.positionId = tmp[0].value
+  // return tmp;
+};
 const selectPersonnelType = (
   data: {
     title: string;

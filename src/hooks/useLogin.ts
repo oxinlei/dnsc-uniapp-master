@@ -40,7 +40,6 @@ class Login {
         code: res.logincode,
       };
       this.requestLogin(d);
-      // console.log('useGetRequest=====>', res)
     });
   }
 
@@ -94,9 +93,7 @@ class Login {
     return str;
   }
   requestLogin(data: ILoginForm) {
-    // console.log(data)
     usePostRequest<IUserRes>('login/chkLogin', data).then((res) => {
-      // console.log('requestLogin==>', res)
       // @ts-ignore
       const { user, accessToken, expiresIn, refreshToken } = res;
 
@@ -106,13 +103,10 @@ class Login {
         refreshToken,
         timeout: Math.round(new Date().getTime() / 1000) + expiresIn,
       };
-      // console.log("tokenObj", tokenObj);
       uni.setStorage({
         key: LOCALSTORAGE_CONFIG.tokenObj,
         data: JSON.stringify(tokenObj),
       });
-      // console.log(userData);
-      // console.log(tokenObj);
       const userStore = useUserStore();
       userStore.setData({ key: 'data', value: userData });
 
@@ -128,12 +122,10 @@ export function useLoginForm() {
     ref.value
       .validate()
       .then((res: ILoginForm) => {
-        // console.log('success', res);
         const l = new Login(formData);
         l.requestCode();
       })
       .catch((err: { key: string; errorMessage: string }) => {
-        console.log('err', err);
       });
   };
   return {
