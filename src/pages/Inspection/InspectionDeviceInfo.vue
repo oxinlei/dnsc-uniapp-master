@@ -42,10 +42,9 @@
         </uni-forms-item>
       </uni-forms>
     </view>
-    <!--v-if="
-      selectData.orderStatus === 20 && selectData.isOption === 1 && isQrcode"-->
     <view
-    
+      v-if="
+      selectData.orderStatus === 20 && selectData.isOption === 1 && isQrcode"
       class="flex-footer"
     > 
       <uni-row class="demo-uni-row">
@@ -140,7 +139,6 @@ const save = () => {
     deviceId: deviceData.deviceId,
     completeStatus: isDevFault.value,
   };
- console.log(d)
   _ui.optionItem(d).then(() => {
     selectPositionData.value.forEach((pos: any) => {
       if (pos.deviceId === deviceData.deviceId) {

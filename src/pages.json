@@ -123,6 +123,13 @@
       }
     },
     {
+      "path": "pages/dispatch/dispatchLook",
+      "style": {
+        "navigationBarTitleText": "设备详情",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/repair/Repair",
       "style": {
         "navigationBarTitleText": "维修列表",

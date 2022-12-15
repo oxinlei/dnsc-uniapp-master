@@ -3,7 +3,7 @@
     <ListRow title="派单名称" :content="data.orderName" isBorder />
     <ListRow title="巡检类型" :content="assignType" isBorder />
     <ListRow
-      title="开始时间"
+      title="派单时间"
       :content="moment(data.createTime).format('YYYY-MM-DD HH:mm')"
       isBorder
     />

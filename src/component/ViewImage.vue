@@ -1,7 +1,7 @@
 <template>
   <uni-section class="bb-1 bt-1" type="line" :title="title" />
   <uni-file-picker v-model="data" readonly></uni-file-picker>
-  <view v-if="!data.length" class="no-img bb-1">
+  <view v-if="!data.length || data[0]==''" class="no-img bb-1">
     <text>无上传图片</text>
   </view>
 </template>

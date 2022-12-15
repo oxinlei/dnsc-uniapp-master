@@ -61,13 +61,14 @@ const clickScanCode = () => {
     onlyFromCamera: true,
     success: async (res) => {
       _ur.scanRepairQrcode({ erData: res }).then((r: any) => {
-        if (r.length === 1) {
-          _uis.setData({ key: 'selectDeviceData', value: r[0] });
+        r.data[0].statusDuration = r.statusDuration
+        if (r.data.length === 1) {
+          _uis.setData({ key: 'selectDeviceData', value: r.data[0] });
           uni.navigateTo({
-            url: '/pages/dispatch/dispatchAdd?existDev=1&isScan=1',
+            url: '/pages/dispatch/dispatchLook',
           });
         } else {
-          _uss.setData({ key: 'data', value: r });
+          _uss.setData({ key: 'data', value: r.data });
           uni.navigateTo({
             url: '/pages/dispatch/scanList',
           });

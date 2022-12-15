@@ -64,7 +64,7 @@ export function useRepair() {
   function scanRepairQrcode(data: { erData: string }) {
     return new Promise((resolve, reject) => {
       usePostRequest("order_repair/scanRepairQrcode", data).then((res) => {
-        resolve(res.data);
+        resolve(res);
       });
     });
   }

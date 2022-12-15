@@ -8,11 +8,11 @@ export function useDevHistory() {
   // 查看设备历史记录
   // planType 派单类型（不传该参数，则为所有） 0：巡检 1：保养 2：维修
   // deviceId 设备id
-  function getOrderDeviceList(planType: number, id: number) {
+  function getOrderDeviceList(planType: number, deviceId: number) {
     return new Promise((resolve, reject) => {
       useGetRequest<any>("order/getOrderDeviceList", {
         planType,
-        id,
+        deviceId,
       }).then((res) => {
         resolve(res.data);
       });
