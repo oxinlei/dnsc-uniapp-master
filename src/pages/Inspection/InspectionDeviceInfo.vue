@@ -50,12 +50,12 @@
       <uni-row class="demo-uni-row">
         <uni-col :span="11">
           <view class="demo-uni-col dark">
-            <button type="primary" @click="save">保存</button>
+            <button type="primary" @click="commontSave('保存')">保存</button>
           </view>
         </uni-col>
         <uni-col :span="11" :offset="2">
           <view class="demo-uni-col light">
-            <button type="primary" @click="clickToDispatch">维修派单</button>
+            <button type="primary" @click="commontSave('维修派单')">维修派单</button>
           </view>
         </uni-col>
       </uni-row>
@@ -125,7 +125,7 @@ const validateForm = () => {
   return isOk;
 };
 
-const save = () => {
+const commontSave = (type: string) => {
   if (validateForm()) {
     uni.showToast({
       title: '请填写完整信息',
@@ -145,15 +145,20 @@ const save = () => {
         pos.completeStatus = isDevFault.value;
       }
     });
-    uni.navigateBack();
-  });
-};
-const clickToDispatch = () => {
-  uni.navigateTo({
-    url: '/pages/dispatch/dispatchAdd?existDev=1',
-  });
-};
-
+    if (type === '保存') {
+      uni.navigateBack()
+    } else {
+      uni.navigateTo({
+        url: '/pages/dispatch/dispatchAdd?existDev=1'
+      })
+    }
+  })
+}
+// const clickToDispatch = () => {
+//   uni.navigateTo({
+//     url: '/pages/dispatch/dispatchAdd?existDev=1',
+//   });
+// };
 // _uis.setData({ key: "selectDeviceData", value: old_data });
 </script>
 <style scoped lang="scss"></style>
