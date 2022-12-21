@@ -91,9 +91,6 @@ const changeTab = (index: number) => {
 </script>
 
 <style scoped lang="scss">
-.class {
-  width: 100%;
-}
 .pos {
   position: relative;
   .abs-1,
