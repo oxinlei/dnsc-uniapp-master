@@ -2,6 +2,26 @@
   <view class="container">
     <Tab :titleIndex="tabIndex" @change="changeTab">
       <template #content>
+        <view class="pos">
+          <uni-badge
+            v-if="state.inspectionData.data[1].value"
+            :text="state.inspectionData.data[1].value"
+            :is-dot="true"
+            class="abs-1"
+          />
+          <uni-badge
+            v-if="state.inspectionData.data[2].value"
+            :text="state.inspectionData.data[2].value"
+            :is-dot="true"
+            class="abs-2"
+          />
+          <uni-badge
+            v-if="state.inspectionData.data[3].value"
+            :text="state.inspectionData.data[3].value"
+            :is-dot="true"
+            class="abs-3"
+          />
+        </view>
         <view class="mt-10">
           <InspectionItem :data="state.data" />
         </view>
@@ -22,10 +42,12 @@ import {
 import Tab from "@/component/Tab.vue";
 import useHomeStore from "@/store/useHomeStore";
 import InspectionItem from "./cmp/InspectionItem.vue";
-
+import { useHome } from '@/hooks/useHome';
 const _uhs = useHomeStore();
+const _uh = useHome();
 const { getOrderInspectionList, tabTitleData } = useInspection();
 const state = reactive({
+  inspectionData: _uh.state.inspectionData,
   data: [] as IInspectionRes[],
   tabTitleData: tabTitleData(),
   isLoading: true as boolean
@@ -33,8 +55,8 @@ const state = reactive({
 const tabIndex = ref(_uhs.tabListIndex);
 const pageIndex = ref(1);
 provide("titleData", state.tabTitleData);
-
 onShow(() => {
+  _uh.getOrderSummary();
   getOrderInspectionList(tabIndex.value).then((res) => {
     state.data = res as IInspectionRes[];
   });
@@ -58,7 +80,6 @@ onReachBottom(async () => {
     state.data = [...state.data, ...res];
   }
 });
-
 const changeTab = (index: number) => {
   _uhs.setData({ key: "tabListIndex", value: index });
   tabIndex.value = index;
@@ -69,4 +90,21 @@ const changeTab = (index: number) => {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.pos {
+  position: relative;
+  .abs-1,
+  .abs-2,
+  .abs-3 {
+    position: absolute;
+    left: 36%;
+    top: -44px;
+  }
+  .abs-2 {
+    left: 56%;
+  }
+  .abs-3 {
+    left: 76%;
+  }
+}
+</style>

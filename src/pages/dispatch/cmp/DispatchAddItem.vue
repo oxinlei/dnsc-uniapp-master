@@ -49,12 +49,12 @@
           placeholder="请输入设备名称"
         />
       </uni-forms-item>
-      <uni-forms-item v-if="isExistDev" label="设备id" name="deviceNo">
+      <uni-forms-item v-if="isExistDev" label="设备编号" name="deviceNo">
         <uni-easyinput
           type="text"
           v-model="state.formData.deviceNo"
           :disabled="true"
-          placeholder="请输入设备id"
+          placeholder="请输入设备编号"
         />
       </uni-forms-item>
       <uni-forms-item v-if="isExistDev" label="设备型号" name="models">
@@ -66,7 +66,7 @@
         />
       </uni-forms-item>
       <uni-forms-item
-        v-if="!isExistDev"
+        v-if="isExistDev"
         label="所在位置"
         name="positionId"
         :required="isEdit"
@@ -76,7 +76,7 @@
           popup-title="请选择位置"
           :localdata="state.positionOptsComputed"
           v-model="state.formData.positionId"
-          :readonly="!isEdit"
+          :readonly="true"
         >
         </uni-data-picker>
       </uni-forms-item>
@@ -362,7 +362,7 @@ const positionOptsComputedData = () => {
     tmp.push(obj);
   });
   state.positionOptsComputed = tmp
-  state.formData.positionId = tmp[0].value
+  state.formData.positionId = selectDeviceData.value.positionId === undefined ? tmp[0].value : selectDeviceData.value.positionId
   // return tmp;
 };
 const selectPersonnelType = (

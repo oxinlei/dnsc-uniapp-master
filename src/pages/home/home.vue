@@ -18,7 +18,6 @@ onShow(() => {
   getOrderSummary();
   _uh.getOrderSummaryDot();
 });
-
 onLoad(() => {});
 const state = reactive({
   inspectionData: _uh.state.inspectionData,

@@ -52,6 +52,7 @@ onHide(() => {
 });
 
 const goToPage = (url: string) => {
+  _uis.setData({ key: 'selectDeviceData', value: [] });
   uni.navigateTo({
     url,
   });

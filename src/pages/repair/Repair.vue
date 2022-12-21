@@ -2,6 +2,26 @@
   <view class="container">
     <Tab :titleIndex="tabIndex" @change="changeTab">
       <template #content>
+        <view class="pos">
+          <uni-badge
+            v-if="state.repairData.data[1].value"
+            :text="state.repairData.data[1].value"
+            :is-dot="true"
+            class="abs-1"
+          />
+          <uni-badge
+            v-if="state.repairData.data[2].value"
+            :text="state.repairData.data[2].value"
+            :is-dot="true"
+            class="abs-2"
+          />
+          <uni-badge
+            v-if="state.repairData.data[3].value"
+            :text="state.repairData.data[3].value"
+            :is-dot="true"
+            class="abs-3"
+          />
+        </view>
         <view class="mt-10">
           <RepairItem :data="state.data" />
         </view>
@@ -22,10 +42,12 @@ import {
 import Tab from '@/component/Tab.vue';
 import useHomeStore from '@/store/useHomeStore';
 import RepairItem from './cmp/RepairItem.vue';
-
+import { useHome } from '@/hooks/useHome';
 const _uhs = useHomeStore();
+const _uh = useHome();
 const { getOrderPageList, tabTitleData } = useRepair();
 const state = reactive({
+  repairData: _uh.state.repairData,
   data: [] as IRepairRes[],
   tabTitleData: tabTitleData(),
 });
@@ -34,6 +56,7 @@ const pageIndex = ref(1);
 provide('titleData', state.tabTitleData);
 
 onShow(() => {
+  _uh.getOrderSummary();
   getOrderPageList(tabIndex.value).then((res) => {
     state.data = res as IRepairRes[];
   });
@@ -63,4 +86,21 @@ const changeTab = (index: number) => {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.pos {
+  position: relative;
+  .abs-1,
+  .abs-2,
+  .abs-3 {
+    position: absolute;
+    left: 30%;
+    top: -44px;
+  }
+  .abs-2 {
+    left: 46%;
+  }
+  .abs-3 {
+    left: 63%;
+  }
+}
+</style>

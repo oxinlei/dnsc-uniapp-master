@@ -14,9 +14,7 @@
           />
         </uni-forms-item>
       </uni-forms>
-      <van-button type="primary" size="large" @click="handerLogin()"
-        >提交</van-button
-      >
+      <van-button type="primary" size="large" @click="handerLogin()">提交</van-button>
     </view>
   </view>
 </template>

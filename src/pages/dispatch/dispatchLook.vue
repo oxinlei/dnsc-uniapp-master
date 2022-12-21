@@ -3,7 +3,7 @@
     <view class="wrap-box">
       <ListRow isBorder title="设备编号" :content="selectDeviceData.deviceNo" />
       <ListRow isBorder title="设备名称" :content="selectDeviceData.deviceName" />
-      <ListRow isBorder title="功能位置" :content="selectDeviceData.areaName + selectDeviceData.positionName" />
+      <ListRow isBorder title="功能位置" :content="selectDeviceData.areaName + '-' + selectDeviceData.positionName" />
       <ListRow isBorder title="设备分类" :content="selectDeviceData.className" />
       <ListRow isBorder title="设备型号" :content="selectDeviceData.models" />
       <ListRow isBorder title="ABC分类" :content="selectDeviceData.abcLevel === 1 ? '一级' : selectDeviceData.abcLevel === 2 ? '二级' : '三级'" />
@@ -17,7 +17,7 @@
       <ListRow isBorder title="使用年限(天)" :content="selectDeviceData.useYear" />
       <ViewImage :data="returnImgs(selectDeviceData.installImg)" />
       <uni-list>
-        <uni-list-item title="历史巡检记录" showArrow clickable @click="onClickToDevHistory()"></uni-list-item>
+        <uni-list-item title="历史记录" showArrow clickable @click="onClickToDevHistory()"></uni-list-item>
       </uni-list>
     </view>
     <view class="flex-footer">
