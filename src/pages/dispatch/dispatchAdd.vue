@@ -10,7 +10,7 @@
       <uni-row class="demo-uni-row">
         <uni-col :span="24">
           <view class="demo-uni-col dark">
-            <button type="primary" @click="clickSubmit">提交</button>
+            <van-button type="primary" size="large" @click="clickSubmit">提交</van-button>
           </view>
         </uni-col>
       </uni-row>

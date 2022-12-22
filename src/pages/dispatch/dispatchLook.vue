@@ -24,16 +24,18 @@
       <uni-row class="demo-uni-row">
         <uni-col :span="12">
           <view class="demo-uni-col dark">
-            <button type="primary" @click="clickToPers('派单')">
+            <!-- <button type="primary" @click="clickToPers('派单')">
               派单
-            </button>
+            </button> -->
+            <van-button type="primary" size="small" @click="clickToPers('派单')">派单</van-button>
           </view>
         </uni-col>
         <uni-col :span="12">
           <view class="demo-uni-col dark">
-            <button type="primary" @click="clickToPers('返回')">
+            <!-- <button type="primary" @click="clickToPers('返回')">
               返回
-            </button>
+            </button> -->
+            <van-button type="primary" size="small" @click="clickToPers('返回')">返回</van-button>
           </view>
         </uni-col>
       </uni-row>
