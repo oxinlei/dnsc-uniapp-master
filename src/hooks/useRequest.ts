@@ -8,7 +8,6 @@ import axios, {
 import { BASE_API, APP_CONFIG, LOCALSTORAGE_CONFIG } from '@/config/baseConfig';
 import qs from 'qs';
 import MD5 from 'crypto-js/md5';
-
 interface Result {
   code: number;
   message: string;
