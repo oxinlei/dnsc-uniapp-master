@@ -116,6 +116,16 @@
       </uni-col>
     </uni-row>
   </view>
+  <uni-popup ref="dialogSave" type="dialog">
+    <uni-popup-dialog
+      type="error"
+      cancelText="取消"
+      confirmText="确定"
+      title="本次巡检未完成,您确定提交另一人执行？"
+      @confirm="clickCancel"
+      @close="hideDialog"
+    ></uni-popup-dialog>
+  </uni-popup>
 </template>
 
 <script lang="ts" setup>
@@ -125,7 +135,7 @@ import {
   useInspection,
 } from '@/hooks/useInspection';
 import ListRow from '@/component/ListRow.vue';
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, Ref, ref } from 'vue';
 import moment from 'moment';
 import useInspectionStore from '@/store/useInspectionStore';
 import { useScanCode } from '@/hooks/useScanCode';
@@ -213,11 +223,26 @@ const onClickToScanningCode = () => {
     },
   });
 };
-const clickToPers = (type) => {
+const dialogSave: Ref = ref();
+const clickToPers = (type: string) => {
+  if (type === '未完成提交') {
+    dialogSave.value.open();
+  } else {
+    uni.navigateTo({
+      url: `/pages/selectPersonnel/SelectPersonnel?data=${JSON.stringify(
+        state.colleagueIdsData
+      )}&title=选择同班人员&type=${type}`,
+    });
+  }
+};
+const hideDialog = () => {
+  dialogSave.value.close();
+};
+const clickCancel = () => {
   uni.navigateTo({
     url: `/pages/selectPersonnel/SelectPersonnel?data=${JSON.stringify(
       state.colleagueIdsData
-    )}&title=选择同班人员&type=${type}`,
+    )}&title=选择同班人员&type=${'未完成提交'}`,
   });
 };
 const clickSubmit20 = (type) => {

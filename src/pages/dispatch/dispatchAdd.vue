@@ -75,6 +75,7 @@ const clickSubmit = () => {
       } else {
         // 非设备派单
         p.positionId = state.formData.positionId;
+        p.orderName = p.orderName + '-人工'
         if (state.formData.repairType === 0) {
           // -- 正常维修
           _uu.upload(addItemRef.value?.uploadImgs).then((imgs: any) => {

@@ -6,9 +6,9 @@ export const APP_CONFIG = {
 	version: '2.0.0.1',
 };
 // 公司
-export const BASE_API = "http://192.168.8.6:8060";
+// export const BASE_API = "http://192.168.8.6:8060";
 // 水厂
-// export const BASE_API = 'http://168.1.7.63:8060';
+export const BASE_API = 'http://168.1.7.63:8060';
 // export const BASE_API = "https://168.1.7.63:443";
 // 远程
 // export const BASE_API = 'http://192.168.8.110:8060';
