@@ -12,7 +12,7 @@
           @click="onClickToDevDetail(dev)"
         >
           <template v-slot:footer>
-            <view>
+            <view style="display: flex;flex-direction: column;">
               <view class="tag">
                 <uni-tag v-if="dev.completeStatus === 0" text="未巡检" />
                 <uni-tag
@@ -25,7 +25,13 @@
                   text="已巡检"
                   type="error"
                 />
+                <uni-tag
+                  v-if="dev.completeStatus === 3"
+                  text="无法巡检"
+                  type="warning"
+                />
               </view>
+              <view><uni-tag v-if="dev.completeStatus === 0" type="error" text="无法巡检" /></view>
             </view>
           </template>
         </uni-list-item>
@@ -49,7 +55,7 @@ const state = reactive({
   searchData: selectPositionData as any[],
 });
 onMounted(() => {});
-
+console.log(state.searchData, '=>eee')
 const search = (val: undefined | any[]) => {
   if (val === undefined) {
     state.searchData = selectPositionData;
@@ -58,6 +64,7 @@ const search = (val: undefined | any[]) => {
   }
 };
 const onClickToDevDetail = (dev: any) => {
+  console.log(dev,'=>ttt')
   _uis.setData({ key: "selectDeviceData", value: dev });
   uni.navigateTo({
     url: `/pages/Inspection/InspectionDeviceInfo`,

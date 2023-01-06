@@ -5,7 +5,7 @@
     <ListRow isBorder title="派单编号" :content="data.id" />
     <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备名称" :content="data.orderItem[0].positionList[0].deviceList[0].deviceName" />
     <ListRow isBorder title="提交部门" content="设备部" />
-    <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备id" :content="data.orderItem[0].positionList[0].deviceList[0].deviceNo" />
+    <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备编号" :content="data.orderItem[0].positionList[0].deviceList[0].deviceNo" />
     <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备型号" :content="data.orderItem[0].positionList[0].deviceList[0].models" />
     <ListRow
       isBorder

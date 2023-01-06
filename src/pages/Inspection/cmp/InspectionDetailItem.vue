@@ -1,5 +1,6 @@
 <template>
   <view class="wrap-box">
+    <ListRow title="派单编号" :content="data.id" isBorder />
     <ListRow title="派单名称" :content="data.orderName" isBorder />
     <ListRow title="巡检类型" :content="assignType" isBorder />
     <ListRow
