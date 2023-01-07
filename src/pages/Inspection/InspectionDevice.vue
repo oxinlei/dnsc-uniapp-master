@@ -12,7 +12,7 @@
           @click="onClickToDevDetail(dev)"
         >
           <template v-slot:footer>
-            <view style="display: flex;flex-direction: column;">
+            <view style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
               <view class="tag">
                 <uni-tag v-if="dev.completeStatus === 0" text="未巡检" />
                 <uni-tag
@@ -31,7 +31,7 @@
                   type="warning"
                 />
               </view>
-              <view><uni-tag v-if="dev.completeStatus === 0" type="error" text="无法巡检" /></view>
+              <view @click.stop="onClickCannot(dev)" style="margin-top: 14px;"><uni-tag v-if="dev.completeStatus === 0" type="error" text="无法巡检" /></view>
             </view>
           </template>
         </uni-list-item>
@@ -46,16 +46,19 @@ import { onMounted, provide, reactive } from "vue";
 import useInspectionStore from "@/store/useInspectionStore";
 import { storeToRefs } from "pinia";
 import SelectBar from "@/component/SelectBar.vue";
+import { useInspection } from '@/hooks/useInspection';
 
 const _uis = useInspectionStore();
-const { selectPositionData } = _uis;
+const _ui = useInspection();
+const { selectPositionData, selectData } = storeToRefs(
+  _uis
+) as any;
 
 const state = reactive({
   searchValue: "",
   searchData: selectPositionData as any[],
 });
 onMounted(() => {});
-console.log(state.searchData, '=>eee')
 const search = (val: undefined | any[]) => {
   if (val === undefined) {
     state.searchData = selectPositionData;
@@ -64,19 +67,33 @@ const search = (val: undefined | any[]) => {
   }
 };
 const onClickToDevDetail = (dev: any) => {
-  console.log(dev,'=>ttt')
   _uis.setData({ key: "selectDeviceData", value: dev });
   uni.navigateTo({
     url: `/pages/Inspection/InspectionDeviceInfo`,
   });
 };
+const onClickCannot = (dev: any) => {
+  const d = {
+    orderId: selectData.value.id,
+    feedbackData: JSON.stringify(dev.feedbackData),
+    deviceId: dev.deviceId,
+    completeStatus: 3,
+  };
+  _ui.optionItem(d).then(() => {
+    selectPositionData.value.forEach((pos: any) => {
+      if (pos.deviceId === dev.deviceId) {
+        pos.completeStatus = 3;
+      }
+    });
+  })
+}
 </script>
 <style scoped lang="scss">
 .tag {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  // height: 100%;
 }
 ::v-deep .uni-searchbar {
   padding: 0;

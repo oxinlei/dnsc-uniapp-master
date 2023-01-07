@@ -3,7 +3,6 @@ import { useGetRequest, usePostRequest } from '@/hooks/useRequest';
 import { APP_CONFIG, LOCALSTORAGE_CONFIG } from '@/config/baseConfig';
 import { useUserStore } from '@/store/useUserStore';
 import useHomeStore from '@/store/useHomeStore';
-const _uhs = useHomeStore();
 interface ILoginForm {
   userName: string;
   userPwd: string;
@@ -109,6 +108,7 @@ class Login {
         data: JSON.stringify(tokenObj),
       });
       const userStore = useUserStore();
+      const _uhs = useHomeStore();
       userStore.setData({ key: 'data', value: userData });
       _uhs.setData({ key: 'tabIndex', value: 0 })
       uni.reLaunch({
