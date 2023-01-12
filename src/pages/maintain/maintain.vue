@@ -34,6 +34,7 @@ const pageIndex = ref(1);
 provide('titleData', state.tabTitleData);
 
 onShow(() => {
+  pageIndex.value = 1;
   getOrderMaintainList(tabIndex.value).then((res) => {
     state.data = res as IMaintainRes[];
   });

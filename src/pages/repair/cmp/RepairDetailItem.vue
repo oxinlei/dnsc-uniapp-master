@@ -4,7 +4,6 @@
     <ListRow isBorder title="派单名称" :content="data.orderName" />
     <ListRow isBorder title="派单编号" :content="data.id" />
     <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备名称" :content="data.orderItem[0].positionList[0].deviceList[0].deviceName" />
-    <ListRow isBorder title="提交部门" content="设备部" />
     <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备编号" :content="data.orderItem[0].positionList[0].deviceList[0].deviceNo" />
     <ListRow v-if="(data.orderItem[0].positionList[0].deviceList.length > 0)" isBorder title="设备型号" :content="data.orderItem[0].positionList[0].deviceList[0].models" />
     <ListRow
@@ -21,6 +20,14 @@
       >
       </uni-list-item>
     </uni-list>
+    <ListRow isBorder title="提交部门" content="">
+      <template #content>
+        <uni-data-select
+          v-model="state.value"
+          :localdata="state.departmentOld"
+        ></uni-data-select>
+      </template>
+    </ListRow>
     <ListRow isBorder v-if="data.repairType === 0" title="审核人员" content="">
       <template #content>
         <view style="flex-wrap: wrap; display: flex">
@@ -216,7 +223,13 @@ const _uis = useInspectionStore();
 const { selectDeviceData } = storeToRefs(_uis);
 const state = reactive({
   formData: {},
+  value: 0 as number,
   rules: {},
+  departmentOld: [
+    { value: 0, text: "设备部" },
+    { value: 1, text: "生产部" },
+    { value: 2, text: "计量中心" },
+  ]
 });
 
 onLoad((opts) => {});

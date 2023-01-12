@@ -37,12 +37,20 @@ export function usePersonnel() {
     params.forEach(async (item, index) => {
       data[item.key] = await getUserMaintenanceList({
         maintenanceType: item.value,
+        departmentId: ''
       });
     });
 
     return data as any;
   }
-
+  // 获取所有部门信息
+  function getDepartmentList() {
+    return new Promise((resolve, reject) => {
+      useGetRequest<DepartmentList>('department/getDepartmentList', { levelId: 0 }).then((res) => {
+        resolve(res.data);
+      });
+    });
+  }
   //修改人员密码
   function editUserPassWord(data) {
     return new Promise((resolve, reject) => {
@@ -57,11 +65,13 @@ export function usePersonnel() {
     getUserMaintenanceLists,
     getUserList,
     editUserPassWord,
+    getDepartmentList
   };
 }
 
 interface IMaintenanceParams {
   maintenanceType: number;
+  departmentId: String;
 }
 
 export interface IPersonnelRes {
@@ -94,4 +104,13 @@ export interface IPersonnelRes {
   workOrder: number; //排班班组排序
   status: number; //用户状态0--正常；1--锁定
   createTime: string; //创建时间
+}
+export interface DepartmentList{
+  departmentId: number; //部门ID
+  departmentName: string; //部门名称
+  levelId: number; //上级部门ID
+  levelName: string; //部门名称
+  orderNum: number; //排序值
+  subList: any;//部门信息
+
 }

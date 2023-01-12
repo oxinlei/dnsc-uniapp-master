@@ -22,20 +22,20 @@
     </view>
     <view class="flex-footer">
       <uni-row class="demo-uni-row">
-        <uni-col :span="12">
+        <uni-col :span="11">
           <view class="demo-uni-col dark">
             <!-- <button type="primary" @click="clickToPers('派单')">
               派单
             </button> -->
-            <van-button type="primary" size="small" @click="clickToPers('派单')">派单</van-button>
+            <van-button type="primary" size="normal" @click="clickToPers('派单')">派单</van-button>
           </view>
         </uni-col>
-        <uni-col :span="12">
+        <uni-col :span="11">
           <view class="demo-uni-col dark">
             <!-- <button type="primary" @click="clickToPers('返回')">
               返回
             </button> -->
-            <van-button type="primary" size="small" @click="clickToPers('返回')">返回</van-button>
+            <van-button type="primary" size="normal" @click="clickToPers('返回')">返回</van-button>
           </view>
         </uni-col>
       </uni-row>
@@ -88,4 +88,15 @@ const returnImgs = (str: string) => {
   return arr;
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.content{
+  padding-bottom: 40px;
+}
+.demo-uni-row{
+  display: flex;
+  justify-content: space-between;
+}
+::v-deep .van-button{
+  width: 100%;
+}
+</style>

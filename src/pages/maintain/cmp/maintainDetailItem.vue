@@ -1,5 +1,6 @@
 <template>
   <view class="wrap-box">
+    <ListRow title="派单编号" :content="data.id" isBorder />
     <ListRow title="派单名称" :content="data.orderName" isBorder />
     <ListRow title="派单类型" :content="assignType" isBorder />
     <ListRow
@@ -147,7 +148,7 @@ const props = defineProps<{
 const orderId = ref("");
 onLoad((opts) => {
   orderId.value = opts.id!;
-  _up.getUserMaintenanceList({ maintenanceType: 1 }).then((res) => {
+  _up.getUserMaintenanceList({ maintenanceType: 1, departmentId:'' }).then((res) => {
     state.colleagueIdsData = res as IPersonnelRes[];
   });
   _um.getColleagueList(opts.id!).then((res) => {

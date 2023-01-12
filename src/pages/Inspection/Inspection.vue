@@ -57,6 +57,8 @@ const pageIndex = ref(1);
 provide("titleData", state.tabTitleData);
 onShow(() => {
   _uh.getOrderSummary();
+  pageIndex.value = 1;
+  state.isLoading = true;
   getOrderInspectionList(tabIndex.value).then((res) => {
     state.data = res as IInspectionRes[];
   });

@@ -230,6 +230,7 @@ onLoad((opts) => {
   _up
     .getUserMaintenanceList({
       maintenanceType: 6,
+      departmentId:''
     })
     .then((res) => {
       state.financeUserIdData = res as IPersonnelRes[];
@@ -237,6 +238,7 @@ onLoad((opts) => {
   _up
     .getUserMaintenanceList({
       maintenanceType: 4,
+      departmentId:''
     })
     .then((res) => {
       state.acceptUserIdsData = res as IPersonnelRes[];
@@ -244,6 +246,7 @@ onLoad((opts) => {
   _up
     .getUserMaintenanceList({
       maintenanceType: 5,
+      departmentId:''
     })
     .then((res) => {
       state.lastAcceptUserIdsData = res as IPersonnelRes[];

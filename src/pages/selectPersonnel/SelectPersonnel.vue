@@ -1,7 +1,14 @@
 <template>
   <view class="container pb-50">
-    <view class="wrap-box">
-      <SelectBar :data="state.data" @change="search" field="realName" />
+    <view class="wrap-box" style="padding: 10px;">
+      <uni-section v-if="type!==''" title="选择部门" type="line">
+        <uni-data-select
+          v-model="state.value"
+          :localdata="state.departmentData"
+          @change="searchPeople"
+        ></uni-data-select>
+      </uni-section>
+      <SelectBar v-else :data="state.data" @change="search" field="realName" />
     </view>
     <view class="wrap-box">
       <uni-section
@@ -12,7 +19,7 @@
       <uni-table ref="tableRef" border stripe>
         <uni-tr>
           <uni-th width="30" align="center"></uni-th>
-          <uni-th width="100" align="center">名称</uni-th>
+          <uni-th width="100" align="center">姓名</uni-th>
           <uni-th align="center">部门</uni-th>
           <uni-th width="100" align="center">职位</uni-th>
         </uni-tr>
@@ -49,11 +56,13 @@
 import { onLoad, onShow } from '@dcloudio/uni-app';
 import { onMounted, provide, reactive, ref } from 'vue';
 import SelectBar from '@/component/SelectBar.vue';
-import { IPersonnelRes } from '@/hooks/usePersonnel';
-
+import { IPersonnelRes, usePersonnel } from '@/hooks/usePersonnel';
 const tableRef = ref<InstanceType<any>>();
+const _up = usePersonnel();
 const state = reactive({
   data: [] as IPersonnelRes[],
+  value: 0 as number,
+  departmentData: [] as any,
   checkboxData: [] as IPersonnelRes[],
 });
 let paramsData = [] as IPersonnelRes[];
@@ -61,6 +70,16 @@ let title = '';
 let isSingle = false;
 let type = ''; // 完成提交 ｜ 未完成提交
 onLoad((opts) => {
+  _up.getDepartmentList().then((res: any) => {
+    state.departmentData = []
+    res.forEach((item: any) => {
+      let obj = {
+        text: item.departmentName,
+        value: item.departmentId
+      };
+      state.departmentData.push(obj)
+    });
+  });
   state.data = JSON.parse(opts.data!);
   paramsData = JSON.parse(opts.data!);
   isSingle = opts.single ? true : false;
@@ -98,6 +117,11 @@ const search = (val: undefined | IPersonnelRes[]) => {
   } else {
     state.data = val;
   }
+};
+const searchPeople = (e: number) => {
+  _up.getUserMaintenanceList({ maintenanceType: 0, departmentId: e.toString() }).then((res) => {
+    state.data = res as IPersonnelRes[];
+  });
 };
 const save = () => {
   const d = {

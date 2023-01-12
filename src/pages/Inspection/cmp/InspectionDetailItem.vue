@@ -51,6 +51,7 @@
         :key="oIndex"
         :name="oIndex"
         :title="order.areaName"
+        :open="true"
         thumb="/static/imgs/A/icon-1.png"
       >
         <uni-list>
@@ -91,16 +92,18 @@
     <uni-row class="demo-uni-row">
       <uni-col :span="24">
         <view v-if="state.isEnd === true" class="demo-uni-col dark">
-          <button type="primary" @click="clickToPers('完成提交')">
+          <!-- <button type="primary" @click="clickToPers('完成提交')">
             完成提交
-          </button>
+          </button> -->
+          <van-button type="primary" size="normal" @click="clickToPers('完成提交')">完成提交</van-button>
         </view>
       </uni-col>
       <uni-col v-if="state.isEnd === false" :span="24">
         <view class="demo-uni-col dark">
-          <button type="primary" @click="clickToPers('未完成提交')">
+          <!-- <button type="primary" @click="clickToPers('未完成提交')">
             未完成提交
-          </button>
+          </button> -->
+          <van-button type="primary" size="normal" @click="clickToPers('未完成提交')">未完成提交</van-button>
         </view>
       </uni-col>
     </uni-row>
@@ -122,7 +125,8 @@
       type="error"
       cancelText="取消"
       confirmText="确定"
-      title="本次巡检未完成,您确定提交另一人执行？"
+      title="提示"
+      content="本次巡检未完成,您确定提交另一人执行？"
       @confirm="clickCancel"
       @close="hideDialog"
     ></uni-popup-dialog>
@@ -159,9 +163,8 @@ const props = defineProps<{
 }>();
 const orderId = ref('');
 onLoad((opts) => {
-  console.log(props.data)
   orderId.value = opts.id!;
-  _up.getUserMaintenanceList({ maintenanceType: 0 }).then((res) => {
+  _up.getUserMaintenanceList({ maintenanceType: 0, departmentId:'' }).then((res) => {
     state.colleagueIdsData = res as IPersonnelRes[];
   });
   _ui.getColleagueList(opts.id!).then((res) => {
@@ -200,7 +203,7 @@ const completeTimeLimit = computed(() => {
 const onClickToDevice = (pos: any) => {
   _uis.setData({ key: 'selectPositionData', value: pos });
   uni.navigateTo({
-    url: `/pages/Inspection/InspectionDevice`,
+    url: `/pages/Inspection/InspectionDevice?orderStatus=${props.data.orderStatus}&isOption=${props.data.isOption}&orderId=${orderId.value}`,
   });
 };
 const onClickToScanningCode = () => {
@@ -284,5 +287,8 @@ function onClickToDevHistory() {
 }
 ::v-deep .uni-collapse-item__title-box {
   padding: 0 12px;
+}
+::v-deep .van-button{
+  width: 100%;
 }
 </style>

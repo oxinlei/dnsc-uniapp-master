@@ -66,7 +66,6 @@
         />
       </uni-forms-item>
       <uni-forms-item
-        v-if="isExistDev"
         label="所在位置"
         name="positionId"
         :required="isEdit"
@@ -76,7 +75,6 @@
           popup-title="请选择位置"
           :localdata="state.positionOptsComputed"
           v-model="state.formData.positionId"
-          :readonly="true"
         >
         </uni-data-picker>
       </uni-forms-item>
@@ -300,7 +298,7 @@ const state = reactive({
 
 const initData = () => {
   // 审核人员
-  _up.getUserMaintenanceList({ maintenanceType: 3 }).then((res) => {
+  _up.getUserMaintenanceList({ maintenanceType: 3, departmentId:'' }).then((res) => {
     state.examineUidsData = res as IPersonnelRes[];
   });
   // 通知人员
@@ -311,7 +309,7 @@ const initData = () => {
     state.noticeUidsData = res as IPersonnelRes[];
   });
   // 维修人员
-  _up.getUserMaintenanceList({ maintenanceType: 2 }).then((res) => {
+  _up.getUserMaintenanceList({ maintenanceType: 2, departmentId:''}).then((res) => {
     state.planUidsData = res as IPersonnelRes[];
   });
   // 设备所在位置
@@ -361,6 +359,7 @@ const positionOptsComputedData = () => {
     });
     tmp.push(obj);
   });
+  console.log(tmp)
   state.positionOptsComputed = tmp
   state.formData.positionId = selectDeviceData.value.positionId === undefined ? tmp[0].value : selectDeviceData.value.positionId
   // return tmp;

@@ -350,14 +350,17 @@ onUnload(() => {
 async function init() {
   state.chargeUserData = (await _up.getUserMaintenanceList({
     maintenanceType: 7,
+    departmentId:''
   })) as IPersonnelRes[];
 
   state.planUserData = (await _up.getUserMaintenanceList({
     maintenanceType: 2,
+    departmentId:''
   })) as IPersonnelRes[];
 
   state.lastAcceptUserData = (await _up.getUserMaintenanceList({
     maintenanceType: 5,
+    departmentId:''
   })) as IPersonnelRes[];
 }
 const clickToPers = (type: string) => {

@@ -13,7 +13,7 @@ export const BASE_API = 'http://168.1.7.63:8060';
 // 远程
 // export const BASE_API = 'http://192.168.8.110:8060';
 // export const BASE_API = 'http://42.192.142.240:8060';
-
+// export const BASE_API = 'http://168.1.7.72:8060';
 // localstorage 别名
 export const LOCALSTORAGE_CONFIG = {
 	userInfo: 'userInfo',
