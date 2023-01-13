@@ -153,6 +153,7 @@
         </template>
       </ListRow>
     </view>
+    <ListRow v-if="data.reject" isBorder title="驳回原因" :content="data.reject" />
     <view v-if="data.orderStatus >= 30">
       <ListRow isBorder title="验收人员" content="">
         <template #content>
@@ -179,21 +180,19 @@
     <view v-if="data.orderStatus >= 50">
       <ListRow isBorder title="验收评价" content="">
         <template #content>
-          <uni-rate size="18" :value="data.acceptScore" />
+          <uni-rate size="18" :readonly="true" :value="data.acceptScore" />
         </template>
       </ListRow>
       <ListRow isBorder title="验收意见" :content="data.acceptInfo" />
-      <ListRow isBorder title="处理措施" :content="data.feedbackInfo" />
       <ViewImage :data="returnImgs(data.acceptImg)" />
     </view>
     <view v-if="data.orderStatus >= 100">
       <ListRow isBorder title="水厂评价" content="">
         <template #content>
-          <uni-rate size="18" :value="data.lastAcceptScore" />
+          <uni-rate size="18" :readonly="true" :value="data.lastAcceptScore" />
         </template>
       </ListRow>
       <ListRow isBorder title="水厂意见" :content="data.lastAcceptInfo" />
-      <ListRow isBorder title="处理措施" :content="data.feedbackInfo" />
       <ViewImage :data="returnImgs(data.lastAcceptImg)" />
     </view>
   </view>
@@ -232,7 +231,25 @@ const state = reactive({
   ]
 });
 
-onLoad((opts) => {});
+onLoad((opts) => {
+  console.log(props.data)
+  props.data.acceptances.forEach((e:any) => {
+    if (e.acceptanceType === 0) {
+      props.data.feedbackInfo = e.acceptanceInfo
+      props.data.feedbackImg = e.acceptanceImgs
+    } else if (e.acceptanceType === 1) {
+      props.data.acceptInfo = e.acceptanceInfo
+      props.data.acceptScore = e.acceptScore
+      props.data.acceptImg = e.acceptanceImgs
+    } else if (e.acceptanceType === 3) {
+      props.data.lastAcceptInfo = e.acceptanceInfo
+      props.data.lastAcceptScore = e.acceptScore
+      props.data.lastAcceptImg = e.acceptanceImgs
+    } else {
+      props.data.reject = e.acceptanceInfo
+    }
+  });
+});
 onShow(() => {});
 
 const returnImgs = (str: string) => {

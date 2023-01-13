@@ -41,10 +41,17 @@
         "enablePullDownRefresh": false
       }
     },
+    // {
+    //   "path": "pages/warn/warn",
+    //   "style": {
+    //     "navigationBarTitleText": "报警",
+    //     "enablePullDownRefresh": false
+    //   }
+    // },
     {
-      "path": "pages/warn/warn",
+      "path": "pages/Inspection/InspectionCopy",
       "style": {
-        "navigationBarTitleText": "报警",
+        "navigationBarTitleText": "巡检",
         "enablePullDownRefresh": false
       }
     },
@@ -224,12 +231,23 @@
       //     "selectedColor": "#0093E3"
       //   }
       // },
+      // {
+      //   "pagePath": "pages/warn/warn",
+      //   "text": "报警",
+      //   "iconfont": {
+      //     "text": "\ue643",
+      //     "selectedText": "\ue643",
+      //     "fontSize": "22px",
+      //     "color": "#e6e6e6",
+      //     "selectedColor": "#0093E3"
+      //   }
+      // },
       {
-        "pagePath": "pages/warn/warn",
-        "text": "报警",
+        "pagePath": "pages/Inspection/InspectionCopy",
+        "text": "巡检",
         "iconfont": {
-          "text": "\ue643",
-          "selectedText": "\ue643",
+          "text": "\ue8ff",
+          "selectedText": "\ue8ff",
           "fontSize": "22px",
           "color": "#e6e6e6",
           "selectedColor": "#0093E3"
