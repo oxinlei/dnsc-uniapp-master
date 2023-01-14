@@ -8,6 +8,12 @@
       label-width="100px"
       border
     >
+      <uni-forms-item label="提交部门">
+        <uni-data-select
+          v-model="state.value"
+          :localdata="state.departmentOld"
+        ></uni-data-select>
+      </uni-forms-item>
       <uni-forms-item
         label="选择班长"
         name="chargeUserId"
@@ -251,6 +257,12 @@ const _up = usePersonnel();
 
 const { selectDeviceData } = storeToRefs(_uis);
 const state = reactive({
+  value: 0 as number,
+  departmentOld: [
+    { value: 0, text: "设备部" },
+    { value: 1, text: "生产部" },
+    { value: 2, text: "计量中心" },
+  ],
   formData0: {
     orderId: props.data.id,
     chargeUserIds: undefined as undefined | number,

@@ -20,14 +20,7 @@
       >
       </uni-list-item>
     </uni-list>
-    <ListRow isBorder title="提交部门" content="">
-      <template #content>
-        <uni-data-select
-          v-model="state.value"
-          :localdata="state.departmentOld"
-        ></uni-data-select>
-      </template>
-    </ListRow>
+    <ListRow v-if="data.orderStatus >= 10 && data.repairType === 0" isBorder title="提交部门" :content="'设备部'" />
     <ListRow isBorder v-if="data.repairType === 0" title="审核人员" content="">
       <template #content>
         <view style="flex-wrap: wrap; display: flex">
@@ -222,17 +215,10 @@ const _uis = useInspectionStore();
 const { selectDeviceData } = storeToRefs(_uis);
 const state = reactive({
   formData: {},
-  value: 0 as number,
-  rules: {},
-  departmentOld: [
-    { value: 0, text: "设备部" },
-    { value: 1, text: "生产部" },
-    { value: 2, text: "计量中心" },
-  ]
+  rules: {}
 });
 
 onLoad((opts) => {
-  console.log(props.data)
   props.data.acceptances.forEach((e:any) => {
     if (e.acceptanceType === 0) {
       props.data.feedbackInfo = e.acceptanceInfo
