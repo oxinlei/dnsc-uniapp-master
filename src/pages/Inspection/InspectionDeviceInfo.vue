@@ -32,7 +32,7 @@
             />
           </view>
         </uni-forms-item>
-        <uni-forms-item v-if="selectDeviceData.isFireExtinguisher === 1" label="灭火器换药时间" required>
+        <uni-forms-item v-if="selectDeviceData.isFireExtinguisher === 1" label="灭火器换药时间">
           <view class="flex-center">
             <uni-datetime-picker
               v-model="state.chanageDressing"

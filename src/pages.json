@@ -88,6 +88,13 @@
       }
     },
     {
+      "path": "pages/Inspection/scanList",
+      "style": {
+        "navigationBarTitleText": "设备列表",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/Inspection/InspectionDeviceInfo",
       "style": {
         "navigationBarTitleText": "巡检条目 ",

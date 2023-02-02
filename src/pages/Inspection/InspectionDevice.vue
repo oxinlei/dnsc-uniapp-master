@@ -62,9 +62,10 @@ import { storeToRefs } from "pinia";
 import { useScanCode } from '@/hooks/useScanCode';
 import SelectBar from "@/component/SelectBar.vue";
 import { useInspection } from '@/hooks/useInspection';
-
+import useScanStore from '@/store/useScanStore';
 const _uis = useInspectionStore();
 const _ui = useInspection();
+const _uss = useScanStore();
 const { selectPositionData, selectData } = storeToRefs(
   _uis
 ) as any;
@@ -77,7 +78,6 @@ const state = reactive({
 });
 const orderId = ref('');
 onLoad((opts) => {
-  console.log(opts)
   orderId.value = opts.orderId!;
   state.orderStatus = opts.orderStatus!;
   state.isOption = opts.isOption!;
@@ -115,15 +115,20 @@ const onClickToScanningCode = () => {
   useScanCode({
     onlyFromCamera: true,
     success: async (res) => {
-      console.log(res)
-      console.log(orderId.value)
       _ui
         .scanInspectionQrcode({ erData: res, orderId: orderId.value })
-        .then((r) => {
-          _uis.setData({ key: 'selectDeviceData', value: r });
-          uni.navigateTo({
-            url: '/pages/Inspection/InspectionDeviceInfo?isQrcode=1',
-          });
+        .then((r: any) => {
+          if (r.length >= 1) {
+            _uss.setData({ key: 'data', value: r });
+            uni.navigateTo({
+              url: '/pages/Inspection/scanList',
+            });
+          } else {
+            _uis.setData({ key: 'selectDeviceData', value: r });
+            uni.navigateTo({
+              url: '/pages/Inspection/InspectionDeviceInfo?isQrcode=1',
+            });
+          }
         });
     },
     fail(e) {

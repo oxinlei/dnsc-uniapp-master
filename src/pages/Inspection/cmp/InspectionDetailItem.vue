@@ -147,10 +147,12 @@ import { useScanCode } from '@/hooks/useScanCode';
 import { onLoad, onShow, onUnload } from '@dcloudio/uni-app';
 import { IPersonnelRes, usePersonnel } from '@/hooks/usePersonnel';
 import { useDebounceFn } from '@vueuse/core';
+import useScanStore from '@/store/useScanStore';
 
 const _uis = useInspectionStore();
 const _ui = useInspection();
 const _up = usePersonnel();
+const _uss = useScanStore();
 const state = reactive({
   colleagueIds: '',
   isEnd: false as boolean,
@@ -212,11 +214,18 @@ const onClickToScanningCode = () => {
     success: async (res) => {
       _ui
         .scanInspectionQrcode({ erData: res, orderId: orderId.value })
-        .then((r) => {
-          _uis.setData({ key: 'selectDeviceData', value: r });
-          uni.navigateTo({
-            url: '/pages/Inspection/InspectionDeviceInfo?isQrcode=1',
-          });
+        .then((r: any) => {
+          if (r.length >= 1) {
+            _uss.setData({ key: 'data', value: r });
+            uni.navigateTo({
+              url: '/pages/Inspection/scanList',
+            });
+          } else {
+            _uis.setData({ key: 'selectDeviceData', value: r });
+            uni.navigateTo({
+              url: '/pages/Inspection/InspectionDeviceInfo?isQrcode=1',
+            });
+          }
         });
     },
     fail(e) {
