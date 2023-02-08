@@ -28,6 +28,7 @@
             <checkbox-group @change="changeCheckbox($event, item)">
               <checkbox
                 :value="item.userId.toString()"
+                :disabled="item.userId == 14 ? true : false"
                 :checked="isChecked(item)"
               />
             </checkbox-group>

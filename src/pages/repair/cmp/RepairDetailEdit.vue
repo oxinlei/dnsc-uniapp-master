@@ -85,14 +85,15 @@
       </uni-forms-item>
       <uni-forms-item
         label="水厂意见审核人"
-        name="lastAcceptUserIds"
-        required
         @click="clickToPers('水厂意见审核人')"
       >
         <uni-list :border="false">
           <uni-list-item showArrow>
             <template #footer>
               <view style="flex-wrap: wrap; display: flex">
+                <view class="tag">
+                  <uni-tag :inverted="true" text="郑奋" type="primary" class="tag"></uni-tag>
+                </view>
                 <view
                   class="tag"
                   v-for="(item, index) in state.lastAcceptUserIds"
@@ -271,7 +272,7 @@ const state = reactive({
     orderId: props.data.id,
     completeTimeLimit: 1,
     planUserIds: undefined,
-    lastAcceptUserIds: undefined,
+    lastAcceptUserIds: '',
   },
   formData30: {
     orderId: props.data.id,
@@ -340,11 +341,14 @@ onLoad((opts) => {
     switch (data.title) {
       case '选择班长':
         state.chargeUserIds = data.data;
-        state.formData0.chargeUserIds = data.data[0]?.userId;
+        const us3 = data.data.map((item) => item.userId);
+        // state.formData0.chargeUserIds = data.data[0]?.userId;
+        state.formData0.chargeUserIds = us3.toString()
         break;
       case '水厂意见审核人':
         state.lastAcceptUserIds = data.data;
         const us1 = data.data.map((item) => item.userId);
+        us1.push(14)
         state.formData10.lastAcceptUserIds = us1.toString();
         break;
       case '维修人员':
@@ -380,7 +384,7 @@ const clickToPers = (type: string) => {
     uni.navigateTo({
       url: `/pages/selectPersonnel/SelectPersonnel?data=${JSON.stringify(
         state.chargeUserData
-      )}&title=${type}&single=1`,
+      )}&title=${type}`, // &single=1
     });
   } else if (type === '水厂意见审核人') {
     uni.navigateTo({
@@ -414,6 +418,7 @@ const clickCancel0 = () => {
 };
 const formRef10: Ref = ref();
 const clickSubmit10 = () => {
+  state.formData10.lastAcceptUserIds = state.formData10.lastAcceptUserIds === '' ? '14' : state.formData10.lastAcceptUserIds
   _ur.validate(formRef10).then(() => {
     _ur.assignOrder(state.formData10).then(() => {
       uni.navigateBack();
