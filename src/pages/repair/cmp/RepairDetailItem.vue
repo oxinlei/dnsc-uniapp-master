@@ -248,8 +248,9 @@ const returnImgs = (str: string) => {
   return arr;
 };
 function onClickToDevHistory() {
+  console.log(props.data)
   uni.navigateTo({
-    url: `/pages/devHistory/devHistory?deviceId=${props.data.orderItem[0].deviceId}&planType=2`,
+    url: `/pages/devHistory/devHistory?deviceId=${props.data.orderItem[0].positionList[0].deviceList[0].deviceId}&planType=2`,
   });
 }
 </script>
