@@ -110,6 +110,9 @@ export const ORDER_STATUS_VALUE = (index) => {
 		case 20:
 			value = '已抢单';
 			break;
+		case 21:
+			value = '未完成提交';
+			break;
 		case 22:
 			value = '待验收';
 			break;

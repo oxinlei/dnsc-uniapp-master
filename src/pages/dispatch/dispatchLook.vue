@@ -9,6 +9,7 @@
       <ListRow isBorder title="ABC分类" :content="selectDeviceData.abcLevel === 1 ? '一级' : selectDeviceData.abcLevel === 2 ? '二级' : '三级'" />
       <ListRow isBorder title="分组名称" :content="selectDeviceData.groupName" />
       <ListRow isBorder title="运用类型" :content="selectDeviceData.typeName" />
+      <ListRow isBorder title="设备规格" :content="selectDeviceData.modelSpec" />
       <ListRow isBorder title="购买日期" :content="selectDeviceData.purchaseDate" />
       <ListRow isBorder title="保修截至日期" :content="selectDeviceData.warrantyDate" />
       <ListRow isBorder title="安装日期" :content="selectDeviceData.deviceDate" />
