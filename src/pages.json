@@ -130,6 +130,13 @@
       }
     },
     {
+      "path": "pages/dispatch/wordList",
+      "style": {
+        "navigationBarTitleText": "文档列表",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/dispatch/ScanCode",
       "style": {
         "navigationBarTitleText": "维修派单",

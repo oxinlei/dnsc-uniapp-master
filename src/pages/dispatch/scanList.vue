@@ -4,9 +4,10 @@
       <uni-list>
         <uni-list-item
           v-for="(item, index) in data"
+          :key="index"
           showArrow
           clickable
-          :title="item.goodsName"
+          :title="item.deviceName"
           @click="clickItem(item)"
         />
       </uni-list>

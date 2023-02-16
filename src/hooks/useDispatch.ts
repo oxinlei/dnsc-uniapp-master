@@ -63,6 +63,16 @@ export function useDispatch() {
       });
     });
   }
+  // 获取设备文档
+  function getGoodsDocList(classId: string) {
+    return new Promise((resolve, reject) => {
+      useGetRequest<IRepairWord>("goods_doc/getGoodsDocList", {classId: classId}).then(
+        (res) => {
+          resolve(res.data);
+        }
+      );
+    });
+  }
   return {
     state,
     getLayeredList,
@@ -70,6 +80,7 @@ export function useDispatch() {
     creatSimpleAboutRepair,
     creatDevRepair,
     creatSimpleDevRepair,
+    getGoodsDocList
   };
 }
 
@@ -95,4 +106,23 @@ export interface IRepairPrams {
   noticeUids: string; //通知人员ID集合，多个使用逗号隔开
   planUids?: string; //维修人员
   deviceId?: number; //设备id
+}
+
+export interface IRepairWord {
+  docId: number; //文档ID
+  title: string; //文档标题
+  docType: string; //文件类型
+  docSize: string; //文件大
+  docDescribe: string; //文档描述
+  classId: number; //分类ID
+  className: string; //分类名称
+  levelId: number; //上级分类ID
+  levelName: string; //上级分类
+  docUrl: string; //文档下载地址
+  previewUrl: string; //文档预览地址
+  canPreview: number; //是否支持预览
+  docStatus: number; //文档状态
+  createUserId: number; //创建人ID
+  createUserName: string; //创建人姓名
+  createTime: string; //创建时间
 }

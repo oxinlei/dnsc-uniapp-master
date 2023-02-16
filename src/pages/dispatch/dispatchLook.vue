@@ -6,7 +6,7 @@
       <ListRow isBorder title="功能位置" :content="selectDeviceData.areaName + '-' + selectDeviceData.positionName" />
       <ListRow isBorder title="设备分类" :content="selectDeviceData.className" />
       <ListRow isBorder title="设备型号" :content="selectDeviceData.models" />
-      <ListRow isBorder title="ABC分类" :content="selectDeviceData.abcLevel === 1 ? '一级' : selectDeviceData.abcLevel === 2 ? '二级' : '三级'" />
+      <ListRow isBorder title="ABC分类" :content="selectDeviceData.abcLevel === 1 ? 'A' : selectDeviceData.abcLevel === 2 ? 'B' : 'C'" />
       <ListRow isBorder title="分组名称" :content="selectDeviceData.groupName" />
       <ListRow isBorder title="运用类型" :content="selectDeviceData.typeName" />
       <ListRow isBorder title="设备规格" :content="selectDeviceData.modelSpec" />
@@ -20,10 +20,13 @@
       <ListRow isBorder title="保修期" :content="selectDeviceData.warranty + selectDeviceData.warrantyUnit" />
       <ListRow isBorder title="状态持续时间" :content="selectDeviceData.runTimer" />
       <ListRow isBorder title="保养周期(天)" :content="selectDeviceData.maintainDays" />
-      <ListRow isBorder title="使用年限(天)" :content="selectDeviceData.useYear" />
+      <ListRow isBorder title="使用年限(月)" :content="selectDeviceData.useYear" />
       <ViewImage :data="returnImgs(selectDeviceData.installImg)" />
       <uni-list>
         <uni-list-item title="历史记录" showArrow clickable @click="onClickToDevHistory()"></uni-list-item>
+      </uni-list>
+      <uni-list>
+        <uni-list-item title="文档列表" showArrow clickable @click="onClickWordList()"></uni-list-item>
       </uni-list>
     </view>
     <view class="flex-footer">
@@ -82,6 +85,11 @@ const clickToPers = (type: string) => {
 function onClickToDevHistory() {
   uni.navigateTo({
     url: `/pages/devHistory/devHistory?deviceId=${selectDeviceData.deviceId}&planType=2`,
+  });
+}
+function onClickWordList() {
+  uni.navigateTo({
+    url: `/pages/dispatch/wordList?classId=${selectDeviceData.classId}`,
   });
 }
 const returnImgs = (str: string) => {
