@@ -137,6 +137,13 @@
       }
     },
     {
+      "path": "pages/dispatch/wordLook",
+      "style": {
+        "navigationBarTitleText": "pdf预览",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/dispatch/ScanCode",
       "style": {
         "navigationBarTitleText": "维修派单",

@@ -161,7 +161,7 @@
           </uni-list-item>
         </uni-list>
       </uni-forms-item>
-      <uni-forms-item name="isSmsRemind" label="短信提醒" :required="isEdit">
+      <!-- <uni-forms-item name="isSmsRemind" label="短信提醒" :required="isEdit">
         <uni-data-checkbox
           v-model="state.formData.isSmsRemind"
           :localdata="[
@@ -169,7 +169,7 @@
             { text: '是', value: 1, disable: !isEdit },
           ]"
         />
-      </uni-forms-item>
+      </uni-forms-item> -->
       <uni-forms-item name="describe" label="故障描述" :required="isEdit">
         <uni-easyinput
           type="textarea"

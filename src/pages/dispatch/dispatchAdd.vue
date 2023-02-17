@@ -44,7 +44,7 @@ const clickSubmit = () => {
         orderImg: '',
         describe: state.formData.describe,
         orderName: state.formData.orderName,
-        isSmsRemind: state.formData.isSmsRemind,
+        isSmsRemind: 0,
         noticeUids: returnUserId(state.noticeUids).toString(),
       };
 
