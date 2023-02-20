@@ -1,6 +1,8 @@
 <template>
    <view style="width: 100%;">
     <web-view :src="state.allUrl"></web-view>
+    <!-- <canvas id="pdf-canvas"></canvas> -->
+    <!-- <iframe width="100%" height="500" scrolling="no" :src=state.allUrl></iframe> -->
   </view>
 </template>
 
@@ -9,47 +11,17 @@ import { onLoad } from "@dcloudio/uni-app";
 import { reactive } from 'vue';
 import { BASE_API } from "@/config/baseConfig";
 const state = reactive({
-  data: [] as any,
-  allUrl: '' as string
+  pdfDoc: '',
+  pdfScale: 1.0,
+  data: [],
+  fileUrl: '/static/html/web/viewer.html',
+  allUrl: ''
 });
 onLoad((opts) => {
   console.log(opts)
-  const url = decodeURIComponent(opts.url!);
-  // state.allUrl = state.fileUrl+'?file=' + BASE_API + url
-  getFile2(url)
+  state.allUrl = `${state.fileUrl}?file=${decodeURIComponent(BASE_API + opts.url)}`
+  console.log(state.allUrl)
 });
-const getFile2 = (data: any) => {
-  uni.showLoading({
-      title: '加载中',
-      mask: true
-  });
-  uni.downloadFile({
-    url: data,
-    header:{
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-    },
-    success: (result) => {
-        var tempFilePath = result.tempFilePath
-        //这里的`/hybrid/html/web/viewer.html`是pdf.js放在项目里的地址
-        //h5页面这样写即可
-        state.allUrl = `/hybrid/html/web/viewer.html?file=${tempFilePath}`;
-        //app需要特殊处理一下才行
-        // let fileUrl = plus.io.convertLocalFileSystemURL(tempFilePath)
-        // state.allUrl = `/static/pdf/web/viewer.html?file=${fileUrl}`;
-        uni.hideLoading();
-    },
-    fail: function(res) {
-      uni.hideLoading();
-      uni.showToast({
-          title: '文件下载失败，请重试',
-          icon: "none",
-          mask: true,
-          position: "center"
-      })
-    }
-  })
-}
 </script>
 <style scoped lang="scss">
 .content{

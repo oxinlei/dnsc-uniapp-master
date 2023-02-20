@@ -56,6 +56,8 @@
     "jsqr": "^1.4.0",
     "moment": "^2.29.4",
     "node-sass": "^7.0.3",
+    "pdfjs-dist": "^3.3.122",
+    "pdfjs-lib": "^0.0.149",
     "pinia": "^2.0.22",
     "pinia-plugin-persist-uni": "^1.1.5",
     "pinia-plugin-persistedstate": "^2.2.0",

@@ -3,7 +3,6 @@ import App from './App.vue';
 
 import pinia from './store';
 import * as VantUI from 'vant';
-
 import 'vant/lib/index.css';
 
 export function createApp() {
