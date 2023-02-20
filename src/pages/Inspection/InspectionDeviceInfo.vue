@@ -104,13 +104,13 @@ const checkBoxOpts =  [
 ];
 const checkBoxOpts1 = [
   {
-    text: '故障',
-    value: 2,
-  },
-  {
     text: '正常',
     value: 1,
   },
+  {
+    text: '故障',
+    value: 2,
+  }
 ];
 
 // 是否扫码入口
