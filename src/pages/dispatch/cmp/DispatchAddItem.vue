@@ -41,7 +41,7 @@
         />
       </uni-forms-item>
 
-      <uni-forms-item v-if="isExistDev" label="设备名称" name="deviceNo">
+      <uni-forms-item v-if="isExistDev" label="设备名称" name="deviceName">
         <uni-easyinput
           type="text"
           v-model="state.formData.deviceName"
