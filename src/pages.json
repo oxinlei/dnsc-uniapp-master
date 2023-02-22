@@ -190,6 +190,13 @@
       }
     },
     {
+      "path": "pages/maintain/scanList",
+      "style": {
+        "navigationBarTitleText": "设备列表",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/devHistory/devHistory",
       "style": {
         "navigationBarTitleText": "历史记录",

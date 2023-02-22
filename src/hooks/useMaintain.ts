@@ -111,6 +111,20 @@ export function useMaintain() {
       );
     });
   }
+  // 验证巡检单内项目是否完成
+  function isMaintenanceItemEnd(id: Ref<string> | string) {
+    const p = {
+      id,
+    };
+    return new Promise((resolve, reject) => {
+      useGetRequest(
+        "order_maintain/isMaintenanceItemEnd",
+        p
+      ).then((res) => {
+        resolve(res.data);
+      });
+    });
+  }
   // 抢单
   function grabbingMaintain(data: { orderId: string }) {
     return new Promise((resolve, reject) => {
@@ -145,6 +159,7 @@ export function useMaintain() {
     notCompletedSave,
     tabTitleData,
     getColleagueList,
+    isMaintenanceItemEnd,
     state,
   };
 }

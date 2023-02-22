@@ -1,5 +1,5 @@
 <template>
-  <view class="container">
+  <view class="container pb-50">
     <view class="wrap-box">
       <uni-forms
         border
@@ -16,7 +16,7 @@
         >
           <view class="flex-center">
             <uni-easyinput
-              v-if="dev.itemType !== 'bool'"
+              v-if="dev.itemType !== 'bool' && dev.itemType !== 'dict'"
               v-model="dev.itemValue"
               placeholder="请填写相关参数..."
             />
@@ -24,6 +24,19 @@
               v-if="dev.itemType === 'bool'"
               v-model="dev.itemValue"
               :localdata="checkBoxOpts"
+            />
+            <uni-data-checkbox
+              v-if="dev.itemType === 'dict'"
+              v-model="dev.itemValue"
+              :localdata="[{ text: dev.selectData[0], value: dev.selectData[0] }, { text: dev.selectData[1], value: dev.selectData[1] }]"
+            />
+          </view>
+        </uni-forms-item>
+        <uni-forms-item v-if="selectDeviceData.isFireExtinguisher === 1" label="灭火器换药时间">
+          <view class="flex-center">
+            <uni-datetime-picker
+              v-model="state.chanageDressing"
+              type="date"
             />
           </view>
         </uni-forms-item>
@@ -38,18 +51,19 @@
       </uni-forms>
     </view>
     <view
-      v-if="selectData.orderStatus === 20 && selectData.isOption === 1"
+      v-if="
+      selectData.orderStatus === 20 && selectData.isOption === 1 && isQrcode"
       class="flex-footer"
-    >
+    > 
       <uni-row class="demo-uni-row">
         <uni-col :span="11">
           <view class="demo-uni-col dark">
-            <button type="primary" @click="save">保存</button>
+            <van-button type="primary" size="normal" @click="commontSave('保存')">保存</van-button>
           </view>
         </uni-col>
         <uni-col :span="11" :offset="2">
           <view class="demo-uni-col light">
-            <button type="primary" @click="clickToDispatch">维修派单</button>
+            <van-button type="primary" size="normal" @click="commontSave('维修派单')">维修派单</van-button>
           </view>
         </uni-col>
       </uni-row>
@@ -62,13 +76,16 @@ import useMaintainStore from "@/store/useMaintainStore";
 import { storeToRefs } from "pinia";
 import { onBeforeUnmount, reactive, ref } from "vue";
 import { useMaintain } from "@/hooks/useMaintain";
-const state = reactive({});
+import { onLoad } from '@dcloudio/uni-app';
 const _ums = useMaintainStore();
 const _um = useMaintain();
 const { selectPositionData, selectDeviceData, selectData } = storeToRefs(
   _ums
 ) as any;
 const deviceData = _ums.selectDeviceData;
+const state = reactive({
+  chanageDressing: deviceData.chanageDressing
+});
 const isDevFault = ref(
   deviceData.completeStatus === 0 ? 1 : deviceData.completeStatus
 );
@@ -92,6 +109,11 @@ const checkBoxOpts1 = [
     value: 2,
   }
 ];
+// 是否扫码入口
+const isQrcode = ref('');
+onLoad((opts) => {
+  isQrcode.value = opts.isQrcode!;
+});
 
 onBeforeUnmount(() => {
   _ums.setData({
@@ -112,7 +134,7 @@ const validateForm = () => {
   return isOk;
 };
 
-const save = () => {
+const commontSave = (type: string) => {
   if (validateForm()) {
     uni.showToast({
       title: "请填写完整信息",
@@ -125,23 +147,30 @@ const save = () => {
     feedbackData: JSON.stringify(deviceData.feedbackData),
     deviceId: deviceData.deviceId,
     completeStatus: isDevFault.value,
+    chanageDressing: state.chanageDressing.replace(/\ +/g, "")
   };
 
   _um.optionItem(d).then(() => {
     selectPositionData.value.forEach((pos: any) => {
       if (pos.deviceId === deviceData.deviceId) {
-        pos.completeStatus = 1;
+        pos.completeStatus = isDevFault.value;
+        pos.feedbackData = deviceData.feedbackData
       }
     });
-    uni.navigateBack();
+    if (type === '保存') {
+      uni.navigateBack()
+    } else {
+      uni.navigateTo({
+        url: '/pages/dispatch/dispatchAdd?existDev=1'
+      })
+    }
   });
 };
-const clickToDispatch = () => {
-  uni.navigateTo({
-    url: "/pages/dispatch/dispatchAdd?existDev=1",
-  });
-};
-
+// const clickToDispatch = () => {
+//   uni.navigateTo({
+//     url: "/pages/dispatch/dispatchAdd?existDev=1",
+//   });
+// };
 // _ums.setData({ key: "selectDeviceData", value: old_data });
 </script>
 <style scoped lang="scss"></style>

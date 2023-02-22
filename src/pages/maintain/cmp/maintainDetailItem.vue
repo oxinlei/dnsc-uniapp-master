@@ -4,7 +4,7 @@
     <ListRow title="派单名称" :content="data.orderName" isBorder />
     <ListRow title="派单类型" :content="assignType" isBorder />
     <ListRow
-      title="开始时间"
+      title="派单时间"
       :content="moment(data.createTime).format('YYYY-MM-DD HH:mm')"
       isBorder
     />
@@ -51,6 +51,7 @@
         :key="oIndex"
         :name="oIndex"
         :title="order.areaName"
+        :open="true"
         thumb="/static/imgs/A/icon-1.png"
       >
         <uni-list>
@@ -89,18 +90,14 @@
     v-if="data.orderStatus === 20 && data.isOption === 1"
   >
     <uni-row class="demo-uni-row">
-      <uni-col :span="11">
-        <view class="demo-uni-col dark">
-          <button type="primary" @click="clickToPers('完成提交')">
-            完成提交
-          </button>
+      <uni-col :span="24">
+        <view v-if="state.isEnd === true" class="demo-uni-col dark">
+          <van-button type="primary" size="normal" @click="clickToPers('完成提交')">完成提交</van-button>
         </view>
       </uni-col>
-      <uni-col :span="11" :offset="2">
+      <uni-col v-if="state.isEnd === false" :span="24">
         <view class="demo-uni-col dark">
-          <button type="primary" @click="clickToPers('未完成提交')">
-            未完成提交
-          </button>
+          <van-button type="primary" size="normal" @click="clickToPers('未完成提交')">未完成提交</van-button>
         </view>
       </uni-col>
     </uni-row>
@@ -117,6 +114,17 @@
       </uni-col>
     </uni-row>
   </view>
+  <uni-popup ref="dialogSave" type="dialog">
+    <uni-popup-dialog
+      type="error"
+      cancelText="取消"
+      confirmText="确定"
+      title="提示"
+      content="本次保养未完成,您确定提交另一人执行？"
+      @confirm="clickCancel"
+      @close="hideDialog"
+    ></uni-popup-dialog>
+  </uni-popup>
 </template>
 
 <script lang="ts" setup>
@@ -126,18 +134,21 @@ import {
   useMaintain,
 } from "@/hooks/useMaintain";
 import ListRow from "@/component/ListRow.vue";
-import { computed, reactive, ref } from "vue";
+import { computed, reactive, Ref, ref  } from "vue";
 import moment from "moment";
 import useMaintainStore from "@/store/useMaintainStore";
 import { useScanCode } from "@/hooks/useScanCode";
 import { onLoad, onShow, onUnload } from "@dcloudio/uni-app";
 import { IPersonnelRes, usePersonnel } from "@/hooks/usePersonnel";
-
+import { useDebounceFn } from '@vueuse/core';
+import useScanStore from '@/store/useScanStore';
 const _ums = useMaintainStore();
 const _um = useMaintain();
 const _up = usePersonnel();
+const _uss = useScanStore();
 const state = reactive({
   colleagueIds: "",
+  isEnd: false as boolean,
   colleagueIdsData: [] as IPersonnelRes[],
   // 同班人员日志
   data: [] as IColleagueListRes[],
@@ -167,7 +178,11 @@ onLoad((opts) => {
   });
 });
 
-onShow(() => {});
+onShow(() => {
+  _um.isMaintenanceItemEnd(orderId.value!).then((res) => {
+    state.isEnd = res as boolean;
+  });
+});
 onUnload(() => {
   uni.$off("selectPersonnelTBRY");
 });
@@ -175,7 +190,7 @@ const assignType = computed(() => {
   return props.data.assignType === 0
     ? "手工派单"
     : props.data.assignType === 1
-    ? "计划派单"
+    ? "抢单式内部运维"
     : "";
 });
 const completeTimeLimit = computed(() => {
@@ -184,7 +199,7 @@ const completeTimeLimit = computed(() => {
 const onClickToDevice = (pos: any) => {
   _ums.setData({ key: "selectPositionData", value: pos });
   uni.navigateTo({
-    url: `/pages/maintain/maintainDevice`,
+    url: `/pages/maintain/maintainDevice?orderStatus=${props.data.orderStatus}&isOption=${props.data.isOption}&orderId=${orderId.value}`,
   });
 };
 const onClickToScanningCode = () => {
@@ -193,11 +208,18 @@ const onClickToScanningCode = () => {
     success: async (res) => {
       _um
         .scanMaintainQrcode({ erData: res, orderId: orderId.value })
-        .then((r) => {
-          _ums.setData({ key: "selectDeviceData", value: r });
-          uni.navigateTo({
-            url: "/pages/maintain/maintainDeviceInfo",
-          });
+        .then((r: any) => {
+          if (r.length >= 1) {
+            _uss.setData({ key: 'data', value: r });
+            uni.navigateTo({
+              url: '/pages/Inspection/scanList',
+            });
+          } else {
+            _ums.setData({ key: 'selectDeviceData', value: r });
+            uni.navigateTo({
+              url: '/pages/maintain/maintainDeviceInfo?isQrcode=1',
+            });
+          }
         });
     },
     fail(e) {
@@ -208,11 +230,26 @@ const onClickToScanningCode = () => {
     },
   });
 };
-const clickToPers = (type) => {
+const dialogSave: Ref = ref();
+const clickToPers = (type: string) => {
+  if (type === '未完成提交') {
+    dialogSave.value.open();
+  } else {
+    uni.navigateTo({
+      url: `/pages/selectPersonnel/SelectPersonnel?data=${JSON.stringify(
+        state.colleagueIdsData
+      )}&title=选择同班人员&type=${type}`,
+    });
+  }
+};
+const hideDialog = () => {
+  dialogSave.value.close();
+};
+const clickCancel = () => {
   uni.navigateTo({
     url: `/pages/selectPersonnel/SelectPersonnel?data=${JSON.stringify(
       state.colleagueIdsData
-    )}&title=选择同班人员&type=${type}`,
+    )}&title=选择同班人员&type=${'未完成提交'}`,
   });
 };
 const clickSubmit20 = (type) => {

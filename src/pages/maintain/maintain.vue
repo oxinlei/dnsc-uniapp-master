@@ -2,6 +2,26 @@
   <view class="container">
     <Tab :titleIndex="tabIndex" @change="changeTab">
       <template #content>
+        <view class="pos">
+          <uni-badge
+            v-if="state.maintainData.data[1].value"
+            :text="state.maintainData.data[1].value"
+            :is-dot="true"
+            class="abs-1"
+          />
+          <uni-badge
+            v-if="state.maintainData.data[2].value"
+            :text="state.maintainData.data[2].value"
+            :is-dot="true"
+            class="abs-2"
+          />
+          <uni-badge
+            v-if="state.maintainData.data[3].value"
+            :text="state.maintainData.data[3].value"
+            :is-dot="true"
+            class="abs-3"
+          />
+        </view>
         <view class="mt-10">
           <MaintainItem :data="state.data" />
         </view>
@@ -21,20 +41,25 @@ import {
 } from '@dcloudio/uni-app';
 import Tab from '@/component/Tab.vue';
 import useHomeStore from '@/store/useHomeStore';
+import { useHome } from '@/hooks/useHome';
 import MaintainItem from './cmp/maintainItem.vue';
 
 const _uhs = useHomeStore();
+const _uh = useHome();
 const { getOrderMaintainList, tabTitleData } = useMaintain();
 const state = reactive({
   data: [] as IMaintainRes[],
   tabTitleData: tabTitleData(),
+  maintainData: _uh.state.maintainData,
+  isLoading: true as boolean
 });
 const tabIndex = ref(_uhs.tabListIndex);
 const pageIndex = ref(1);
 provide('titleData', state.tabTitleData);
-
 onShow(() => {
+  _uh.getOrderSummary();
   pageIndex.value = 1;
+  state.isLoading = true;
   getOrderMaintainList(tabIndex.value).then((res) => {
     state.data = res as IMaintainRes[];
   });
@@ -46,14 +71,16 @@ onPullDownRefresh(async () => {
   uni.stopPullDownRefresh();
 });
 onReachBottom(async () => {
-  pageIndex.value++;
-  const res = (await getOrderMaintainList(
-    tabIndex.value,
-    pageIndex.value
-  )) as IMaintainRes[];
-  state.data = [...state.data, ...res];
+  if (state.isLoading) {
+    pageIndex.value++;
+    const res = (await getOrderMaintainList(
+      tabIndex.value,
+      pageIndex.value
+    )) as IMaintainRes[];
+    state.isLoading = res.length > 0 ? true : false
+    state.data = [...state.data, ...res];
+  }
 });
-
 const changeTab = (index: number) => {
   _uhs.setData({ key: 'tabListIndex', value: index });
   tabIndex.value = index;

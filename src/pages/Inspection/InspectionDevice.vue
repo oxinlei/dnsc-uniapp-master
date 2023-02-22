@@ -121,7 +121,7 @@ const onClickToScanningCode = () => {
           if (r.length >= 1) {
             _uss.setData({ key: 'data', value: r });
             uni.navigateTo({
-              url: '/pages/Inspection/scanList',
+              url: '/pages/maintain/scanList',
             });
           } else {
             _uis.setData({ key: 'selectDeviceData', value: r });
