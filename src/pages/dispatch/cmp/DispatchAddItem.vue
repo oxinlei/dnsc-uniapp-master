@@ -359,9 +359,8 @@ const positionOptsComputedData = () => {
     });
     tmp.push(obj);
   });
-  console.log(tmp)
   state.positionOptsComputed = tmp
-  state.formData.positionId = selectDeviceData.value.positionId === undefined ? tmp[0].value : selectDeviceData.value.positionId
+  state.formData.positionId = selectDeviceData.value.positionId === undefined ? tmp[0].children[0].value : selectDeviceData.value.positionId
   // return tmp;
 };
 const selectPersonnelType = (

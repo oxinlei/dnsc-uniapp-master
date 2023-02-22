@@ -104,18 +104,18 @@
           ></uni-data-select>
         </uni-forms-item>
 
-        <uni-forms-item name="isMove" label="是否移动">
+        <uni-forms-item name="isMove" required label="是否移动">
           <uni-data-checkbox
             v-model="state.formData.isMove"
             :localdata="[
-              { text: '否', value: 0 },
-              { text: '是', value: 1 },
+              { text: '否', value: '0' },
+              { text: '是', value: '1' },
             ]"
           />
         </uni-forms-item>
 
         <uni-forms-item
-          v-show="state.formData.isMove === 1"
+          v-show="state.formData.isMove === '1'"
           label="财务人员"
           name="financeUserId"
           @click="clickToPers('财务人员')"
@@ -185,7 +185,7 @@ const state = reactive({
     acceptUserIds: '',
     financeUserId: 0,
     engineerLevel: 5,
-    isMove: 0,
+    isMove: '' as string,
     feedbackInfo: '',
     feedbackImg: '',
     lastAcceptUserIds: '',
@@ -204,6 +204,14 @@ const state = reactive({
         {
           required: true,
           errorMessage: '请选择水厂领导',
+        },
+      ],
+    },
+    isMove: {
+      rules: [
+        {
+          required: true,
+          errorMessage: '请选择设备是否移动',
         },
       ],
     },
