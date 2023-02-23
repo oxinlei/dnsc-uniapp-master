@@ -105,10 +105,18 @@ export function useRepair() {
       });
     });
   }
-  // // 维修申请验收(正常)
+  // 维修申请验收(正常)
   function applicationAccept(data) {
     return new Promise((resolve, reject) => {
       usePostRequest("order_repair/applicationAccept", data).then((res) => {
+        resolve(res.data);
+      });
+    });
+  }
+  // 维修申请验收(简单)
+  function applicationSimpleAccept(data) {
+    return new Promise((resolve, reject) => {
+      usePostRequest("order_repair/applicationSimpleAccept", data).then((res) => {
         resolve(res.data);
       });
     });
@@ -152,6 +160,7 @@ export function useRepair() {
     lastAcceptanceOrder,
     lastRejectionOrder,
     getOrderPageListExamine,
+    applicationSimpleAccept,
     state,
   };
 }

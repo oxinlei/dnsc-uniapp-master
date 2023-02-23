@@ -23,6 +23,17 @@
       "path": "pages/home/home",
       "style": {
         "navigationBarTitleText": "首页",
+        "app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue630",
+							"fontSrc": "/static/iconFont/iconfont.ttf",
+							"fontSize": "26px",
+              "float": "right",
+							"color": "#ffffff"
+						}]
+					}
+				},
         "enablePullDownRefresh": false
       }
     },

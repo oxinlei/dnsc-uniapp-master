@@ -1,0 +1,16 @@
+{
+  "id": "400094",
+  "name": "no name",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "14151833",
+      "name": "报警",
+      "font_class": "baojing",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    }
+  ]
+}

@@ -72,13 +72,15 @@
           v-if="state.data.repairType === 1"
           label="水厂意见审核人"
           name="lastAcceptUserIds"
-          required
           @click="clickToPers('水厂意见审核人')"
         >
           <uni-list :border="false">
             <uni-list-item showArrow>
               <template #footer>
                 <view style="flex-wrap: wrap; display: flex">
+                  <view class="tag">
+                    <uni-tag :inverted="true" text="郑奋" type="primary" class="tag"></uni-tag>
+                  </view>
                   <view
                     class="tag"
                     v-for="(item, index) in state.lastAcceptUserIds"
@@ -199,14 +201,6 @@ const state = reactive({
         },
       ],
     },
-    lastAcceptUserIds: {
-      rules: [
-        {
-          required: true,
-          errorMessage: '请选择水厂意见审核人',
-        },
-      ],
-    },
     isMove: {
       rules: [
         {
@@ -317,15 +311,29 @@ const clickSubmit = () => {
       if (uploadImgs.length) {
         _uu.upload(uploadImgs).then((imgs: any) => {
           state.formData.feedbackImg = imgs.url.toString();
-          _ur.applicationAccept(state.formData).then((res) => {
-            uni.navigateBack();
-          });
+          if (state.data.repairType === 1) {
+            state.formData.lastAcceptUserIds = state.formData.lastAcceptUserIds === '' ? '14' : state.formData.lastAcceptUserIds
+            _ur.applicationSimpleAccept(state.formData).then((res) => {
+              uni.navigateBack();
+            });
+          } else {
+            _ur.applicationAccept(state.formData).then((res) => {
+              uni.navigateBack();
+            });
+          }
         });
       } else {
         state.formData.feedbackImg = '';
-        _ur.applicationAccept(state.formData).then((res) => {
-          uni.navigateBack();
-        });
+        if (state.data.repairType === 1) {
+          state.formData.lastAcceptUserIds = state.formData.lastAcceptUserIds === '' ? '14' : state.formData.lastAcceptUserIds
+          _ur.applicationSimpleAccept(state.formData).then((res) => {
+            uni.navigateBack();
+          });
+        } else {
+          _ur.applicationAccept(state.formData).then((res) => {
+            uni.navigateBack();
+          });
+        }
       }
     })
     .catch((err) => {});
