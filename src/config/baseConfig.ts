@@ -168,7 +168,7 @@ export const ORDER_STATUS_VALUE_WX = (index) => {
 			value = '待验收人员审核';
 			break;
 		case 50:
-			value = '待水厂领导审核';
+			value = '待水厂意见审核人审核';
 			break;
 		case 100:
 			value = '完成';
@@ -196,7 +196,7 @@ export const returnStatusWXStr = (orderStatus) => {
 			str = '待验收人员审核';
 			break;
 		case 50:
-			str = '待水厂领导审核';
+			str = '待水厂意见审核人审核';
 			break;
 		default:
 			str = '';

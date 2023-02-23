@@ -70,10 +70,10 @@
 
         <uni-forms-item
           v-if="state.data.repairType === 1"
-          label="水厂领导"
+          label="水厂意见审核人"
           name="lastAcceptUserIds"
           required
-          @click="clickToPers('水厂领导')"
+          @click="clickToPers('水厂意见审核人')"
         >
           <uni-list :border="false">
             <uni-list-item showArrow>
@@ -203,7 +203,7 @@ const state = reactive({
       rules: [
         {
           required: true,
-          errorMessage: '请选择水厂领导',
+          errorMessage: '请选择水厂意见审核人',
         },
       ],
     },
@@ -271,11 +271,11 @@ onLoad((opts) => {
         state.financeUserId = data.data;
         state.formData.financeUserId = data.data[0]?.userId;
         break;
-      case '水厂领导':
+      case '水厂意见审核人':
         state.lastAcceptUserIds = data.data;
-        state.formData.lastAcceptUserIds = data.data
-          .map((item) => item.userId)
-          .toString();
+        const us1 = data.data.map((item) => item.userId);
+        us1.push(14)
+        state.formData.lastAcceptUserIds = us1.toString();
         break;
     }
   });
@@ -287,7 +287,7 @@ onUnload(() => {
 });
 
 const clickToPers = (type: string) => {
-  if (type === '验收人员' || type === '水厂领导') {
+  if (type === '验收人员' || type === '水厂意见审核人') {
     uni.navigateTo({
       url: `/pages/selectPersonnel/SelectPersonnel?data=${JSON.stringify(
         state.acceptUserIdsData
