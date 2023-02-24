@@ -26,18 +26,34 @@
         "app-plus": {
 					"titleNView": {
 						"buttons": [{
+              "colorPressed": "#FD6801",
 							"text": "\ue630",
 							"fontSrc": "/static/iconFont/iconfont.ttf",
-							"fontSize": "26px",
+							"fontSize": "24px",
               "float": "right",
-							"color": "#ffffff"
+							"color": "#ffffff",
+              "signType": "code",
+              "redDot": false
 						}]
 					}
 				},
         "enablePullDownRefresh": false
       }
     },
-
+    {
+      "path": "pages/home/messageList",
+      "style": {
+        "navigationBarTitleText": "消息列表",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/home/messageDetail",
+      "style": {
+        "navigationBarTitleText": "消息详情",
+        "enablePullDownRefresh": false
+      }
+    },
     {
       "path": "pages/examine/examine",
       "style": {
@@ -198,6 +214,34 @@
         "navigationBarTitleText": "保养列表",
         "enablePullDownRefresh": true,
         "onReachBottomDistance": 50
+      }
+    },
+    {
+      "path": "pages/maintain/maintainDetail",
+      "style": {
+        "navigationBarTitleText": "保养详情 ",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/maintain/maintainDevice",
+      "style": {
+        "navigationBarTitleText": "选择保养设备 ",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/maintain/maintainDeviceInfo",
+      "style": {
+        "navigationBarTitleText": "保养条目 ",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/maintain/maintainEdit",
+      "style": {
+        "navigationBarTitleText": "保养编辑",
+        "enablePullDownRefresh": false
       }
     },
     {

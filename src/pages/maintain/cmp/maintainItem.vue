@@ -1,7 +1,7 @@
 <template>
   <uni-card
     v-for="(item, index) in data"
-    v-show="item.planType === 0"
+    v-show="item.planType === 1"
     :key="index"
     :title="item.orderName"
     margin="0 0 10px 0"

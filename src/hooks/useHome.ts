@@ -132,6 +132,14 @@ export function useHome() {
       filterRepairOrderValue(res.data);
     });
   }
+  // 获取消息记录分页列表
+  function getMessageLogPageList(params) {
+    return new Promise((resolve, reject) => {
+      useGetRequest('message_log/getMessageLogPageList', params).then((res) => {
+        resolve(res);
+      });
+    })
+  }
   // 当前运维汇总 红点
   function getOrderSummaryDot() {
     const _uhs = useHomeStore();
@@ -284,6 +292,7 @@ export function useHome() {
     tabIndexToStatus,
     getOrderTimeSummary,
     getOrderSummaryDot,
+    getMessageLogPageList,
     state,
   };
 }

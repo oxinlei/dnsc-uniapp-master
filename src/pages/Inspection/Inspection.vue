@@ -69,6 +69,7 @@ onPullDownRefresh(async () => {
     tabIndex.value
   )) as IInspectionRes[];
   state.data = res;
+  state.isLoading = true;
   uni.stopPullDownRefresh();
 });
 onReachBottom(async () => {

@@ -1,5 +1,4 @@
 import { useGetRequest, usePostRequest } from "@/hooks/useRequest";
-import { APP_CONFIG, LOCALSTORAGE_CONFIG } from "@/config/baseConfig";
 import { reactive, Ref } from "vue";
 import { useHome } from "./useHome";
 import useHomeStore from "@/store/useHomeStore";

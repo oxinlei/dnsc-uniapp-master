@@ -57,6 +57,7 @@ onPullDownRefresh(async () => {
   const res = (await _ur.getOrderPageListExamine(params)) as IRepairRes[];
   state.data = res;
   state.searchData = state.data;
+  state.isLoading = true;
   uni.stopPullDownRefresh();
 });
 onReachBottom(async () => {

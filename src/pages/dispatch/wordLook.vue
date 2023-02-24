@@ -18,9 +18,7 @@ const state = reactive({
   allUrl: ''
 });
 onLoad((opts) => {
-  console.log(opts)
   state.allUrl = `${state.fileUrl}?file=${decodeURIComponent(BASE_API + opts.url)}`
-  console.log(state.allUrl)
 });
 </script>
 <style scoped lang="scss">

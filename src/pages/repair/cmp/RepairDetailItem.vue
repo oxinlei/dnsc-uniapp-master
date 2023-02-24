@@ -11,7 +11,7 @@
       title="所在位置"
       :content="`${data.orderItem[0].areaName} - ${data.orderItem[0].positionList[0].positionName}`"
     />
-    <uni-list>
+    <uni-list v-if="data.orderItem[0].positionList[0].deviceList.length > 0">
       <uni-list-item
         title="历史维修记录"
         showArrow
@@ -248,7 +248,6 @@ const returnImgs = (str: string) => {
   return arr;
 };
 function onClickToDevHistory() {
-  console.log(props.data)
   uni.navigateTo({
     url: `/pages/devHistory/devHistory?deviceId=${props.data.orderItem[0].positionList[0].deviceList[0].deviceId}&planType=2`,
   });

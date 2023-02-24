@@ -141,9 +141,9 @@ export function useMaintain() {
     if (_uhs.tabIndex === 0) {
       return _uh.state.maintainData.data.map((item: any) => item.label);
     } else if (_uhs.tabIndex === 1) {
-      return _uh.state.repairData.data.map((item: any) => item.label);
-    } else {
       return _uh.state.maintainData.data.map((item: any) => item.label);
+    } else {
+      return _uh.state.repairData.data.map((item: any) => item.label);
     }
   }
 

@@ -14,33 +14,33 @@
           <template v-slot:footer>
             <view style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
               <view class="tag">
-                <uni-tag v-if="dev.completeStatus === 0" :inverted="true" text="未巡检" />
+                <uni-tag v-if="dev.completeStatus === 0" :inverted="true" text="未保养" />
                 <uni-tag
                   v-if="dev.completeStatus === 1"
-                  text="已巡检"
+                  text="已保养"
                   type="primary"
                 />
                 <uni-tag
                   v-if="dev.completeStatus === 2"
-                  text="已巡检"
+                  text="已保养"
                   type="error"
                 />
                 <uni-tag
                   v-if="dev.completeStatus === 3"
-                  text="无法巡检"
+                  text="无法保养"
                   type="warning"
                   :inverted="true"
                 />
               </view>
               <view v-if="dev.completeStatus === 0" @click.stop="onClickCannot(dev)" style="margin-top: 14px">
                 <uni-tag
-                  text="无法巡检"
+                  text="无法保养"
                   type="error"
                 />
               </view>
               <view v-if="state.orderStatus === '20' && state.isOption === '1' && dev.completeStatus === 0"  @click.stop="onClickToScanningCode()" style="margin-top: 14px">
                 <uni-tag
-                  text="扫码巡检"
+                  text="扫码保养"
                   type="primary"
                 />
               </view>

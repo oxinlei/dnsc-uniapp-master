@@ -68,6 +68,7 @@ onPullDownRefresh(async () => {
   pageIndex.value = 1;
   const res = (await getOrderMaintainList(tabIndex.value)) as IMaintainRes[];
   state.data = res;
+  state.isLoading = true;
   uni.stopPullDownRefresh();
 });
 onReachBottom(async () => {
@@ -91,4 +92,21 @@ const changeTab = (index: number) => {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.pos {
+  position: relative;
+  .abs-1,
+  .abs-2,
+  .abs-3 {
+    position: absolute;
+    left: 36%;
+    top: -44px;
+  }
+  .abs-2 {
+    left: 56%;
+  }
+  .abs-3 {
+    left: 76%;
+  }
+}
+</style>

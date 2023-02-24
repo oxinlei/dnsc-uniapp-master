@@ -120,7 +120,7 @@ function getOrder() {
 }
 const changeType = (r: number) => {
   state.type = r;
-  //   getOrder();
+  getOrder();
 };
 const changeDate = (r: string) => {
   state.date = r;

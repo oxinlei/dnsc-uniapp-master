@@ -50,13 +50,15 @@ const state = reactive({
   repairData: _uh.state.repairData,
   data: [] as IRepairRes[],
   tabTitleData: tabTitleData(),
+  isLoading: true as boolean
 });
 const tabIndex = ref(_uhs.tabListIndex);
 const pageIndex = ref(1);
 provide('titleData', state.tabTitleData);
-
 onShow(() => {
   _uh.getOrderSummary();
+  pageIndex.value = 1;
+  state.isLoading = true;
   getOrderPageList(tabIndex.value).then((res) => {
     state.data = res as IRepairRes[];
   });
@@ -65,15 +67,19 @@ onPullDownRefresh(async () => {
   pageIndex.value = 1;
   const res = (await getOrderPageList(tabIndex.value)) as IRepairRes[];
   state.data = res;
+  state.isLoading = true;
   uni.stopPullDownRefresh();
 });
 onReachBottom(async () => {
-  pageIndex.value++;
-  const res = (await getOrderPageList(
-    tabIndex.value,
-    pageIndex.value
-  )) as IRepairRes[];
-  state.data = [...state.data, ...res];
+  if (state.isLoading) {
+    pageIndex.value++;
+    const res = (await getOrderPageList(
+      tabIndex.value,
+      pageIndex.value
+    )) as IRepairRes[];
+    state.isLoading = res.length > 0 ? true : false
+    state.data = [...state.data, ...res];
+  }
 });
 
 const changeTab = (index: number) => {
