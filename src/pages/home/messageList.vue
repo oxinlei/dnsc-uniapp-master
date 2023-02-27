@@ -10,6 +10,7 @@
           avatar="/static/imgs/A/baojing.png"
           :note="item.msgContent"
           :time="moment(item.sendTime).format('MM-DD HH:mm')"
+          :clickable="true"
           @click="clickItem(item)"
         />
       </uni-list>
@@ -56,7 +57,7 @@ onReachBottom(async () => {
 });
 const clickItem = (item: any) => {
   uni.navigateTo({
-    url: `/pages/home/messageDetail?data=${item}`,
+    url: `/pages/home/messageDetail?data=`+ encodeURIComponent(JSON.stringify(item)),
   });
 };
 </script>

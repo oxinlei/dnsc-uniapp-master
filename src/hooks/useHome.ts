@@ -305,3 +305,10 @@ export interface IOrderSummary {
   inspectionTotal: number; //巡查超时数
   maintainTotal: number; //维保超时数
 }
+export interface MessageDetail {
+  id: string; //ID
+  msgContent: string; //短信内容
+  recipientName: string; //接收人
+  senderName: string; //发送人
+  sendTime: string; //发送时间
+}

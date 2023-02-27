@@ -44,7 +44,6 @@ const getOrderSummary = () => {
 
 // 头部报警消息点击事件
 onNavigationBarButtonTap((e) => {
-  console.log(3333333)
   uni.navigateTo({
     url: "/pages/home/messageList",
   });
