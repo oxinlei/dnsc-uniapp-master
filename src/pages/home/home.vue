@@ -44,9 +44,11 @@ const getOrderSummary = () => {
 
 // 头部报警消息点击事件
 onNavigationBarButtonTap((e) => {
-  uni.navigateTo({
-    url: "/pages/home/messageList",
-  });
+  if (e.index === 0) {
+    uni.navigateTo({
+      url: "/pages/home/messageList",
+    });
+  }
 });
 </script>
 

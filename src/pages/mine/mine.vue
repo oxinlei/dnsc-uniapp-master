@@ -5,8 +5,9 @@
   </view>
   <view class="wrap-box mt-10">
     <uni-list>
-      <uni-list-item title="用户ID" :rightText="state.data.userId.toString()" />
       <uni-list-item title="用户账号" :rightText="state.data.userName" />
+      <uni-list-item title="部门" :rightText="state.data.departmentName" />
+      <uni-list-item title="职位" :rightText="state.data.positionName" />
       <uni-list-item
         title="修改密码"
         showArrow

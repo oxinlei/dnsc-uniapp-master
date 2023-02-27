@@ -66,7 +66,7 @@ const clickScanCode = () => {
         if (r.data.length === 1) {
           _uis.setData({ key: 'selectDeviceData', value: r.data[0] });
           uni.navigateTo({
-            url: '/pages/dispatch/dispatchLook',
+            url: `/pages/dispatch/dispatchLook?isShowButton=1`,
           });
         } else {
           _uss.setData({ key: 'data', value: r.data });

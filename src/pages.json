@@ -76,6 +76,13 @@
     //   }
     // },
     {
+      "path": "pages/scan/scan",
+      "style": {
+        "navigationBarTitleText": "扫码",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/Inspection/InspectionCopy",
       "style": {
         "navigationBarTitleText": "巡检",
@@ -167,13 +174,6 @@
       "path": "pages/dispatch/wordLook",
       "style": {
         "navigationBarTitleText": "pdf预览",
-        "enablePullDownRefresh": false
-      }
-    },
-    {
-      "path": "pages/dispatch/ScanCode",
-      "style": {
-        "navigationBarTitleText": "维修派单",
         "enablePullDownRefresh": false
       }
     },
@@ -281,8 +281,6 @@
     "list": [
       {
         "pagePath": "pages/home/home",
-        // "iconPath": "static/imgs/Z/add-btn.png",
-        // "selectedIconPath": "static/imgs/Z/back.png",
         "text": "首页",
         "iconfont": {
           "text": "\ue7c6",
@@ -325,16 +323,23 @@
       //     "selectedColor": "#0093E3"
       //   }
       // },
+      // {
+      //   "pagePath": "pages/Inspection/InspectionCopy",
+      //   "text": "巡检",
+      //   "iconfont": {
+      //     "text": "\ue8ff",
+      //     "selectedText": "\ue8ff",
+      //     "fontSize": "22px",
+      //     "color": "#e6e6e6",
+      //     "selectedColor": "#0093E3"
+      //   }
+      // },
       {
-        "pagePath": "pages/Inspection/InspectionCopy",
-        "text": "巡检",
-        "iconfont": {
-          "text": "\ue8ff",
-          "selectedText": "\ue8ff",
-          "fontSize": "22px",
-          "color": "#e6e6e6",
-          "selectedColor": "#0093E3"
-        }
+        "pagePath": "pages/scan/scan",
+        "text": "扫码",
+        "fontSize": "22px",
+        "iconPath": "/static/imgs/A/icon-saoSe.png",
+        "selectedIconPath": "/static/imgs/A/icon-sao.png"
       },
       {
         "pagePath": "pages/mine/mine",

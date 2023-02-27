@@ -29,21 +29,15 @@
         <uni-list-item title="文档列表" showArrow clickable @click="onClickWordList()"></uni-list-item>
       </uni-list>
     </view>
-    <view class="flex-footer">
+    <view v-if="state.isShowButton === 1" class="flex-footer">
       <uni-row class="demo-uni-row">
         <uni-col :span="11">
           <view class="demo-uni-col dark">
-            <!-- <button type="primary" @click="clickToPers('派单')">
-              派单
-            </button> -->
             <van-button type="primary" size="normal" @click="clickToPers('派单')">派单</van-button>
           </view>
         </uni-col>
         <uni-col :span="11">
           <view class="demo-uni-col dark">
-            <!-- <button type="primary" @click="clickToPers('返回')">
-              返回
-            </button> -->
             <van-button type="primary" size="normal" @click="clickToPers('返回')">返回</van-button>
           </view>
         </uni-col>
@@ -58,9 +52,15 @@ import ListRow from "@/component/ListRow.vue";
 import ViewImage from '@/component/ViewImage.vue';
 import { BASE_API } from "@/config/baseConfig";
 import { reactive } from 'vue';
-const state = reactive({});
+import { onLoad } from "@dcloudio/uni-app";
+const state = reactive({
+  isShowButton: 0 as number
+});
 const _uis = useInspectionStore();
 const { selectDeviceData } = _uis;
+onLoad((opts: any) => {
+  state.isShowButton = opts.isShowButton
+});
 const setStateType = (type: number) => {
   switch (type) {
     case 0:

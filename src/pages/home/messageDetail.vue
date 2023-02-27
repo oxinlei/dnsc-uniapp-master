@@ -21,7 +21,6 @@ const state = reactive({
 });
 onLoad((opts: any) => {
 	state.data = JSON.parse(decodeURIComponent(opts.data))
-	console.log(state.data)
 })
 </script>
 <style scoped lang="scss">
