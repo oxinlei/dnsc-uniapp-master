@@ -1,0 +1,16 @@
+{
+  "id": "3922156",
+  "name": "水厂",
+  "font_family": "iconfont-1",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "34323572",
+      "name": "LOGO",
+      "font_class": "LOGO1",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    }
+  ]
+}

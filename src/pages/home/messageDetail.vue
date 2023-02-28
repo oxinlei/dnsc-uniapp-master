@@ -17,10 +17,10 @@ import { onLoad } from "@dcloudio/uni-app";
 import moment from "moment";
 import { MessageDetail } from "@/hooks/useHome";
 const state = reactive({
-  data: [] as MessageDetail[]
+  data: {} as MessageDetail[]
 });
-onLoad((opts: any) => {
-	state.data = JSON.parse(decodeURIComponent(opts.data))
+onLoad((opts) => {
+	state.data = JSON.parse(opts.data!)
 })
 </script>
 <style scoped lang="scss">
@@ -30,8 +30,5 @@ onLoad((opts: any) => {
 .demo-uni-row{
   display: flex;
   justify-content: space-between;
-}
-::v-deep .van-button{
-  width: 100%;
 }
 </style>

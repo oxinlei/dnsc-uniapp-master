@@ -57,7 +57,7 @@ onReachBottom(async () => {
 });
 const clickItem = (item: any) => {
   uni.navigateTo({
-    url: `/pages/home/messageDetail?data=`+ encodeURIComponent(JSON.stringify(item)),
+    url: `/pages/home/messageDetail?data=`+ JSON.stringify(item),
   });
 };
 </script>
