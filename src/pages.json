@@ -65,6 +65,17 @@
       "path": "pages/examine/examine",
       "style": {
         "navigationBarTitleText": "审核",
+        "app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue617",
+							"fontSrc": "/static/logo/iconfont.ttf",
+							"fontSize": "24px",
+              "float": "left",
+              "color": "#ffffff"
+						}]
+					}
+        },
         "enablePullDownRefresh": true
       }
     },
@@ -86,6 +97,17 @@
       "path": "pages/scan/scan",
       "style": {
         "navigationBarTitleText": "扫码",
+        "app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue617",
+							"fontSrc": "/static/logo/iconfont.ttf",
+							"fontSize": "24px",
+              "float": "left",
+              "color": "#ffffff"
+						}]
+					}
+        },
         "enablePullDownRefresh": false
       }
     },
