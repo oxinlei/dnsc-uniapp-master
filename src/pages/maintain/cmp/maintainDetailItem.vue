@@ -90,8 +90,8 @@
     v-if="data.orderStatus === 20 && data.isOption === 1"
   >
     <uni-row class="demo-uni-row">
-      <uni-col :span="24">
-        <view v-if="state.isEnd === true" class="demo-uni-col dark">
+      <uni-col v-if="state.isEnd === true" :span="24">
+        <view class="demo-uni-col dark">
           <van-button type="primary" size="normal" @click="clickToPers('完成提交')">完成提交</van-button>
         </view>
       </uni-col>
@@ -290,5 +290,8 @@ function onClickToDevHistory() {
 }
 ::v-deep .uni-collapse-item__title-box {
   padding: 0 12px;
+}
+::v-deep .van-button{
+  width: 100%;
 }
 </style>

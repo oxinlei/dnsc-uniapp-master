@@ -90,8 +90,8 @@
     v-if="data.orderStatus === 20 && data.isOption === 1"
   >
     <uni-row class="demo-uni-row">
-      <uni-col :span="24">
-        <view v-if="state.isEnd === true" class="demo-uni-col dark">
+      <uni-col v-if="state.isEnd === true" :span="24">
+        <view class="demo-uni-col dark">
           <!-- <button type="primary" @click="clickToPers('完成提交')">
             完成提交
           </button> -->
