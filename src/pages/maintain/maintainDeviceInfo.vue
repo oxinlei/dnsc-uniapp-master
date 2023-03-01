@@ -173,4 +173,11 @@ const commontSave = (type: string) => {
 // };
 // _ums.setData({ key: "selectDeviceData", value: old_data });
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+::v-deep .uni-calendar__content-mobile{
+  z-index: 999;
+}
+::v-deep .van-button{
+  width:100%;
+}
+</style>

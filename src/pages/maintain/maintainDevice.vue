@@ -143,9 +143,12 @@ const onClickToScanningCode = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 ::v-deep .uni-searchbar {
   padding: 0;
+}
+::v-deep .uni-tag--inverted{
+  width: 48px;
+  text-align: center;
 }
 </style>
