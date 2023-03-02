@@ -29,7 +29,7 @@
         <uni-list-item title="文档列表" showArrow clickable @click="onClickWordList()"></uni-list-item>
       </uni-list>
     </view>
-    <view v-if="state.isShowButton === 1" class="flex-footer">
+    <view v-if="state.isShowButton == 1" class="flex-footer">
       <uni-row class="demo-uni-row">
         <uni-col :span="11">
           <view class="demo-uni-col dark">
