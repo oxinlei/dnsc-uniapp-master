@@ -166,17 +166,21 @@ export function useHome() {
       _uhs.setData({ key: 'maintainDot', value: maintainDot });
       _uhs.setData({ key: 'repairDot', value: repairDot });
       _uhs.setData({ key: 'shenHeDot', value: shenHeDot });
-      if (shenHeDot) {
-        uni.setTabBarBadge({
-          //显示数字
-          index: 1,
-          text: shenHeDot.toString(),
-        });
-      } else {
-        uni.removeTabBarBadge({
-          index: 1,
-        });
-      }
+      useGetRequest('order/getAcceptanceOrderCount', {}).then(
+        (res: any) => {
+          if (res.count) {
+            uni.setTabBarBadge({
+              //显示数字
+              index: 1,
+              text: res.count.toString(),
+            });
+          } else {
+            uni.removeTabBarBadge({
+              index: 1,
+            });
+          }
+        }
+      );
     });
   }
   // 移动端首页运维年、月、日汇总

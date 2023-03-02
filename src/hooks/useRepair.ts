@@ -50,10 +50,18 @@ export function useRepair() {
       });
     });
   }
+  // 获取历史维修列表
+  function getOrderHistroyPageList(p: any) {
+    return new Promise((resolve, reject) => {
+      useGetRequest<IRepairRes>("order/getOrderPageList", p).then((res) => {
+        resolve(res.data);
+      });
+    });
+  }
   // 获取维修列表 (审核页面用)
   function getOrderPageListExamine(params: any) {
     return new Promise((resolve, reject) => {
-      useGetRequest<IRepairRes>("order/getOrderPageList", params).then(
+      useGetRequest<IRepairRes>("order/getAcceptanceOrderList", params).then(
         (res) => {
           resolve(res.data);
         }
@@ -161,6 +169,7 @@ export function useRepair() {
     lastRejectionOrder,
     getOrderPageListExamine,
     applicationSimpleAccept,
+    getOrderHistroyPageList,
     state,
   };
 }

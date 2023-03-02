@@ -72,13 +72,6 @@
         </view>
       </template>
     </ListRow>
-
-    <ListRow
-      isBorder
-      title="短信提醒"
-      :content="data.isSmsRemind === 0 ? '否' : '是'"
-    />
-
     <ListRow title="故障描述" :content="data.orderDescribe" />
     <ViewImage :data="returnImgs(data.orderImg)" />
   </view>
