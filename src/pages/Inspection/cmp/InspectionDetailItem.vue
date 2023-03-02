@@ -9,6 +9,7 @@
       isBorder
     />
     <ListRow title="处理时限" :content="completeTimeLimit" isBorder />
+    <ViewImage :data="returnImgs(data.orderImg)" />
     <uni-list>
       <uni-list-item
         title="历史巡检记录"
@@ -142,6 +143,8 @@ import {
 import ListRow from '@/component/ListRow.vue';
 import { computed, reactive, Ref, ref } from 'vue';
 import moment from 'moment';
+import ViewImage from '@/component/ViewImage.vue';
+import { BASE_API } from "@/config/baseConfig";
 import useInspectionStore from '@/store/useInspectionStore';
 import { useScanCode } from '@/hooks/useScanCode';
 import { onLoad, onShow, onUnload } from '@dcloudio/uni-app';
@@ -282,6 +285,15 @@ const clickSubmit30 = () => {
       uni.navigateBack();
     });
 };
+const returnImgs = (str: string) => {
+  let arr: any = [];
+  if (!str) return;
+  str.split(",").forEach((item) => {
+    item = item.replace(/^\./g, "");
+    arr.push({ url: BASE_API + item, extname: "png", name: `${item}.png` });
+  });
+  return arr;
+}
 function onClickToDevHistory() {
   uni.navigateTo({
     url: `/pages/devHistory/devHistory?deviceId=${props.data.orderItem[0].positionList[0].deviceList[0].deviceId}&planType=0`,
