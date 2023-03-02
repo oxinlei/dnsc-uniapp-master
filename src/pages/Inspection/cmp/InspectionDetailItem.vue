@@ -179,7 +179,8 @@ onLoad((opts) => {
     state.colleagueIds = data.data.map((item) => item.userId).toString();
     if (!state.colleagueIds) {
       uni.showModal({
-        title: '请选择同班人员',
+        title: '提示',
+        content: '请选择同班人员',
         showCancel: false,
       });
       return;

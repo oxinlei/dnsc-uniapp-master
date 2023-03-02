@@ -130,6 +130,14 @@ const save = () => {
     title,
     type,
   };
+  if(d.data.length === 0) {
+    uni.showModal({
+      title: '提示',
+      content: '请选择人员',
+      showCancel: false,
+    });
+    return 
+  }
   uni.$emit('selectPersonnel', d);
   // 同班人员而外处理
   uni.$emit('selectPersonnelTBRY', d);
