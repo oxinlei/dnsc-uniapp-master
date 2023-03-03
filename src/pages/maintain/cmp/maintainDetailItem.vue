@@ -291,7 +291,7 @@ const returnImgs = (str: string) => {
 }
 function onClickToDevHistory() {
   uni.navigateTo({
-    url: `/pages/devHistory/devHistory?deviceId=${props.data.orderItem[0].positionList[0].deviceList[0].deviceId}&planType=0`,
+    url: `/pages/devHistory/devHistory?deviceId=${props.data.orderItem[0].positionList[0].deviceList[0].deviceId}&planType=1`,
   });
 }
 </script>

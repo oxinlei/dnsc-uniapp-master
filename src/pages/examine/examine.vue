@@ -84,11 +84,7 @@ function returnParams(index = 1) {
     index,
     type: idx,
     key: searchValue.value
-
   } as any;
-  // if (tabIndex.value === 0) {
-    params.planType = 100;
-  // }
   return params as any;
 }
 const cancel = () => {

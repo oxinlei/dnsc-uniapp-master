@@ -1,50 +1,24 @@
 <template>
-  <view class="container">
-    <uni-card
-      v-for="(item, index) in state.data"
-      :key="index"
-      :title="item.orderName"
-      margin="0 0 10px 0"
-      padding="0"
-    >
-      <ListRow
-        isBorder
-        :title="`${state.type}人员`"
-        :content="item.completeUserName"
-      />
-      <ListRow isBorder title="订单编号" :content="item.orderId" />
-      <ListRow
-        isBorder
-        title="完成时间"
-        :content="moment(item.completeTime).format('MM-DD HH:mm')"
-      />
-      <ListRow isBorder title="设备名称" :content="item.deviceName" />
-      <ListRow isBorder title="所在位置" :content="item.areaName + '-' + item.positionName" />
-      <uni-collapse accordion>
-        <uni-collapse-item :title="`${state.type}内容`">
-          <uni-list @click="feedbackData(item)">
-            <uni-list-item
-              v-for="(order, oIndex) in item.feedbackData"
-              :key="oIndex"
-              thumb="/static/imgs/A/icon-2.png"
-              :title="order.itemTitle"
-            />
-          </uni-list>
-        </uni-collapse-item>
-      </uni-collapse>
-    </uni-card>
+  <view class="content">
+    <view class="wrap-box">
+      <uni-list>
+        <uni-list-item v-for="(item, index) in state.data" :key="index" showArrow clickable :title="item.deviceName" @click="clickItem(item)" />
+      </uni-list>
+    </view>
   </view>
 </template>
 
 <script lang="ts" setup>
 import { useDevHistory } from "@/hooks/useDevHistory";
-import { IRepairRes } from "@/hooks/useRepair";
+import { useRepair, IRepairRes } from "@/hooks/useRepair";
 import { onLoad } from "@dcloudio/uni-app";
 import { reactive } from "vue";
 import useInspectionStore from "@/store/useInspectionStore";
-import moment from "moment";
-import ListRow from "@/component/ListRow.vue";
-
+import { useInspection, IInspectionRes } from "@/hooks/useInspection";
+import { useMaintain, IMaintainRes } from "@/hooks/useMaintain";
+const { getOrderHistroyPageList } = useRepair();
+const { getOrderInspection } = useInspection();
+const { getOrderMaintain } = useMaintain();
 const state = reactive({
   data: [] as any[],
   type: "",
@@ -75,12 +49,36 @@ onLoad((opts) => {
       });
   }
 });
-const feedbackData = (item: any) => {
-  _uis.setData({ key: "selectDeviceData", value: item });
-  uni.navigateTo({
-    url: `/pages/Inspection/InspectionDeviceInfo`,
-  });
-};
+function clickItem(item: any) {
+  if (state.type === '维修') {
+    getOrderHistroyPageList({ orderStatus: item.orderStatus, field: 'orderCode', key: item.orderId }).then((res) => {
+      let dataList = res as IRepairRes[];
+      uni.navigateTo({
+        url: `/pages/devHistory/devHistoryDetail?data=${JSON.stringify(
+          dataList[0]
+        )}`,
+      });
+    });
+  } else if (state.type === '巡检') {
+    getOrderInspection(item.orderId).then((res) => {
+      let dataList = res as IInspectionRes[];
+      uni.navigateTo({
+        url: `/pages/devHistory/devHistoryPolling?data=${JSON.stringify(
+          dataList
+        )}&planType=${state.type}`,
+      });
+    });
+  } else if (state.type === '保养') {
+    getOrderMaintain(item.orderId).then((res) => {
+      let dataList = res as IMaintainRes[];
+      uni.navigateTo({
+        url: `/pages/devHistory/devHistoryPolling?data=${JSON.stringify(
+          dataList
+        )}&planType=${state.type}`,
+      });
+    });
+  }
+}
 </script>
 <style scoped lang="scss">
 .box {

@@ -176,6 +176,7 @@ export function useRepair() {
 
 export interface IRepairRes {
   id: string;
+  acceptances: Array<any>;
   orderCode: string; //单号（通用）
   planType: number; //运维类型（通用）0：巡检 1：保养 2:维修
   repairType: number; //维修类型（维修）0：正常维修 1：简单维修

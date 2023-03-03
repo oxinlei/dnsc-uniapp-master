@@ -97,17 +97,6 @@
       "path": "pages/scan/scan",
       "style": {
         "navigationBarTitleText": "扫码",
-        "app-plus": {
-					"titleNView": {
-						"buttons": [{
-							"text": "\ue617",
-							"fontSrc": "/static/logo/iconfont.ttf",
-							"fontSize": "24px",
-              "float": "left",
-              "color": "#ffffff"
-						}]
-					}
-        },
         "enablePullDownRefresh": false
       }
     },
@@ -269,7 +258,21 @@
     {
       "path": "pages/devHistory/devHistory",
       "style": {
-        "navigationBarTitleText": "历史记录",
+        "navigationBarTitleText": "历史记录列表",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/devHistory/devHistoryDetail",
+      "style": {
+        "navigationBarTitleText": "历史记录详情",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/devHistory/devHistoryPolling",
+      "style": {
+        "navigationBarTitleText": "历史记录详情",
         "enablePullDownRefresh": false
       }
     },
