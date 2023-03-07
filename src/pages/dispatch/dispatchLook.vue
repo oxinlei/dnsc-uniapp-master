@@ -32,7 +32,7 @@
         <uni-list-item title="历史维修记录" showArrow clickable @click="onClickToDevHistory(2)"></uni-list-item>
       </uni-list>
       <uni-list>
-        <uni-list-item title="文档列表" showArrow clickable @click="onClickWordList()"></uni-list-item>
+        <uni-list-item title="设备文档列表" showArrow clickable @click="onClickWordList()"></uni-list-item>
       </uni-list>
     </view>
     <view v-if="state.isShowButton == 1" class="flex-footer">
