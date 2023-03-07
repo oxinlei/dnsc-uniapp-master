@@ -20,6 +20,24 @@
         >
           抢单
         </button>
+        <button
+          v-if="item.isOption === 1 && item.orderStatus === 20"
+          class="mini-btn"
+          type="primary"
+          size="mini"
+          @click="clickToDetail(item)"
+        >
+          执行
+        </button>
+        <button
+          v-if="item.isOption === 1 && item.orderStatus === 30"
+          class="mini-btn"
+          type="primary"
+          size="mini"
+          @click="clickToDetail(item)"
+        >
+          验收
+        </button>
       </view>
     </template>
     <view class="box">
