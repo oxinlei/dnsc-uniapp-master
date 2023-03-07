@@ -23,7 +23,13 @@
       <ListRow isBorder title="保修期" :content="selectDeviceData.warranty + selectDeviceData.warrantyUnit" />
       <ViewImage :data="returnImgs(selectDeviceData.installImg)" />
       <uni-list>
-        <uni-list-item title="历史维修记录" showArrow clickable @click="onClickToDevHistory()"></uni-list-item>
+        <uni-list-item title="历史巡检记录" showArrow clickable @click="onClickToDevHistory(0)"></uni-list-item>
+      </uni-list>
+      <uni-list>
+        <uni-list-item title="历史保养记录" showArrow clickable @click="onClickToDevHistory(1)"></uni-list-item>
+      </uni-list>
+      <uni-list>
+        <uni-list-item title="历史维修记录" showArrow clickable @click="onClickToDevHistory(2)"></uni-list-item>
       </uni-list>
       <uni-list>
         <uni-list-item title="文档列表" showArrow clickable @click="onClickWordList()"></uni-list-item>
@@ -82,10 +88,20 @@ const clickToPers = (type: string) => {
     uni.navigateBack()
   }
 }
-function onClickToDevHistory() {
-  uni.navigateTo({
-    url: `/pages/devHistory/devHistory?deviceId=${selectDeviceData.deviceId}&planType=2`,
-  });
+function onClickToDevHistory(type: number) {
+  if (type === 0) {
+    uni.navigateTo({
+      url: `/pages/devHistory/devHistory?deviceId=${selectDeviceData.deviceId}&planType=0`,
+    });
+  } else if (type === 1) {
+    uni.navigateTo({
+      url: `/pages/devHistory/devHistory?deviceId=${selectDeviceData.deviceId}&planType=1`,
+    });
+  } else {
+    uni.navigateTo({
+      url: `/pages/devHistory/devHistory?deviceId=${selectDeviceData.deviceId}&planType=2`,
+    });
+  }
 }
 function onClickWordList() {
   uni.navigateTo({
