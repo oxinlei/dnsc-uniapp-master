@@ -48,7 +48,7 @@
         <text>
           派单时间：{{ moment(item.createTime).format("MM-DD HH:mm") }}
         </text>
-        <text v-if="!isExamine"> 派单名称：{{ item.orderName }} </text>
+        <!-- <text v-if="!isExamine"> 派单名称：{{ item.orderName }} </text> -->
         <text v-if="(item.orderItem[0].positionList[0].deviceList.length > 0)"> 设备名称：{{ item.orderItem[0].positionList[0].deviceList[0].deviceName }} </text>
         <text>
           所在位置：{{ item.orderItem[0].areaName }} -

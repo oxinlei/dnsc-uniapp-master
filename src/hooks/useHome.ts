@@ -303,11 +303,9 @@ export function useHome() {
 
 export interface IOrderSummary {
   total: number; //运维单总数
-  timeliness: number; //及时率
-  completeRate: number; //完成率
-  overtimeTotal: number; //超时总数
-  inspectionTotal: number; //巡查超时数
-  maintainTotal: number; //维保超时数
+  serviceScore: number; //服务分
+  mainOvertime: number; //运维超时数
+  repairOvertime: number; //维修超时数
 }
 export interface MessageDetail {
   id: string; //ID

@@ -52,6 +52,9 @@ const changeTab = (index: number) => {
 </script>
 
 <style scoped lang="scss">
+::v-deep .segmented-control{
+  height: 42px !important;
+}
 .pos {
   position: relative;
   .abs-1,
@@ -59,7 +62,7 @@ const changeTab = (index: number) => {
   .abs-3 {
     position: absolute;
     left: 28%;
-    top: -30px;
+    top: -36px;
   }
   .abs-2 {
     left: 62%;

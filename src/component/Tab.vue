@@ -30,7 +30,4 @@ const onClickItem = ({ currentIndex }: { currentIndex: number }) => {
 .item {
   border-bottom: 1px solid $uni-border-color;
 }
-
-.content {
-}
 </style>

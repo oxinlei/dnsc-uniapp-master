@@ -74,4 +74,7 @@ const clickTabItem = (item: { index: number; label: string }) => {
 .item {
   border-bottom: 1px solid $uni-border-color;
 }
+::v-deep .uni-section .uni-section-header{
+  padding: 16px 10px;
+}
 </style>

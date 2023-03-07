@@ -23,7 +23,7 @@
       <ListRow isBorder title="保修期" :content="selectDeviceData.warranty + selectDeviceData.warrantyUnit" />
       <ViewImage :data="returnImgs(selectDeviceData.installImg)" />
       <uni-list>
-        <uni-list-item title="历史记录" showArrow clickable @click="onClickToDevHistory()"></uni-list-item>
+        <uni-list-item title="历史维修记录" showArrow clickable @click="onClickToDevHistory()"></uni-list-item>
       </uni-list>
       <uni-list>
         <uni-list-item title="文档列表" showArrow clickable @click="onClickWordList()"></uni-list-item>

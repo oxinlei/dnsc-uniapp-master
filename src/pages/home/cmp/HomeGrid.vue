@@ -50,44 +50,38 @@ const state = reactive({
   typeOps: [
     {
       value: 2,
-      text: "日报",
+      text: "日汇总",
     },
     {
       value: 1,
-      text: "月报",
+      text: "月汇总",
     },
+    {
+      value: 0,
+      text: "年汇总",
+    }
   ],
   date: moment(new Date()).format("YYYY-MM-DD"),
   gridData: [
     {
       title: "总数",
       value: 1,
-      url: "/static/imgs/Z/statistics-bg1.png",
+      url: "/static/imgs/Z/bg1.png",
     },
     {
-      title: "及时率",
+      title: "服务分",
       value: 100,
-      url: "/static/imgs/Z/statistics-bg2.png",
+      url: "/static/imgs/Z/bg2.png",
     },
     {
-      title: "完成率",
-      value: 100,
-      url: "/static/imgs/Z/statistics-bg3.png",
-    },
-    {
-      title: "超时",
+      title: "巡检超时",
       value: 1,
-      url: "/static/imgs/Z/statistics-bg4.png",
+      url: "/static/imgs/Z/bg5.png",
     },
     {
-      title: "巡查",
-      value: 1,
-      url: "/static/imgs/Z/statistics-bg5.png",
-    },
-    {
-      title: "维保超时",
+      title: "维修超时",
       value: 0,
-      url: "/static/imgs/Z/statistics-bg6.png",
+      url: "/static/imgs/Z/bg6.png",
     },
   ],
 });
@@ -96,7 +90,7 @@ onLoad(() => {
   getOrder();
 });
 function getOrder() {
-  const d = state.type === 1 ? state.date.slice(0, 7) : state.date;
+  const d = state.type === 1 ? state.date.slice(0, 7) : state.type === 0 ? state.date.slice(0, 4) : state.date;
   const p = {
     type: state.type,
     date: d,
@@ -104,18 +98,14 @@ function getOrder() {
   _uh.getOrderTimeSummary(p).then((res) => {
     const {
       total,
-      timeliness,
-      completeRate,
-      overtimeTotal,
-      inspectionTotal,
-      maintainTotal,
+      serviceScore,
+      mainOvertime,
+      repairOvertime
     } = res as IOrderSummary;
     state.gridData[0].value = total;
-    state.gridData[1].value = timeliness;
-    state.gridData[2].value = completeRate;
-    state.gridData[3].value = overtimeTotal;
-    state.gridData[4].value = inspectionTotal;
-    state.gridData[5].value = maintainTotal;
+    state.gridData[1].value = serviceScore;
+    state.gridData[2].value = mainOvertime;
+    state.gridData[3].value = repairOvertime;
   });
 }
 const changeType = (r: number) => {
@@ -135,13 +125,16 @@ const changeDate = (r: string) => {
 
 .grid-box {
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .image {
   width: 100%;
-  height: 200rpx;
-  background-size: 100% 200rpx !important;
+  height: 178rpx;
+  background-size: 100% 178rpx !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -158,9 +151,17 @@ const changeDate = (r: string) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 33.3%;
+  width: 49.8%;
 }
-
+.grid-item-box:nth-child(1),.grid-item-box:nth-child(2){
+  margin-bottom: 1px;
+}
+.grid-item-box:nth-child(3){
+  border-bottom-left-radius: 10px;
+}
+.grid-item-box:nth-child(4){
+  border-bottom-right-radius: 10px;
+}
 .title {
   padding: 5px;
   background-color: #fff;
