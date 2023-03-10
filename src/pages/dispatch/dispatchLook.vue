@@ -17,6 +17,8 @@
       <ListRow isBorder title="上次保养时间" :content="selectDeviceData.maintainLastData" />
       <ListRow isBorder title="下次保养时间" :content="selectDeviceData.maintainNextDate" />
       <ListRow isBorder title="状态持续时间" :content="selectDeviceData.runTimer" />
+      <ListRow isBorder title="备品配件名称" :content="" />
+      <ListRow isBorder title="备品配件库存" :content="" />
       <ListRow isBorder title="保养周期(天)" :content="selectDeviceData.maintainDays" />
       <ListRow isBorder title="使用年限(月)" :content="selectDeviceData.useYear" />
       <ListRow isBorder title="制造商" :content="selectDeviceData.manufacturer" />
