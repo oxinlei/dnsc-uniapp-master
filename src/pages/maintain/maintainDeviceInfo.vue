@@ -84,7 +84,7 @@ const { selectPositionData, selectDeviceData, selectData } = storeToRefs(
 ) as any;
 const deviceData = _ums.selectDeviceData;
 const state = reactive({
-  chanageDressing: deviceData.chanageDressing
+  chanageDressing: deviceData.chanageDressing ? deviceData.chanageDressing : ''
 });
 const isDevFault = ref(
   deviceData.completeStatus === 0 ? 1 : deviceData.completeStatus

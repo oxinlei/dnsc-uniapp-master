@@ -28,7 +28,7 @@
       >
         <view
           class="image"
-          :style="1 ? `background: url('${item.url}') no-repeat;` : ''"
+          :style="`background: url('${item.url}') no-repeat;`"
         >
           <text class="text">{{ item.value }}</text>
           <text class="text">{{ item.title }}</text>
@@ -66,22 +66,22 @@ const state = reactive({
     {
       title: "总数",
       value: 1,
-      url: "/static/imgs/Z/bg1.png",
+      url: "../../static/imgs/Z/bg1.png",
     },
     {
       title: "服务分",
       value: 100,
-      url: "/static/imgs/Z/bg2.png",
+      url: "../../static/imgs/Z/bg2.png",
     },
     {
       title: "巡检超时",
       value: 1,
-      url: "/static/imgs/Z/bg5.png",
+      url: "../../static/imgs/Z/bg3.png",
     },
     {
       title: "维修超时",
       value: 0,
-      url: "/static/imgs/Z/bg6.png",
+      url: "../../static/imgs/Z/bg4.png",
     },
   ],
 });
@@ -154,7 +154,7 @@ const changeDate = (r: string) => {
   width: 49.8%;
 }
 .grid-item-box:nth-child(1),.grid-item-box:nth-child(2){
-  margin-bottom: 1px;
+  margin-bottom: 1.5px;
 }
 .grid-item-box:nth-child(3){
   border-bottom-left-radius: 10px;
