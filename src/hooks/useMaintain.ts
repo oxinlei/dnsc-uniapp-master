@@ -139,7 +139,7 @@ export function useMaintain() {
   // 返回tabTitle数据
   function tabTitleData() {
     if (_uhs.tabIndex === 0) {
-      return _uh.state.maintainData.data.map((item: any) => item.label);
+      return _uh.state.inspectionData.data.map((item: any) => item.label);
     } else if (_uhs.tabIndex === 1) {
       return _uh.state.maintainData.data.map((item: any) => item.label);
     } else {

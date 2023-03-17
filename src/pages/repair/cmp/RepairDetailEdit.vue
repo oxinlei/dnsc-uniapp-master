@@ -8,12 +8,12 @@
       label-width="100px"
       border
     >
-      <uni-forms-item label="提交部门">
+      <!-- <uni-forms-item label="提交部门">
         <uni-data-select
           v-model="state.value"
           :localdata="state.departmentOld"
         ></uni-data-select>
-      </uni-forms-item>
+      </uni-forms-item> -->
       <uni-forms-item
         label="选择班长"
         name="chargeUserId"

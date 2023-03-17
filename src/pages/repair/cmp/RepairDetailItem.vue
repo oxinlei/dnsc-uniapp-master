@@ -20,7 +20,7 @@
       >
       </uni-list-item>
     </uni-list>
-    <ListRow v-if="data.orderStatus >= 10 && data.repairType === 0" isBorder title="提交部门" :content="'设备部'" />
+    <!-- <ListRow v-if="data.orderStatus >= 10 && data.repairType === 0" isBorder title="提交部门" :content="'设备部'" /> -->
     <ListRow isBorder v-if="data.repairType === 0" title="审核人员" content="">
       <template #content>
         <view style="flex-wrap: wrap; display: flex">

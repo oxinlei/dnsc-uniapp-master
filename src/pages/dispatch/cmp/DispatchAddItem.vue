@@ -405,8 +405,17 @@ const clickToPers = (type: string) => {
   const d = {
     title: type,
   };
-  const res = selectPersonnelType(d, true);
-
+  let res = [] as any;
+  if (type === '通知人员') {
+    let people: any = selectPersonnelType(d, true);
+    people.forEach((item: any) => {
+      if (item.roleId === 13 || item.roleId === 11) {
+        res.push(item)
+      }
+    });
+  } else {
+    res = selectPersonnelType(d, true)
+  }
   uni.navigateTo({
     url: `/pages/selectPersonnel/SelectPersonnel?data=${JSON.stringify(
       res

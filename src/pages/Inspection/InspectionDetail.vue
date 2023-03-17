@@ -4,7 +4,7 @@
       <template #content>
         <view v-show="tabIndex === 0">
           <view class="mt-10">
-            <InspectionDetailItem :data="state.data" />
+            <InspectionDetailItem ref="FavoriteRef" :data="state.data" />
           </view>
         </view>
         <view class="wrap-box mt-10" v-show="tabIndex === 1">
@@ -38,14 +38,19 @@ const _uis = useInspectionStore();
 const { getOrderInspection, getMaintenanceLogList } = useInspection();
 const state = reactive({
   data: {} as IInspectionRes,
+  finishedItem: {},
+  notFinishedItem: {},
+  faultDevList: {},
+  notOptionDevList: {},
   logData: [] as IInspectionLogRes[],
 });
 let _params = {} as { title: string; id: string };
-
+const FavoriteRef = ref();
 onShow(() => {
-  getOrderInspection(_params.id).then((res) => {
-    _uis.setData({ key: "selectData", value: res });
-    state.data = res as IInspectionRes;
+  getOrderInspection(_params.id).then((res: any) => {
+    _uis.setData({ key: "selectData", value: res.data });
+    state.data = res.data as IInspectionRes;
+    FavoriteRef.value.getFavoriteList(res)
   });
 });
 onLoad((opts) => {

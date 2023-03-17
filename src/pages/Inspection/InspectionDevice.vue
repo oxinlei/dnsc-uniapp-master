@@ -6,13 +6,21 @@
         <uni-list-item
           v-for="(dev, index) in state.searchData"
           :key="index"
-          :title="'设备名称：' + dev.deviceName"
           showArrow
           clickable
           @click="onClickToDevDetail(dev)"
         >
+          <template v-slot:body>
+            <view style="display: flex;flex-direction: column;align-items: flex-start;justify-content: center;width: 65%;">
+              <view class="slot-box slot-text">{{ '设备名称：' + dev.deviceName }}</view>
+              <view style="display: flex;margin-top: 14px">
+                <button v-if="dev.completeStatus === 0" style="margin-right: 20px;" type="warn" size="mini" @click.stop="onClickCannot(dev)">无法巡检</button>
+                <button v-if="state.orderStatus === '20' && state.isOption === '1' && dev.completeStatus === 0" type="primary" size="mini" @click.stop="onClickToScanningCode()">扫码巡检</button>
+              </view>
+            </view>
+          </template>
           <template v-slot:footer>
-            <view style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
+            <view style="display: flex;flex-direction: column;align-items: center;justify-content: center;margin-left: 10px;">
               <view class="tag">
                 <uni-tag v-if="dev.completeStatus === 0" :inverted="true" text="未巡检" />
                 <uni-tag
@@ -32,18 +40,6 @@
                   text="无法巡检"
                   type="warning"
                   :inverted="true"
-                />
-              </view>
-              <view v-if="dev.completeStatus === 0" @click.stop="onClickCannot(dev)" style="margin-top: 14px">
-                <uni-tag
-                  text="无法巡检"
-                  type="error"
-                />
-              </view>
-              <view v-if="state.orderStatus === '20' && state.isOption === '1' && dev.completeStatus === 0"  @click.stop="onClickToScanningCode()" style="margin-top: 14px">
-                <uni-tag
-                  text="扫码巡检"
-                  type="primary"
                 />
               </view>
             </view>
@@ -153,5 +149,10 @@ const onClickToScanningCode = () => {
 ::v-deep .uni-tag--inverted{
   width: 48px;
   text-align: center;
+}
+::v-deep .container--right{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

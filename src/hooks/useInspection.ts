@@ -38,7 +38,7 @@ export function useInspection() {
         "order_inspection/getOrderInspection",
         p
       ).then((res) => {
-        resolve(res.data);
+        resolve(res);
       });
     });
   }
