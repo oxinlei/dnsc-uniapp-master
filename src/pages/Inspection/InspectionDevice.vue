@@ -11,10 +11,10 @@
           @click="onClickToDevDetail(dev)"
         >
           <template v-slot:body>
-            <view style="display: flex;flex-direction: column;align-items: flex-start;justify-content: center;width: 65%;">
+            <view style="display: flex;flex-direction: column;align-items: flex-start;justify-content: center;width: 70%;">
               <view class="slot-box slot-text">{{ '设备名称：' + dev.deviceName }}</view>
               <view style="display: flex;margin-top: 14px">
-                <button v-if="dev.completeStatus === 0" style="margin-right: 20px;" type="warn" size="mini" @click.stop="onClickCannot(dev)">无法巡检</button>
+                <button v-if="dev.completeStatus === 0" style="margin-right: 12px;" type="warn" size="mini" @click.stop="onClickCannot(dev)">无法巡检</button>
                 <button v-if="state.orderStatus === '20' && state.isOption === '1' && dev.completeStatus === 0" type="primary" size="mini" @click.stop="onClickToScanningCode()">扫码巡检</button>
               </view>
             </view>

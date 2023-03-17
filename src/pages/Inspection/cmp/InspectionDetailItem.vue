@@ -303,28 +303,32 @@ function onClickToDevHistory() {
   });
 }
 const onClickItem = ({ currentIndex }: { currentIndex: number }) => {
- if (props.data.orderStatus === 20 ) {
+  state.titleIndex = currentIndex
+  onClickItemIndex(currentIndex, props.data.orderStatus)
+};
+function onClickItemIndex (currentIndex: Number, orderStatus: Number) {
+  if (orderStatus === 20 ) {
    if (currentIndex === 0) {
     state.commonData = state.notFinishedItem
    } else {
     state.commonData = state.finishedItem
    }
  } 
- else if (props.data.orderStatus === 30) {
+ else if (orderStatus === 30) {
   if (currentIndex === 0) {
     state.commonData = state.faultDevList
    } else {
     state.commonData = state.optionDevList
    }
  }
-};
+}
 function getFavoriteList (data: any) {
-  state.commonData = data.notFinishedItem
   state.finishedItem = data.finishedItem
   state.notFinishedItem = data.notFinishedItem
   state.faultDevList = data.faultDevList
   state.optionDevList = data.optionDevList
   state.titleData = data.data.orderStatus === 20 ? ['待巡检', '已巡检'] : ['异常设备', '正常设备']
+  onClickItemIndex(state.titleIndex, data.data.orderStatus)
 }
 defineExpose({
 getFavoriteList
