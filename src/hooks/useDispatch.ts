@@ -66,7 +66,17 @@ export function useDispatch() {
   // 获取设备文档
   function getGoodsDocList(classId: string) {
     return new Promise((resolve, reject) => {
-      useGetRequest<IRepairWord>("goods_doc/getGoodsDocList", {classId: classId}).then(
+      useGetRequest<IRepairWord>("goods_doc/getGoodsDocList", { classId: classId }).then(
+        (res) => {
+          resolve(res.data);
+        }
+      );
+    });
+  }
+   // 获取备品配件
+   function getMaterialList(deviceId: number) {
+    return new Promise((resolve, reject) => {
+      useGetRequest<any>("device/getRelevanceMaterialList", { deviceId: deviceId }).then(
         (res) => {
           resolve(res.data);
         }
@@ -80,7 +90,8 @@ export function useDispatch() {
     creatSimpleAboutRepair,
     creatDevRepair,
     creatSimpleDevRepair,
-    getGoodsDocList
+    getGoodsDocList,
+    getMaterialList
   };
 }
 

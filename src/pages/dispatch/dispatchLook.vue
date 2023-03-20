@@ -24,6 +24,12 @@
       <ListRow isBorder title="制造商" :content="selectDeviceData.manufacturer" />
       <ListRow isBorder title="保修期" :content="selectDeviceData.warranty + selectDeviceData.warrantyUnit" />
       <ViewImage :data="returnImgs(selectDeviceData.installImg)" />
+      <uni-collapse v-for="(item, oIndex) in state.materialList" :key="oIndex" accordion>
+        <uni-collapse-item :title="`备品配件名称：${item.materialName}`">
+          <ListRow isBorder title="备品配件编号" :content="item.materialNo" />
+          <ListRow isBorder title="备品配件库存" :content="item.stockNum" />
+        </uni-collapse-item>
+      </uni-collapse>
       <uni-list>
         <uni-list-item title="历史巡检记录" showArrow clickable @click="onClickToDevHistory(0)"></uni-list-item>
       </uni-list>
@@ -61,13 +67,19 @@ import ViewImage from '@/component/ViewImage.vue';
 import { BASE_API } from "@/config/baseConfig";
 import { reactive } from 'vue';
 import { onLoad } from "@dcloudio/uni-app";
+import { useDispatch } from '@/hooks/useDispatch';
+const _ud = useDispatch();
 const state = reactive({
+  materialList: [] as any,
   isShowButton: 0 as number
 });
 const _uis = useInspectionStore();
 const { selectDeviceData } = _uis;
 onLoad((opts: any) => {
   state.isShowButton = opts.isShowButton
+  _ud.getMaterialList(selectDeviceData.deviceId).then((res: any) => {
+    state.materialList = res
+  });
 });
 const setStateType = (type: number) => {
   switch (type) {

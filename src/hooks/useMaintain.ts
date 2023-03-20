@@ -35,7 +35,7 @@ export function useMaintain() {
     return new Promise((resolve, reject) => {
       useGetRequest<IMaintainRes>("order_maintain/getOrderMaintain", p).then(
         (res) => {
-          resolve(res.data);
+          resolve(res);
         }
       );
     });

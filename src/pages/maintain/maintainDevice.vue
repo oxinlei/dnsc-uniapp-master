@@ -11,37 +11,36 @@
           clickable
           @click="onClickToDevDetail(dev)"
         >
+        <template v-slot:body>
+            <view style="display: flex;flex-direction: column;align-items: flex-start;justify-content: center;width: 70%;">
+              <view class="slot-box slot-text">{{ '设备名称：' + dev.deviceName }}</view>
+              <view style="display: flex;margin-top: 14px">
+                <button v-if="dev.completeStatus === 0" style="margin-right: 12px;" type="warn" size="mini" @click.stop="onClickCannot(dev)">无法保养</button>
+                <button v-if="state.orderStatus === '20' && state.isOption === '1'" type="primary" size="mini" @click.stop="onClickToScanningCode()">扫码保养</button>
+              </view> <!-- && dev.completeStatus === 0 加这个判断是未巡检显示扫码按钮    现在去掉是都显示-->
+            </view>
+          </template>
           <template v-slot:footer>
-            <view style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
+            <view style="display: flex;flex-direction: column;align-items: center;justify-content: center;margin-left: 10px;">
               <view class="tag">
                 <uni-tag v-if="dev.completeStatus === 0" :inverted="true" text="未保养" />
                 <uni-tag
                   v-if="dev.completeStatus === 1"
                   text="已保养"
                   type="primary"
+                  :inverted="true"
                 />
                 <uni-tag
                   v-if="dev.completeStatus === 2"
                   text="已保养"
                   type="error"
+                  :inverted="true"
                 />
                 <uni-tag
                   v-if="dev.completeStatus === 3"
                   text="无法保养"
                   type="warning"
                   :inverted="true"
-                />
-              </view>
-              <view v-if="dev.completeStatus === 0" @click.stop="onClickCannot(dev)" style="margin-top: 14px">
-                <uni-tag
-                  text="无法保养"
-                  type="error"
-                />
-              </view>
-              <view v-if="state.orderStatus === '20' && state.isOption === '1' && dev.completeStatus === 0"  @click.stop="onClickToScanningCode()" style="margin-top: 14px">
-                <uni-tag
-                  text="扫码保养"
-                  type="primary"
                 />
               </view>
             </view>

@@ -91,7 +91,7 @@ const state = reactive({
 const isDevFault = ref(
   deviceData.completeStatus === 0 ? 1 : deviceData.completeStatus
 );
-// const chanageDressing = ref(deviceData.chanageDressing)
+console.log(selectData)
 const checkBoxOpts =  [
   {
     text: '是',

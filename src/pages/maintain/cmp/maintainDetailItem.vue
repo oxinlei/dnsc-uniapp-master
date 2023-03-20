@@ -47,8 +47,11 @@
   </view>
   <view class="wrap-box">
     <uni-collapse accordion>
+      <view v-if="data.orderStatus === 20 && data.isOption === 1" class="tag">
+        <button class="mini-btn" type="primary" size="mini" @click.stop="onClickToScanningCode">扫码保养</button>
+      </view>
       <uni-collapse-item
-        v-for="(order, oIndex) in data.orderItem"
+        v-for="(order, oIndex) in state.commonData"
         :key="oIndex"
         :name="oIndex"
         :title="order.areaName"
@@ -64,23 +67,7 @@
             showArrow
             clickable
             @click="onClickToDevice(position.deviceList)"
-          >
-            <template v-slot:footer>
-              <view
-                v-if="data.orderStatus === 20 && data.isOption === 1"
-                class="tag"
-              >
-                <button
-                  class="mini-btn"
-                  type="primary"
-                  size="mini"
-                  @click.stop="onClickToScanningCode"
-                >
-                  扫码保养
-                </button>
-              </view>
-            </template>
-          </uni-list-item>
+          />
         </uni-list>
       </uni-collapse-item>
     </uni-collapse>
@@ -150,6 +137,13 @@ const _um = useMaintain();
 const _up = usePersonnel();
 const _uss = useScanStore();
 const state = reactive({
+  titleIndex: 0 as Number,
+  titleData: [] as any,
+  commonData: [] as any,
+  finishedItem: [] as any,
+  notFinishedItem: [] as any,
+  faultDevList: [] as any,
+  optionDevList: [] as any,
   colleagueIds: "",
   isEnd: false as boolean,
   colleagueIdsData: [] as IPersonnelRes[],
@@ -294,17 +288,57 @@ function onClickToDevHistory() {
     url: `/pages/devHistory/devHistory?deviceId=${props.data.orderItem[0].positionList[0].deviceList[0].deviceId}&planType=1`,
   });
 }
+const onClickItem = ({ currentIndex }: { currentIndex: number }) => {
+  state.titleIndex = currentIndex
+  onClickItemIndex(currentIndex, props.data.orderStatus)
+};
+function onClickItemIndex (currentIndex: Number, orderStatus: Number) {
+  if (orderStatus === 20 ) {
+   if (currentIndex === 0) {
+    state.commonData = state.notFinishedItem
+   } else {
+    state.commonData = state.finishedItem
+   }
+ } 
+ else if (orderStatus === 30) {
+  if (currentIndex === 0) {
+    state.commonData = state.faultDevList
+   } else {
+    state.commonData = state.optionDevList
+   }
+ }
+}
+function getFavoriteList (data: any) {
+  state.finishedItem = data.finishedItem
+  state.notFinishedItem = data.notFinishedItem
+  state.faultDevList = data.faultDevList
+  state.optionDevList = data.optionDevList
+  state.titleData = data.data.orderStatus === 20 ? ['待保养', '已保养'] : ['异常设备', '正常设备']
+  onClickItemIndex(state.titleIndex, data.data.orderStatus)
+}
+defineExpose({
+getFavoriteList
+});
 </script>
 <style scoped lang="scss">
 .tag {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 16rpx;
+  right: 92rpx;
 }
 ::v-deep .uni-collapse-item__title-box {
   padding: 0 12px;
 }
 ::v-deep .van-button{
   width: 100%;
+}
+::v-deep .uni-collapse{
+  position: relative;
+}
+::v-deep .uni-button:after{
+  top: 0;
 }
 </style>

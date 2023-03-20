@@ -4,7 +4,7 @@
       <template #content>
         <view v-show="tabIndex === 0">
           <view class="mt-10">
-            <MaintainDetailItem :data="state.data" />
+            <MaintainDetailItem ref="FavoriteRef" :data="state.data" />
           </view>
         </view>
         <view class="wrap-box mt-10" v-show="tabIndex === 1">
@@ -41,11 +41,12 @@ const state = reactive({
   logData: [] as IMaintainLogRes[],
 });
 let _params = {} as { title: string; id: string };
-
+const FavoriteRef = ref();
 onShow(() => {
-  getOrderMaintain(_params.id).then((res) => {
-    _ums.setData({ key: "selectData", value: res });
-    state.data = res as IMaintainRes;
+  getOrderMaintain(_params.id).then((res: any) => {
+    _ums.setData({ key: "selectData", value: res.data });
+    state.data = res.data as IMaintainRes;
+    FavoriteRef.value.getFavoriteList(res)
   });
 });
 onLoad((opts) => {

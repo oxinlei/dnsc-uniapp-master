@@ -74,9 +74,7 @@
             showArrow
             clickable
             @click="onClickToDevice(position.deviceList)"
-          >
-            
-          </uni-list-item>
+          />
         </uni-list>
       </uni-collapse-item>
     </uni-collapse>
