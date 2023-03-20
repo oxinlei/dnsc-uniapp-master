@@ -46,6 +46,13 @@
     </uni-collapse>
   </view>
   <view class="wrap-box">
+    <uni-segmented-control
+      :current="state.titleIndex"
+      :values="state.titleData"
+      @clickItem="onClickItem"
+     />
+  </view>
+  <view class="wrap-box">
     <uni-collapse accordion>
       <view v-if="data.orderStatus === 20 && data.isOption === 1" class="tag">
         <button class="mini-btn" type="primary" size="mini" @click.stop="onClickToScanningCode">扫码保养</button>
@@ -309,6 +316,7 @@ function onClickItemIndex (currentIndex: Number, orderStatus: Number) {
  }
 }
 function getFavoriteList (data: any) {
+  console.log(data)
   state.finishedItem = data.finishedItem
   state.notFinishedItem = data.notFinishedItem
   state.faultDevList = data.faultDevList
