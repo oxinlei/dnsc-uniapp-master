@@ -65,7 +65,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onBeforeMount, onMounted } from "vue";
 import moment from "moment";
 import useInspectionStore from "@/store/useInspectionStore";
 import { useInspection, IInspectionRes } from "@/hooks/useInspection";
@@ -76,14 +75,12 @@ const props = defineProps<{
 const _ui = useInspection();
 const _uis = useInspectionStore();
 const clickToDetail = (item: IInspectionRes) => {
-  // _uis.setData({ key: "selectData", value: item });
   uni.navigateTo({
     url: `/pages/Inspection/InspectionDetail?title=${item.orderName}&id=${item.id}`,
   });
 };
 const clickOrder = (item: IInspectionRes) => {
   _ui.grabbingMaintain({ orderId: item.id }).then(() => {
-    // _uis.setData({ key: "selectData", value: item });
     uni.navigateTo({
       url: `/pages/Inspection/InspectionDetail?title=${item.orderName}&id=${item.id}`,
     });

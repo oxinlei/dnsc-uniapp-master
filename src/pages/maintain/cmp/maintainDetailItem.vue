@@ -307,7 +307,7 @@ function onClickItemIndex (currentIndex: Number, orderStatus: Number) {
     state.commonData = state.finishedItem
    }
  } 
- else if (orderStatus === 30) {
+ else if (orderStatus === 30 || orderStatus === 100) {
   if (currentIndex === 0) {
     state.commonData = state.faultDevList
    } else {
@@ -316,7 +316,6 @@ function onClickItemIndex (currentIndex: Number, orderStatus: Number) {
  }
 }
 function getFavoriteList (data: any) {
-  console.log(data)
   state.finishedItem = data.finishedItem
   state.notFinishedItem = data.notFinishedItem
   state.faultDevList = data.faultDevList

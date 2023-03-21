@@ -11,7 +11,7 @@
           clickable
           @click="onClickToDevDetail(dev)"
         >
-        <template v-slot:body>
+          <template v-slot:body>
             <view style="display: flex;flex-direction: column;align-items: flex-start;justify-content: center;width: 70%;">
               <view class="slot-box slot-text">{{ '设备名称：' + dev.deviceName }}</view>
               <view style="display: flex;margin-top: 14px">
