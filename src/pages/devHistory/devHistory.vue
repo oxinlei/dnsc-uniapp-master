@@ -60,8 +60,8 @@ function clickItem(item: any) {
       });
     });
   } else if (state.type === '巡检') {
-    getOrderInspection(item.orderId).then((res) => {
-      let dataList = res as IInspectionRes[];
+    getOrderInspection(item.orderId).then((res: any) => {
+      let dataList = res.data as IInspectionRes[];
       uni.navigateTo({
         url: `/pages/devHistory/devHistoryPolling?data=${JSON.stringify(
           dataList
@@ -69,8 +69,8 @@ function clickItem(item: any) {
       });
     });
   } else if (state.type === '保养') {
-    getOrderMaintain(item.orderId).then((res) => {
-      let dataList = res as IMaintainRes[];
+    getOrderMaintain(item.orderId).then((res: any) => {
+      let dataList = res.data as IMaintainRes[];
       uni.navigateTo({
         url: `/pages/devHistory/devHistoryPolling?data=${JSON.stringify(
           dataList

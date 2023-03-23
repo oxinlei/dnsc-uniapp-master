@@ -10,7 +10,7 @@
         >
         </uni-data-select>
       </view>
-      <view class="w">
+      <!-- <view class="w">
         <uni-datetime-picker
           type="date"
           :end="Date.now()"
@@ -18,13 +18,14 @@
           v-model="state.date"
           @change="changeDate"
         />
-      </view>
+      </view> -->
     </view>
     <view class="grid-box">
       <view
         class="grid-item-box"
         v-for="(item, index) in state.gridData"
         :key="index"
+        @click="gridClick(item.id)"
       >
         <view
           class="image"
@@ -51,34 +52,30 @@ const state = reactive({
     {
       value: 2,
       text: "日汇总",
-    },
-    {
-      value: 1,
-      text: "月汇总",
-    },
-    {
-      value: 0,
-      text: "年汇总",
     }
   ],
   date: moment(new Date()).format("YYYY-MM-DD"),
   gridData: [
     {
+      id: 1,
       title: "总数",
       value: 1,
       url: "../../static/imgs/Z/bg1.png",
     },
     {
+      id: 2,
       title: "服务分",
       value: 100,
       url: "../../static/imgs/Z/bg2.png",
     },
     {
+      id: 3,
       title: "巡检超时",
       value: 1,
       url: "../../static/imgs/Z/bg3.png",
     },
     {
+      id: 4,
       title: "维修超时",
       value: 0,
       url: "../../static/imgs/Z/bg4.png",
@@ -116,11 +113,18 @@ const changeDate = (r: string) => {
   state.date = r;
   getOrder();
 };
+const gridClick = (id: number) => {
+  if (id === 3 || id === 4){
+    uni.navigateTo({
+      url: `/pages/home/overTime?id=${id}`,
+    });
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .w {
-  width: 49%;
+  width: 100%;
 }
 
 .grid-box {

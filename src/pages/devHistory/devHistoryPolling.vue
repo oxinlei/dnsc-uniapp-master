@@ -30,13 +30,13 @@ import moment from "moment";
 import ListRow from "@/component/ListRow.vue";
 
 const state = reactive({
-  data: [] as any[],
+  data: [] as any,
   dataList: [] as any[],
   planType: '' as string
 });
 const _uis = useInspectionStore();
 const _ud = useDevHistory();
-onLoad((opts) => {
+onLoad((opts: any) => {
   state.dataList = []
   state.planType = opts.planType!;
   state.data = JSON.parse(opts.data!);

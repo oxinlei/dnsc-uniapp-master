@@ -62,6 +62,13 @@
       }
     },
     {
+      "path": "pages/home/overTime",
+      "style": {
+        "navigationBarTitleText": "超时列表",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
       "path": "pages/examine/examine",
       "style": {
         "navigationBarTitleText": "审核",
@@ -97,13 +104,6 @@
       "path": "pages/scan/scan",
       "style": {
         "navigationBarTitleText": "扫码",
-        "enablePullDownRefresh": false
-      }
-    },
-    {
-      "path": "pages/Inspection/InspectionCopy",
-      "style": {
-        "navigationBarTitleText": "巡检",
         "enablePullDownRefresh": false
       }
     },
@@ -336,17 +336,6 @@
       //   "iconfont": {
       //     "text": "\ue643",
       //     "selectedText": "\ue643",
-      //     "fontSize": "22px",
-      //     "color": "#e6e6e6",
-      //     "selectedColor": "#0093E3"
-      //   }
-      // },
-      // {
-      //   "pagePath": "pages/Inspection/InspectionCopy",
-      //   "text": "巡检",
-      //   "iconfont": {
-      //     "text": "\ue8ff",
-      //     "selectedText": "\ue8ff",
       //     "fontSize": "22px",
       //     "color": "#e6e6e6",
       //     "selectedColor": "#0093E3"

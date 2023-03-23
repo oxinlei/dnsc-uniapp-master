@@ -140,6 +140,22 @@ export function useHome() {
       });
     })
   }
+  // 获取巡查超时列表
+  function inspectionTimePageList() {
+    return new Promise((resolve, reject) => {
+      useGetRequest<any>('order_inspection/getOverTimePageList', { index: 1, size: 9999 }).then((res) => {
+        resolve(res.data);
+      });
+    })
+  }
+  // 获取维修超时列表
+  function repairTimePageList() {
+    return new Promise((resolve, reject) => {
+      useGetRequest<any>('order_repair/getOverTimePageList', { index: 1, size: 9999 }).then((res) => {
+        resolve(res.data);
+      });
+    })
+  }
   // 当前运维汇总 红点
   function getOrderSummaryDot() {
     const _uhs = useHomeStore();
@@ -297,6 +313,8 @@ export function useHome() {
     getOrderTimeSummary,
     getOrderSummaryDot,
     getMessageLogPageList,
+    inspectionTimePageList,
+    repairTimePageList,
     state,
   };
 }

@@ -20,6 +20,24 @@
         >
           抢单
         </button>
+        <button
+          v-if="item.isOption === 1 && item.orderStatus === 20"
+          class="mini-btn"
+          type="primary"
+          size="mini"
+          @click="clickToDetail(item)"
+        >
+          执行
+        </button>
+        <button
+          v-if="item.isOption === 1 && item.orderStatus === 30"
+          class="mini-btn"
+          type="primary"
+          size="mini"
+          @click="clickToDetail(item)"
+        >
+          验收
+        </button>
       </view>
     </template>
     <view class="box">
@@ -47,7 +65,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onBeforeMount, onMounted } from 'vue';
 import moment from 'moment';
 import useMaintainStore from '@/store/useMaintainStore';
 import { useMaintain, IMaintainRes } from '@/hooks/useMaintain';
@@ -58,14 +75,12 @@ const props = defineProps<{
 const _um = useMaintain();
 const _ums = useMaintainStore();
 const clickToDetail = (item: IMaintainRes) => {
-  // _ums.setData({ key: "selectData", value: item });
   uni.navigateTo({
     url: `/pages/maintain/maintainDetail?title=${item.orderName}&id=${item.id}`,
   });
 };
 const clickOrder = (item: IMaintainRes) => {
   _um.grabbingMaintain({ orderId: item.id }).then(() => {
-    // _ums.setData({ key: "selectData", value: item });
     uni.navigateTo({
       url: `/pages/maintain/maintainDetail?title=${item.orderName}&id=${item.id}`,
     });

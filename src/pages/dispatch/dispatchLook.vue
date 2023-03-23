@@ -105,7 +105,7 @@ const clickToPers = (type: string) => {
 function onClickToDevHistory(type: number) {
   if (type === 0) {
     uni.navigateTo({
-      url: `/pages/devHistory/devHistory?deviceId=${selectDeviceData.deviceId}&planType=0`,
+      url: `/pages/devHistory/devHistory?deviceId=5599&planType=0`,
     });
   } else if (type === 1) {
     uni.navigateTo({

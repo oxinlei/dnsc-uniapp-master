@@ -127,14 +127,13 @@
 </template>
 
 <script lang="ts" setup>
-import { IRepairRes } from "@/hooks/useRepair";
 import { onLoad } from "@dcloudio/uni-app";
 import { reactive } from "vue";
 import moment from "moment";
 import ListRow from "@/component/ListRow.vue";
 
 const state = reactive({
-  data: [] as IRepairRes[]
+  data: [] as any
 });
 onLoad((opts) => {
   state.data = JSON.parse(opts.data!);
