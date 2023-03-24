@@ -26,14 +26,11 @@
         "app-plus": {
 					"titleNView": {
 						"buttons": [{
-              "colorPressed": "#FD6801",
-							"text": "\ue630",
-							"fontSrc": "/static/iconFont/iconfont.ttf",
+							"text": "\ue749",
+							"fontSrc": "/static/scan/iconfont.ttf",
 							"fontSize": "24px",
               "float": "right",
-							"color": "#ffffff",
-              "signType": "code",
-              "redDot": false
+							"color": "#ffffff"
 						},
             {
 							"text": "\ue617",
@@ -41,7 +38,8 @@
 							"fontSize": "24px",
               "float": "left",
               "color": "#ffffff"
-						}]
+						}
+          ]
 					}
 				},
         "enablePullDownRefresh": false
@@ -93,17 +91,17 @@
         "enablePullDownRefresh": false
       }
     },
-    // {
-    //   "path": "pages/warn/warn",
-    //   "style": {
-    //     "navigationBarTitleText": "报警",
-    //     "enablePullDownRefresh": false
-    //   }
-    // },
     {
-      "path": "pages/scan/scan",
+      "path": "pages/home/scan",
       "style": {
         "navigationBarTitleText": "扫码",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/outIn/outIn",
+      "style": {
+        "navigationBarTitleText": "仓库管理",
         "enablePullDownRefresh": false
       }
     },
@@ -319,34 +317,12 @@
           "selectedColor": "#0093E3"
         }
       },
-      // {
-      //   "pagePath": "pages/dispatch/dispatch",
-      //   "text": "维修派单",
-      //   "iconfont": {
-      //     "text": "\ue617",
-      //     "selectedText": "\ue617",
-      //     "fontSize": "40px",
-      //     "color": "#0093E3",
-      //     "selectedColor": "#0093E3"
-      //   }
-      // },
-      // {
-      //   "pagePath": "pages/warn/warn",
-      //   "text": "报警",
-      //   "iconfont": {
-      //     "text": "\ue643",
-      //     "selectedText": "\ue643",
-      //     "fontSize": "22px",
-      //     "color": "#e6e6e6",
-      //     "selectedColor": "#0093E3"
-      //   }
-      // },
       {
-        "pagePath": "pages/scan/scan",
-        "text": "扫码",
+        "pagePath": "pages/outIn/outIn",
+        "text": "仓库",
         "fontSize": "22px",
-        "iconPath": "/static/imgs/A/icon-saoSe.png",
-        "selectedIconPath": "/static/imgs/A/icon-sao.png"
+        "iconPath": "/static/imgs/A/supplies.png",
+        "selectedIconPath": "/static/imgs/A/suppliesSe.png"
       },
       {
         "pagePath": "pages/mine/mine",

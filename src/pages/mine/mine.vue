@@ -9,6 +9,12 @@
       <uni-list-item title="部门" :rightText="state.data.departmentName" />
       <uni-list-item title="职位" :rightText="state.data.positionName" />
       <uni-list-item
+        title="消息列表"
+        showArrow
+        :clickable="true"
+        @click="messageList"
+      />
+      <uni-list-item
         title="修改密码"
         showArrow
         :clickable="true"
@@ -62,6 +68,11 @@ const outLogin = () => {
 const clickGoPassword = () => {
   uni.navigateTo({
     url: '/pages/mine/password',
+  });
+};
+const messageList = () => {
+  uni.navigateTo({
+    url: "/pages/home/messageList",
   });
 };
 </script>

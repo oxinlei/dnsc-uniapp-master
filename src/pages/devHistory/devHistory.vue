@@ -2,7 +2,7 @@
   <view class="content">
     <view class="wrap-box">
       <uni-list>
-        <uni-list-item v-for="(item, index) in state.data" :key="index" showArrow clickable :title="item.deviceName" @click="clickItem(item)" />
+        <uni-list-item v-for="(item, index) in state.data" :key="index" showArrow clickable :title="moment(item.completeTime).format('YYYY-MM-DD HH:mm')" @click="clickItem(item)" />
       </uni-list>
     </view>
   </view>
@@ -16,6 +16,7 @@ import { reactive } from "vue";
 import useInspectionStore from "@/store/useInspectionStore";
 import { useInspection, IInspectionRes } from "@/hooks/useInspection";
 import { useMaintain, IMaintainRes } from "@/hooks/useMaintain";
+import moment from "moment";
 const { getOrderHistroyPageList } = useRepair();
 const { getOrderInspection } = useInspection();
 const { getOrderMaintain } = useMaintain();

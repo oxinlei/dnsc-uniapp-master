@@ -6,11 +6,11 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "14151833",
-      "name": "报警",
-      "font_class": "baojing",
-      "unicode": "e630",
-      "unicode_decimal": 58928
+      "icon_id": "577354",
+      "name": "扫码",
+      "font_class": "saoma",
+      "unicode": "e749",
+      "unicode_decimal": 59209
     }
   ]
 }

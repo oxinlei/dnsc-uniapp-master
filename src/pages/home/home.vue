@@ -11,22 +11,17 @@ import HomeTab from './cmp/HomeTab.vue';
 import { onMounted, provide, reactive, ref } from 'vue';
 import { useHome } from '@/hooks/useHome';
 import { onLoad, onShow, onNavigationBarButtonTap } from '@dcloudio/uni-app';
-import useHomeStore from '@/store/useHomeStore';
+import { useScanCode } from '@/hooks/useScanCode';
+import { useRepair } from '@/hooks/useRepair';
+import useInspectionStore from '@/store/useInspectionStore';
+import useScanStore from '@/store/useScanStore';
+const _ur = useRepair();
+const _uis = useInspectionStore();
+const _uss = useScanStore();
 const _uh = useHome();
-const _uhs = useHomeStore();
 onShow(() => {
   getOrderSummary();
   _uh.getOrderSummaryDot();
-});
-onLoad(() => {
-  _uh.getMessageLogPageList({ sendStatus: 0, index: 1, size: 5 }).then((res: any) => {
-    let pages = getCurrentPages();
-    let page: any = pages[pages.length - 1];
-    let currentWebview = page.$getAppWebview();
-    currentWebview.setTitleNViewButtonStyle(0, {
-      redDot: res.dataSize > 0 ? true : false
-    })
-  })
 });
 const state = reactive({
   inspectionData: _uh.state.inspectionData,
@@ -45,8 +40,33 @@ const getOrderSummary = () => {
 // 头部报警消息点击事件
 onNavigationBarButtonTap((e) => {
   if (e.index === 0) {
-    uni.navigateTo({
-      url: "/pages/home/messageList",
+    // uni.navigateTo({
+    //   url: "/pages/home/scan",
+    // });
+    useScanCode({
+      onlyFromCamera: true,
+      success: async (res) => {
+        _ur.scanRepairQrcode({ erData: res }).then((r: any) => {
+          r.data[0].statusDuration = r.statusDuration
+          if (r.data.length === 1) {
+            _uis.setData({ key: 'selectDeviceData', value: r.data[0] });
+            uni.navigateTo({
+              url: `/pages/dispatch/dispatchLook?isShowButton=2`,
+            });
+          } else {
+            _uss.setData({ key: 'data', value: r.data });
+            uni.navigateTo({
+              url: '/pages/dispatch/scanList',
+            });
+          }
+        });
+      },
+      fail(e) {
+        uni.showToast({
+          icon: 'none',
+          title: '扫码失败',
+        });
+      },
     });
   }
 });
