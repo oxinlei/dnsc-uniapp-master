@@ -12,7 +12,7 @@
       <view class="title">
         <text class="name">{{ item.orderName }}</text>
         <button
-          v-if="item.isOption === 1 && item.orderStatus === 0"
+          v-if="item.isOption === 1 && (item.orderStatus === 0 || item.orderStatus === 8 )"
           class="mini-btn"
           type="primary"
           size="mini"
@@ -68,7 +68,6 @@
 import moment from "moment";
 import useInspectionStore from "@/store/useInspectionStore";
 import { useInspection, IInspectionRes } from "@/hooks/useInspection";
-
 const props = defineProps<{
   data: IInspectionRes[];
 }>();
