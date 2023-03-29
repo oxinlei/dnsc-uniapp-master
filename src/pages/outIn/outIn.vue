@@ -14,7 +14,7 @@
             src="~@/static/imgs/A/icon-5.png"
             mode="aspectFit"
           ></image>
-          <text class="explain">扫码登记</text>
+          <text class="explain">扫码</text>
         </view>
         <view
           class="tabbar-box-item"
@@ -25,7 +25,7 @@
             src="~@/static/imgs/A/icon-4.png"
             mode="aspectFit"
           ></image>
-          <text class="explain">人工登记</text>
+          <text class="explain">人工</text>
         </view>
       </view>
     </view>

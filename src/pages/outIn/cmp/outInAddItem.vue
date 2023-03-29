@@ -4,7 +4,7 @@
       <uni-forms-item v-if="isScan==='0'" label="物料类型">
         <uni-data-select :clear="false" v-model="state.repairType" :localdata="state.repairTypeOpts" @change="suppliesChange" />
       </uni-forms-item>
-      <uni-forms-item v-if="isScan==='0'" label="物料名称" name="materialId" :required="isEdit">
+      <uni-forms-item v-if="isScan==='0'" label="物料名称" name="materialId" :required="true">
         <uni-data-select :clear="false" v-model="state.formData.materialId" :localdata="state.supplies" @change="suppliesDev" />
       </uni-forms-item>
       <uni-forms-item v-if="isScan==='1'" label="名称">
@@ -16,13 +16,13 @@
           <button style="margin-left: 12px;font-size: 16px;" type="warn" size="mini" @click="clickSubmit">异常</button>
         </view>
       </uni-forms-item>
-      <uni-forms-item label="操作类型" name="optionType" :required="isEdit">
+      <uni-forms-item label="操作类型" name="optionType" :required="true">
         <uni-data-select :clear="false" v-model="state.formData.optionType" :localdata="state.optionTypeList" />
       </uni-forms-item>
-      <uni-forms-item label="数量" name="optionNumber" :required="isEdit">
+      <uni-forms-item label="数量" name="optionNumber" :required="true">
         <uni-easyinput type="number" v-model="state.formData.optionNumber" />
       </uni-forms-item>
-      <uni-forms-item name="materialDescribe" label="描述" :required="isEdit">
+      <uni-forms-item name="materialDescribe" label="描述">
         <uni-easyinput type="textarea" v-model="state.formData.materialDescribe" placeholder="请输入描述" />
       </uni-forms-item>
     </uni-forms>
@@ -41,10 +41,6 @@ import { useOutIn } from '@/hooks/useOutIn';
 import { storeToRefs } from 'pinia';
 const _uo = useOutIn();
 const props = defineProps({
-  isEdit: {
-    type: Boolean,
-    default: false,
-  },
   data: {
     type: Object,
     default: {},
@@ -101,15 +97,7 @@ const state = reactive({
           errorMessage: '请输入出入库数量',
         },
       ],
-    },
-    materialDescribe: {
-      rules: [
-        {
-          required: true,
-          errorMessage: '请输入描述',
-        },
-      ],
-    },
+    }
   },
 });
 
