@@ -106,6 +106,13 @@
       }
     },
     {
+      "path": "pages/outIn/outInAdd",
+      "style": {
+        "navigationBarTitleText": "出/入库管理",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/mine/mine",
       "style": {
         "navigationBarTitleText": "我的",

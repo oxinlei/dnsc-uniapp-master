@@ -17,7 +17,7 @@ export function useInspection() {
     if (_uhs.tabListIndex === 0) {
       delete p.orderStatus;
     } else {
-      p.orderStatus = _uh.tabIndexToStatus(index);
+      p.orderStatus = index === 5 ? 28 : _uh.tabIndexToStatus(index);
     }
     return new Promise((resolve, reject) => {
       useGetRequest<IInspectionRes>(

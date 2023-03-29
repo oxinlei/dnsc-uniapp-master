@@ -54,7 +54,7 @@ export function useHome() {
           label: '完成',
           value: 0,
           index: 4,
-        },
+        }
       ],
     },
     maintainData: {
@@ -101,7 +101,7 @@ export function useHome() {
           index: 1,
         },
         {
-          label: '待执行',
+          label: '待维修',
           value: 0,
           index: 2,
         },
@@ -266,7 +266,7 @@ export function useHome() {
         case '待审核':
           item.value = d.repairNoExamine;
           break;
-        case '待执行':
+        case '待维修':
           item.value = d.repairNoExecute;
           break;
         case '待验收':

@@ -36,7 +36,7 @@
           size="mini"
           @click="clickToHandle(item)"
         >
-          执行
+        维修
         </button>
       </view>
     </template>

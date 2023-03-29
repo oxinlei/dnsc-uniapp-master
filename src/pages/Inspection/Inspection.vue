@@ -21,6 +21,12 @@
             :is-dot="true"
             class="abs-3"
           />
+          <uni-badge
+            v-if="overTime!==0"
+            :text="overTime"
+            :is-dot="true"
+            class="abs-5"
+          />
         </view>
         <view class="mt-10">
           <InspectionItem :data="state.data" />
@@ -52,7 +58,9 @@ const state = reactive({
   tabTitleData: tabTitleData(),
   isLoading: true as boolean
 });
+state.tabTitleData.push('超时')
 const tabIndex = ref(_uhs.tabListIndex);
+const overTime = ref(_uhs.overTime);
 const pageIndex = ref(1);
 provide("titleData", state.tabTitleData);
 onShow(() => {
@@ -98,16 +106,20 @@ const changeTab = (index: number) => {
   position: relative;
   .abs-1,
   .abs-2,
+  .abs-5,
   .abs-3 {
     position: absolute;
-    left: 36%;
+    left: 30%;
     top: -44px;
   }
   .abs-2 {
-    left: 56%;
+    left: 47%;
   }
   .abs-3 {
-    left: 76%;
+    left: 63%;
+  }
+  .abs-5{
+    left: 96%;
   }
 }
 </style>

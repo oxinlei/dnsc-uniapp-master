@@ -7,6 +7,7 @@ type StateType = {
   repairDot: number;
   maintainDot: number;
   shenHeDot: number;
+  overTime: number;
 };
 
 // storeToRefs
@@ -24,6 +25,8 @@ const useHomeStore = defineStore('home', {
     maintainDot: 0,
     // 审核红点
     shenHeDot: 0,
+    // 超时红点
+    overTime: 0,
   }),
   actions: {
     setData<T extends keyof StateType>({ key, value }: { key: T; value: any }) {

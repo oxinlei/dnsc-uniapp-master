@@ -14,7 +14,18 @@
             src="~@/static/imgs/A/icon-5.png"
             mode="aspectFit"
           ></image>
-          <text class="explain">扫码出入库</text>
+          <text class="explain">扫码登记</text>
+        </view>
+        <view
+          class="tabbar-box-item"
+          @click="goToPage('/pages/outIn/outInAdd?isScan=0')"
+        >
+          <image
+            class="box-image"
+            src="~@/static/imgs/A/icon-4.png"
+            mode="aspectFit"
+          ></image>
+          <text class="explain">人工登记</text>
         </view>
       </view>
     </view>
@@ -25,12 +36,10 @@
 import { useScanCode } from '@/hooks/useScanCode';
 import { onHide, onShow } from '@dcloudio/uni-app';
 import { reactive, ref } from 'vue';
-import { useRepair } from '@/hooks/useRepair';
-import useInspectionStore from '@/store/useInspectionStore';
-import useScanStore from '@/store/useScanStore';
-const _ur = useRepair();
-const _uis = useInspectionStore();
-const _uss = useScanStore();
+import { useOutIn } from '@/hooks/useOutIn';
+import useOutInStore from '@/store/useOutInStore';
+const _uo = useOutIn();
+const _uos = useOutInStore();
 const state = reactive({});
 const active = ref(false);
 onShow(() => {
@@ -41,7 +50,7 @@ onHide(() => {
 });
 
 const goToPage = (url: string) => {
-  _uis.setData({ key: 'selectDeviceData', value: [] });
+  _uos.setData({ key: 'selectDeviceData', value: [] });
   uni.navigateTo({
     url,
   });
@@ -49,20 +58,12 @@ const goToPage = (url: string) => {
 const clickScanCode = () => {
   useScanCode({
     onlyFromCamera: true,
-    success: async (res) => {
-      _ur.scanRepairQrcode({ erData: res }).then((r: any) => {
-        r.data[0].statusDuration = r.statusDuration
-        if (r.data.length === 1) {
-          _uis.setData({ key: 'selectDeviceData', value: r.data[0] });
-          uni.navigateTo({
-            url: `/pages/dispatch/dispatchLook?isShowButton=1`,
-          });
-        } else {
-          _uss.setData({ key: 'data', value: r.data });
-          uni.navigateTo({
-            url: '/pages/dispatch/scanList',
-          });
-        }
+    success: async (res: any) => {
+      _uo.scanQrcode({ erData: res }).then((r: any) => {
+        _uos.setData({ key: 'selectDeviceData', value: r.data });
+        uni.navigateTo({
+          url: `/pages/outIn/outInAdd?isScan=1`,
+        });
       });
     },
     fail(e) {

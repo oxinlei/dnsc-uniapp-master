@@ -44,7 +44,8 @@ import { IOrderSummary, useHome } from "@/hooks/useHome";
 import { onLoad } from "@dcloudio/uni-app";
 import moment from "moment";
 import { reactive } from "vue";
-
+import useHomeStore from '@/store/useHomeStore';
+const _hs = useHomeStore();
 const _uh = useHome();
 const state = reactive({
   type: 2, //汇总类型  0：年汇总 1：月汇总 2：日汇总
@@ -103,6 +104,7 @@ function getOrder() {
     state.gridData[1].value = serviceScore;
     state.gridData[2].value = mainOvertime;
     state.gridData[3].value = repairOvertime;
+    _hs.setData({ key: 'overTime', value: mainOvertime });
   });
 }
 const changeType = (r: number) => {
