@@ -8,7 +8,7 @@
         <uni-data-select :clear="false" v-model="state.formData.materialId" :localdata="state.supplies" @change="suppliesDev" />
       </uni-forms-item>
       <uni-forms-item v-if="isScan==='1'" label="名称">
-        <uni-easyinput type="text" v-model="state.formData.materialName" :disabled="!isEdit" />
+        <uni-easyinput type="text" v-model="state.formData.materialName" :disabled="true" />
       </uni-forms-item>
       <uni-forms-item label="库存量">
         <view style="display: flex;">
