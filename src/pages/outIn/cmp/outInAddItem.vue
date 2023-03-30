@@ -7,7 +7,7 @@
       <uni-forms-item v-if="isScan==='0'" label="物料名称" name="materialId" :required="true">
         <uni-data-select :clear="false" v-model="state.formData.materialId" :localdata="state.supplies" @change="suppliesDev" />
       </uni-forms-item>
-      <uni-forms-item v-if="isScan==='1'" label="名称">
+      <uni-forms-item v-if="isScan==='1'" label="物料名称">
         <uni-easyinput type="text" v-model="state.formData.materialName" :disabled="true" />
       </uni-forms-item>
       <uni-forms-item label="库存量">
@@ -22,8 +22,8 @@
       <uni-forms-item label="数量" name="optionNumber" :required="true">
         <uni-easyinput type="number" v-model="state.formData.optionNumber" />
       </uni-forms-item>
-      <uni-forms-item name="materialDescribe" label="描述">
-        <uni-easyinput type="textarea" v-model="state.formData.materialDescribe" placeholder="请输入描述" />
+      <uni-forms-item name="describes" label="备注">
+        <uni-easyinput type="textarea" v-model="state.formData.describes" placeholder="请输入备注" />
       </uni-forms-item>
     </uni-forms>
     <uni-popup ref="alertDialog" type="dialog">
@@ -40,12 +40,6 @@ import { computed, onBeforeUnmount, reactive, Ref, ref } from 'vue';
 import { useOutIn } from '@/hooks/useOutIn';
 import { storeToRefs } from 'pinia';
 const _uo = useOutIn();
-const props = defineProps({
-  data: {
-    type: Object,
-    default: {},
-  },
-});
 const _uos = useOutInStore();
 const { selectDeviceData } = storeToRefs(_uos);
 
@@ -70,8 +64,8 @@ const state = reactive({
   suppliesDate: [] as any,
   formData: {
     materialId: '',
+    describes: '',
     ...selectDeviceData.value,
-    ...props.data,
   },
   rules: {
     materialId: {

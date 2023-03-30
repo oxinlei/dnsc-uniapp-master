@@ -38,7 +38,7 @@ const clickSubmit = () => {
       const { state } = addItemRef.value!;
       let p: any = {
         materialId: state.formData.materialId,
-        materialDescribe: state.formData.materialDescribe,
+        describes: state.formData.describes,
         optionType: state.formData.optionType,
         optionNumber: state.formData.optionNumber
       };
