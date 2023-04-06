@@ -65,18 +65,43 @@
           :disabled="true"
         />
       </uni-forms-item>
-      <uni-forms-item
+      <!-- <uni-forms-item
         label="所在位置"
         name="positionId"
         :required="isEdit"
       >
         <uni-data-picker
           placeholder="请选择位置"
-          popup-title="请选择位置"
+          popup-title="请选择车间/功能位置"
           :localdata="state.positionOptsComputed"
           v-model="state.formData.positionId"
         >
         </uni-data-picker>
+      </uni-forms-item> -->
+      <uni-forms-item
+        v-if="props.isEdit"
+        label="车间位置"
+        name="areaId"
+        :required="isEdit"
+      >
+        <uni-data-select
+          :clear="false"
+          v-model="state.formData.areaId"
+          :localdata="state.areaData"
+          @change="changeArea"
+        ></uni-data-select>
+      </uni-forms-item>
+      <uni-forms-item
+        v-if="props.isEdit"
+        label="功能位置"
+        name="positionId"
+        :required="isEdit"
+      >
+        <uni-data-select
+          :clear="false"
+          v-model="state.formData.positionId"
+          :localdata="state.positionData"
+        ></uni-data-select>
       </uni-forms-item>
       <uni-forms-item
         v-if="state.formData.repairType === 0"
@@ -138,6 +163,7 @@
       <uni-forms-item
         label="通知人员"
         name="noticeUids"
+        :required="isEdit"
         @click="clickToPers('通知人员')"
       >
         <uni-list :border="false">
@@ -231,6 +257,8 @@ const state = reactive({
   planUids: [] as IPersonnelRes[],
   planUidsData: [] as IPersonnelRes[],
   positionOptsComputed: [] as ILayeredListResData[],
+  areaData: [] as any,
+  positionData: [] as any,
   formData: {
     repairType: 0,
     ...selectDeviceData.value,
@@ -253,11 +281,19 @@ const state = reactive({
         },
       ],
     },
+    areaId: {
+      rules: [
+        {
+          required: true,
+          errorMessage: '请选择车间位置',
+        },
+      ],
+    },
     positionId: {
       rules: [
         {
           required: true,
-          errorMessage: '请输选择所在位置',
+          errorMessage: '请选择功能位置',
         },
       ],
     },
@@ -274,6 +310,14 @@ const state = reactive({
         {
           required: true,
           errorMessage: '请选择维修人员',
+        },
+      ],
+    },
+    noticeUids: {
+      rules: [
+        {
+          required: true,
+          errorMessage: '请选择通知人员',
         },
       ],
     },
@@ -313,10 +357,14 @@ const initData = () => {
     state.planUidsData = res as IPersonnelRes[];
   });
   // 设备所在位置
-  _ud.getLayeredList().then((res) => {
-    state.positionOpts = res as ILayeredListRes[];
-    positionOptsComputedData()
-  });
+  // _ud.getLayeredList().then((res) => {
+  //   state.positionOpts = res as ILayeredListRes[];
+  //   positionOptsComputedData()
+  // });
+  // 设备所在车间位置
+  _ud.getAreaList().then((res) => {
+    state.areaData = areaDataComputed(res)
+  })
 };
 onLoad((opts) => {
   existDev.value = !opts.existDev!;
@@ -343,6 +391,37 @@ onBeforeUnmount(() => {
     });
   }
 });
+const changeArea = (e:any) => {
+  if (e === '') return
+  positionDataList(e)
+}
+const positionDataList = (e: string) => {
+  _ud.getPlantPositionList(e).then((res) => {
+    state.positionData = positionDataComputed(res)
+  })
+}
+const areaDataComputed = (data: any) => {
+  const tmp = [] as any;
+  data.forEach((item) => {
+    let obj = {
+      text: item.areaName,
+      value: item.areaId
+    };
+    tmp.push(obj);
+  });
+  return tmp;
+}
+const positionDataComputed = (data: any) => {
+  const tmp = [] as any;
+  data.forEach((item) => {
+    let obj = {
+      text: item.positionName,
+      value: item.positionId
+    };
+    tmp.push(obj);
+  });
+  return tmp;
+}
 const positionOptsComputedData = () => {
   const tmp = [] as any;
   state.positionOpts.forEach((item) => {

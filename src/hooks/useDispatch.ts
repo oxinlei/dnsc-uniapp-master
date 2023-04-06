@@ -20,6 +20,26 @@ export function useDispatch() {
       );
     });
   }
+  // 获取设备车间位置
+  function getAreaList() {
+    return new Promise((resolve, reject) => {
+      useGetRequest<any>("plant_area/getAreaList", {}).then(
+        (res) => {
+          resolve(res.data);
+        }
+      );
+    });
+  }
+  // 获取设备功能位置
+  function getPlantPositionList(areaId: string) {
+    return new Promise((resolve, reject) => {
+      useGetRequest<any>("plant_position/getPlantPositionList", {areaId: areaId}).then(
+        (res) => {
+          resolve(res.data);
+        }
+      );
+    });
+  }
   // 非设备正常维修派单
   function creatAboutRepair(data: IRepairPrams) {
     return new Promise((resolve, reject) => {
@@ -91,7 +111,9 @@ export function useDispatch() {
     creatDevRepair,
     creatSimpleDevRepair,
     getGoodsDocList,
-    getMaterialList
+    getMaterialList,
+    getAreaList,
+    getPlantPositionList
   };
 }
 
