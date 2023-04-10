@@ -340,7 +340,7 @@ const state = reactive({
   },
 });
 
-const initData = () => {
+const initData = (isScan: any) => {
   // 审核人员
   _up.getUserMaintenanceList({ maintenanceType: 3, departmentId:'' }).then((res) => {
     state.examineUidsData = res as IPersonnelRes[];
@@ -364,16 +364,19 @@ const initData = () => {
   // 设备所在车间位置
   _ud.getAreaList().then((res) => {
     state.areaData = areaDataComputed(res)
+    if (isScan) {
+      changeArea(selectDeviceData.value.areaId)
+    }
   })
 };
-onLoad((opts) => {
+onLoad((opts:any) => {
   existDev.value = !opts.existDev!;
-  isScan.value = !opts.existDev!;
+  isScan.value = !opts.isScan!;
   state.formData.orderName = !existDev.value
     ? selectDeviceData.value.deviceName + '-维修派单'
     : '';
   state.existDev = !existDev.value;
-  initData();
+  initData(opts.isScan);
   uni.$on('selectPersonnel', (data) => {
     selectPersonnelType(data);
   });
@@ -391,7 +394,7 @@ onBeforeUnmount(() => {
     });
   }
 });
-const changeArea = (e:any) => {
+const changeArea = (e: any) => {
   if (e === '') return
   positionDataList(e)
 }
@@ -402,7 +405,7 @@ const positionDataList = (e: string) => {
 }
 const areaDataComputed = (data: any) => {
   const tmp = [] as any;
-  data.forEach((item) => {
+  data.forEach((item: any) => {
     let obj = {
       text: item.areaName,
       value: item.areaId
@@ -413,7 +416,7 @@ const areaDataComputed = (data: any) => {
 }
 const positionDataComputed = (data: any) => {
   const tmp = [] as any;
-  data.forEach((item) => {
+  data.forEach((item: any) => {
     let obj = {
       text: item.positionName,
       value: item.positionId
