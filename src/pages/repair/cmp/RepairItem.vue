@@ -29,7 +29,8 @@
           v-if="
             (item.orderStatus === 20 && item.isOption === 1) ||
             (item.orderStatus === 22 && item.isOption === 1) ||
-            (item.orderStatus === 23 && item.isOption === 1)
+            (item.orderStatus === 23 && item.isOption === 1) ||
+            (item.orderStatus === 28 && item.isOption === 1)
           "
           class="mini-btn"
           type="primary"
