@@ -42,4 +42,9 @@ const cancel = () => {
   emit("change", undefined);
 };
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+::v-deep .uni-searchbar{
+  padding-left: 0;
+  padding-right: 0;
+}
+</style>

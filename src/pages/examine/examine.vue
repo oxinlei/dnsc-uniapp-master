@@ -10,8 +10,9 @@
         </view>
         <view v-if="tabIndex === 1">
           <view class="mt-10">
-            <RepairItem :data="state.searchData" />
-            <InspectionItem :data="state.searchData" />
+            <RepairItem :data="state.searchData" :isExamine="true" />
+            <InspectionItem :data="state.searchData" :isExamine="true" />
+            <maintainItem :data="state.searchData" :isExamine="true" />
           </view>
         </view>
       </template>
@@ -26,6 +27,7 @@ import { onPullDownRefresh, onReachBottom, onShow } from '@dcloudio/uni-app';
 import { IRepairRes, useRepair } from '@/hooks/useRepair';
 import RepairItem from '../repair/cmp/RepairItem.vue';
 import InspectionItem from '../Inspection/cmp/InspectionItem.vue';
+import maintainItem from '../maintain/cmp/maintainItem.vue';
 import useHomeStore from '@/store/useHomeStore';
 import { useHome } from '@/hooks/useHome';
 const _ur = useRepair();

@@ -30,7 +30,10 @@
           执行
         </button>
         <button
-          v-if="item.isOption === 1 && item.orderStatus === 30"
+          v-if="
+          (item.isOption === 1 && item.orderStatus === 30) ||
+          (isExamine && item.orderStatus === 30)
+          "
           class="mini-btn"
           type="primary"
           size="mini"
@@ -68,9 +71,17 @@
 import moment from "moment";
 import useInspectionStore from "@/store/useInspectionStore";
 import { useInspection, IInspectionRes } from "@/hooks/useInspection";
-const props = defineProps<{
-  data: IInspectionRes[];
-}>();
+const props = defineProps({
+  data: {
+    type: Array as () => IInspectionRes[],
+    default: [],
+  },
+  // 是否审核跳转过来的
+  isExamine: {
+    type: Boolean,
+    default: false,
+  },
+});
 const _ui = useInspection();
 const _uis = useInspectionStore();
 const clickToDetail = (item: IInspectionRes) => {

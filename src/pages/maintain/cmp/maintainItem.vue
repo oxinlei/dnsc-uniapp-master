@@ -30,7 +30,10 @@
           执行
         </button>
         <button
-          v-if="item.isOption === 1 && item.orderStatus === 30"
+          v-if="
+          (item.isOption === 1 && item.orderStatus === 30) ||
+          (isExamine && item.orderStatus === 30)
+          "
           class="mini-btn"
           type="primary"
           size="mini"
@@ -69,9 +72,17 @@ import moment from 'moment';
 import useMaintainStore from '@/store/useMaintainStore';
 import { useMaintain, IMaintainRes } from '@/hooks/useMaintain';
 
-const props = defineProps<{
-  data: IMaintainRes[];
-}>();
+const props = defineProps({
+  data: {
+    type: Array as () => IMaintainRes[],
+    default: [],
+  },
+  // 是否审核跳转过来的
+  isExamine: {
+    type: Boolean,
+    default: false,
+  },
+});
 const _um = useMaintain();
 const _ums = useMaintainStore();
 const clickToDetail = (item: IMaintainRes) => {

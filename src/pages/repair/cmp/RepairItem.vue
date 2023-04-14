@@ -16,7 +16,10 @@
             (item.orderStatus === 0 && item.isOption === 1) ||
             (item.orderStatus === 10 && item.isOption === 1) ||
             (item.orderStatus === 30 && item.isOption === 1) ||
-            (item.orderStatus === 50 && item.isOption === 1)
+            (item.orderStatus === 50 && item.isOption === 1) ||
+            (item.orderStatus === 0 && isExamine) ||
+            (item.orderStatus === 30 && isExamine) ||
+            (item.orderStatus === 50 && isExamine)
           "
           class="mini-btn"
           type="primary"
@@ -30,7 +33,7 @@
             (item.orderStatus === 20 && item.isOption === 1) ||
             (item.orderStatus === 22 && item.isOption === 1) ||
             (item.orderStatus === 23 && item.isOption === 1) ||
-            (item.orderStatus === 28 && item.isOption === 1)
+            (item.orderStatus === 28 && item.isOption === 1) 
           "
           class="mini-btn"
           type="primary"

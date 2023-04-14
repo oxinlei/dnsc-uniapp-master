@@ -291,7 +291,7 @@ const clickToPers = (type: string) => {
     uni.navigateTo({
       url: `/pages/selectPersonnel/SelectPersonnel?data=${JSON.stringify(
         state.financeUserIdData
-      )}&title=${type}&single=1`,
+      )}&title=${type}&single=1&type=${type}`,
     });
   }
 };

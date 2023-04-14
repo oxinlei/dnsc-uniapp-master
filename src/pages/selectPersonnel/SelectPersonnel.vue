@@ -1,14 +1,14 @@
 <template>
   <view class="container pb-50">
     <view class="wrap-box" style="padding: 10px;">
-      <uni-section v-if="type!==''" title="选择部门" type="line">
+      <uni-section title="选择部门" type="line">
         <uni-data-select
           v-model="state.value"
           :localdata="state.departmentData"
           @change="searchPeople"
         ></uni-data-select>
       </uni-section>
-      <SelectBar v-else :data="state.data" @change="search" field="realName" />
+      <SelectBar :data="state.data" @change="search" field="realName" />
     </view>
     <view class="wrap-box">
       <uni-section
